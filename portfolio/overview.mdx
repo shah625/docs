@@ -1,74 +1,56 @@
 ---
 title: "Portfolio Overview"
-description: "Track your P&L and account value across all platforms."
+description: "Track your balance, positions, and P&L in one place."
 ---
 
-Your portfolio page is the central view for your activity on Theta Labs. It aggregates your balances, open positions, and performance history from all connected platforms into a single dashboard.
+Your Portfolio page is the central view for your activity on Theta Labs. It's built around two cards — **Balance** and **Portfolio value** — with your open positions and trade history below.
+
+## Balance
+
+The Balance card shows three numbers plus your **Deposit** and **Withdraw** buttons:
+
+| Cell | What it means |
+|------|--------------|
+| **Available** | Your pUSD cash, ready to deploy in new trades |
+| **In position** | The current market value of your open spot and options positions |
+| **Total traded** | Your lifetime trading volume |
+
+**Available** decreases when you open a position and increases when you sell, redeem winning shares, or an option settles in the money.
 
 ## Portfolio value
 
-Your **total portfolio value** is the sum of everything held across your three sub-accounts:
+Your **total portfolio value** is your Available pUSD plus the market value of your open spot and options positions. The same figure is always visible in the portfolio pill in the top navigation.
 
-- **Buying power** — USDC held in your Theta Labs wallet (Polygon), your Polymarket account, and your Kalshi account
-- **Open position value** — the current market value of your Polymarket and Kalshi shares
+The Portfolio value card charts this total over time:
 
-The total is displayed prominently at the top of the page and updates every 30 seconds.
+- **Time ranges**: 1D, 1W, 1M, 1Y, ALL — the default view is **1W**
+- Hover or drag on the chart and the headline value follows your cursor, with a date/time label on the chart
+
+Values refresh continuously while the page is open — every 15–60 seconds depending on the panel.
 
 ## P&L tracking
 
-The P&L figure shown below your total value reflects your net profit or loss over the selected time range. It combines:
+The P&L figure reflects your net profit or loss over the selected time range. It combines:
 
 - **Unrealized P&L** — the gain or loss on positions you currently hold, based on the difference between your average entry price and the current market price
-- **Realized P&L** — locked-in gains or losses from positions you have already closed or that have settled
+- **Realized P&L** — locked-in gains or losses from positions you have closed or that have settled
 
 Gains are shown in green and losses in red.
 
-<Tip>
-Hover over any point on the chart to see your exact portfolio value at that moment. The chart also annotates the period high and low, so you can quickly gauge the range your portfolio has moved through.
-</Tip>
+## Positions and history
 
-## Buying power
-
-Buying power is the USDC you have available to place new trades — it does not include capital tied up in open positions. Each sub-account tracks its own buying power separately because funds are held on different networks.
-
-## Time ranges
-
-Use the range selector in the top-right corner of the chart to change the period displayed. Shorter ranges let you track intraday moves; longer ranges show your overall trajectory.
-
-| Range | Period covered |
-|-------|---------------|
-| **1D** | Past 24 hours |
-| **1W** | Past 7 days |
-| **1M** | Past 30 days |
-| **1Y** | Past 365 days |
-| **ALL** | Since account creation |
-
-The P&L figure shown next to your total value always reflects the currently selected range.
-
-## Account breakdown
-
-Your portfolio is split across three sub-accounts. Each sub-account uses a different wallet and network, which is why funds must be transferred rather than simply shared.
-
-| Account | Network | What it holds |
-|---------|---------|---------------|
-| **Theta Labs** | Polygon (EVM) | Your Privy embedded EVM wallet — holds USDC and USDC.e on Polygon. This is your primary wallet for depositing and transferring to Polymarket. |
-| **Polymarket** | Polygon (EVM) | Your Polymarket trading wallet — holds USDC.e used as collateral for open positions and reflects the current value of your Polymarket holdings. |
-| **Kalshi** | Solana | Your Privy embedded Solana wallet — holds USDC on Solana, used as collateral on Kalshi markets and reflected in your Kalshi position values. |
-
-<Note>
-The **Options** card on your portfolio page is a separate paper-trading account. It starts with a $1,000 virtual balance and is not included in your total portfolio value. No real capital is at risk in options trading.
-</Note>
+Below the two cards, the **positions** tab lists your open **Options** and **Markets** (spot) positions, and the **history** tab shows past activity with **All / Options / Spot** filters. See [Positions](/portfolio/positions) for the details of each.
 
 ## Related pages
 
 <CardGroup cols={3}>
-  <Card title="Deposit & Withdraw" icon="arrow-down-to-line" href="/portfolio/deposit-withdraw">
-    Fund your account and move capital between platforms.
+  <Card title="Deposits & Withdrawals" icon="arrow-down-to-line" href="/portfolio/deposit-withdraw">
+    Fund your account and withdraw USDC.
   </Card>
   <Card title="Positions" icon="chart-mixed" href="/portfolio/positions">
     View and manage your open trades.
   </Card>
   <Card title="Account Setup" icon="wallet" href="/account-setup">
-    Learn about your embedded wallets and how they work.
+    Learn about your wallet and how funding works.
   </Card>
 </CardGroup>

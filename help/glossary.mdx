@@ -3,103 +3,74 @@ title: "Glossary"
 description: "Key terms used across Theta Labs."
 ---
 
+## A
+
+**Available**
+The pUSD cash in your account that's ready to deploy in new trades. Available decreases when you open a position and increases when you sell, redeem winning shares, or an option settles in the money.
+
 ## B
 
-**Buying power**
-The total USDC available in your connected wallets that can be deployed into new trades. Buying power decreases when you open a position and increases when you close one or receive a settlement payout.
+**Breakeven**
+The settlement price at which an options trade neither gains nor loses: strike + premium. Shown for every strike in the options chain.
 
 ## C
 
 **Call option**
-A contract that gives you the right to profit if the underlying market's implied probability rises above the strike price before expiry. When you buy a call, you pay a premium upfront, which is your maximum loss. See also: Put option, Strike price, Premium.
+A contract that pays off when the underlying price finishes above the strike at expiry. On Theta Labs, all options are calls — **Yes Calls** on a market's Yes price and **No Calls** on its No price. The premium you pay is your maximum loss. See also: Yes Call, No Call, Strike.
 
 **CLOB (Central Limit Order Book)**
-The trading mechanism used by Polymarket. A CLOB matches buy and sell orders based on price and time priority, similar to how stock exchanges work. When you place an order, it is either matched against an existing resting order or sits in the book until a counterparty appears.
-
-**Collateral**
-The funds you must lock up as security when you sell (write) an options contract. Collateral covers your maximum potential payout obligation to the buyer. It is released when the contract expires or is closed.
-
-**Condition ID**
-A unique identifier assigned to each market on Polymarket. It is used by the underlying protocol to track and settle positions for that specific market.
-
-## D
-
-**Delta**
-An options Greek that measures how much an option's price is expected to change for a one-unit move in the underlying market's probability. A delta of 0.50 means the option's value should increase by roughly $0.50 for every $1.00 increase in the underlying share price. See also: Greeks.
+The trading mechanism used by Polymarket for spot markets. A CLOB matches buy and sell orders based on price and time priority, similar to how stock exchanges work. When you place an order, it is either matched against an existing resting order or sits in the book until a counterparty appears.
 
 ## E
 
 **Embedded wallet**
-A wallet that is created and managed inside the Theta Labs app using Privy, with no external browser extension required. When you sign in with email or a social account, an embedded wallet is provisioned automatically and holds your USDC for trading.
+A wallet created and managed inside the Theta Labs app using Privy, with no external browser extension required. When you sign in with email or Google, an embedded wallet is provisioned automatically.
 
 **Event**
-The real-world occurrence that a prediction market is asking about — for example, "Will the Federal Reserve cut rates in Q3?" or "Who will win the 2025 World Series?" A single event may have multiple associated markets (YES/NO questions about different aspects of the same event).
+The real-world occurrence that a prediction market is asking about — for example, "Will the Federal Reserve cut rates in Q3?" A single event may have multiple associated markets (different outcomes of the same question).
 
-**Expiry date**
-The date and time after which an options contract can no longer be traded and will be settled based on where the underlying market is trading at that moment. For spot markets, "expiry" typically refers to the market's resolution date.
-
-## G
-
-**Greeks**
-A set of metrics that measure how an option's price is expected to respond to changes in different factors. The main Greeks are:
-
-- **Delta** — sensitivity to a change in the underlying market's probability
-- **Gamma** — rate of change of delta; how quickly delta itself shifts as the market moves
-- **Theta** — time decay; how much value an option loses each day as it approaches expiry
-- **Vega** — sensitivity to changes in implied volatility of the underlying market
+**Expiry**
+The date and time an options contract stops trading and settles. Theta Labs lists daily, Mon/Wed/Fri, weekly, and monthly expiries, with a standard expiry time of 8:00 pm ET. For spot markets, "expiry" typically refers to the market's resolution date.
 
 ## I
 
 **Implied probability**
 The market-consensus likelihood that an event resolves YES, expressed as a price between $0.00 and $1.00 (or equivalently, 0% to 100%). A YES share trading at $0.72 implies a 72% probability of YES. Prices update continuously as traders buy and sell.
 
-## K
-
-**Kalshi**
-A US-regulated prediction market exchange operating under CFTC oversight. Kalshi settles contracts in USDC on the Solana blockchain and is available to eligible US residents. Theta Labs aggregates Kalshi markets alongside Polymarket markets.
-
 ## L
 
 **Liquidity**
-A measure of how easy it is to buy or sell shares in a market without significantly moving the price. High-liquidity markets have many resting orders at tight spreads; low-liquidity markets may have wide spreads or large price impact for moderate-sized trades.
+A measure of how easy it is to buy or sell in a market without significantly moving the price. High-liquidity markets have many resting orders at tight spreads; low-liquidity markets may have wide spreads or large price impact for moderate-sized trades.
 
 ## M
 
 **Market order**
-An order to buy or sell shares immediately at the best available price in the order book. Market orders are filled quickly but give you no price guarantee — in thin markets, the fill price may differ meaningfully from the last traded price.
+An order to buy or sell immediately at the best available price in the order book. Market orders are filled quickly but give you no price guarantee — in thin markets, the fill price may differ from the last traded price. All spot orders on Theta Labs are market orders today.
+
+**Max return**
+The multiple an options contract would return if the market settles at its maximum value, shown in the options chain (e.g. "4.2x").
 
 ## N
 
-**Narrative**
-A curated basket of thematically related prediction markets that can be traded as a single position on Theta Labs. Narratives let you take broad exposure to a theme — such as a major election or economic event — without managing each individual market separately.
+**No Call**
+A call option on a market's **No price** — it pays off when the No price finishes above the strike, i.e. when the event becomes less likely. No Calls play the role that puts play in traditional options.
 
 **NO share**
 A binary outcome token that pays $1.00 if the market resolves NO (the event does not happen) and $0.00 if it resolves YES. Buying NO shares is equivalent to betting against the event occurring.
-
-## O
-
-**Open interest**
-The total number of outstanding (unsettled) contracts or shares across all participants in a given market. Higher open interest generally indicates greater market participation.
-
-**Options**
-Contracts that give the holder the right to profit from a directional move in a market's implied probability by a specified expiry date. On Theta Labs, options are currently **paper trading** only. You can buy calls, buy puts, or sell contracts to collect premium.
 
 ## P
 
 **P&L (Profit and Loss)**
 The total gain or loss on your trading activity. P&L is split into unrealized (open positions valued at current market prices) and realized (closed or settled positions). See also: Unrealized P&L, Realized P&L.
 
-**Paper trading**
-Simulated trading using virtual money. Options trading on Theta Labs is paper trading — you start with a $1,000 virtual balance and no real capital is at risk. It lets you practice strategies and learn the platform before live options launch.
-
 **Polymarket**
-A decentralized prediction market exchange built on the Polygon blockchain. Polymarket settles in USDC.e and uses a Central Limit Order Book for trade matching. It is not available to US residents. Theta Labs aggregates Polymarket markets alongside Kalshi markets.
+The prediction market exchange whose markets Theta Labs offers for spot trading. Polymarket matches trades through a Central Limit Order Book and settles on the Polygon blockchain.
 
 **Premium**
-The price you pay to buy an options contract (call or put). The premium is your maximum possible loss as a buyer — you cannot lose more than what you paid, regardless of how the market moves. When you sell options, the premium is the income you collect upfront, but you take on an obligation backed by collateral.
+The price you pay to buy an options contract, quoted in cents per contract. The premium is your maximum possible loss — you cannot lose more than what you paid, regardless of how the market moves.
 
-**Put option**
-A contract that gives you the right to profit if the underlying market's implied probability falls below the strike price before expiry. When you buy a put, you pay a premium upfront, which is your maximum loss. See also: Call option, Strike price, Premium.
+**pUSD**
+Your tradeable balance on Theta Labs. USDC deposited on Polygon converts to pUSD automatically, and withdrawals convert back to native USDC.
 
 ## R
 
@@ -108,19 +79,23 @@ The gain or loss from positions you have already closed or that have been settle
 
 ## S
 
-**Settlement**
-The process by which a resolved market pays out to shareholders. On resolution, each YES share on the winning side pays $1.00 and each losing-side share pays $0.00. Settlement is handled automatically by the underlying exchange (Polymarket or Kalshi) and credited to your wallet.
+**Settlement (options)**
+How an options contract pays out at expiry. The settlement price is the time-weighted average of the underlying market's price over the final 60 minutes before expiry — or exactly 0 or 1 if the market resolves earlier. Each in-the-money contract pays the settlement price minus the strike, in pUSD.
+
+**Settlement (spot)**
+The process by which a resolved market pays out. Winning shares are worth $1.00 each; redeem them from your Portfolio page with the **Redeem** button.
+
+**Sold out**
+An options strike whose available supply has been fully purchased. Every contract is backed by collateral locked by the platform's dealer desk, so each strike has finite capacity.
 
 **Spot trading**
-Buying and selling YES or NO shares directly on a prediction market at the current market price. Spot trading on Theta Labs uses real funds and settles in USDC. It is distinct from options trading, which is currently paper trading only.
+Buying and selling YES or NO shares directly on a prediction market at the current market price, funded by your pUSD balance.
 
-**Strike price**
-In prediction market options, the strike price is a probability threshold rather than a dollar price. A call option with a 40% strike profits when the underlying market's implied probability trades **above 40%**. A put option with a 60% strike profits when the market trades **below 60%**. See also: Implied probability.
+**Spread**
+The gap between the buying and selling price. On spot markets it's the bid-ask spread of the order book; on options it's the market-making spread built into the dealer's quotes.
 
-## T
-
-**Theta**
-As an options Greek, theta measures how much an option's value decreases each day simply due to the passage of time, all else equal. Options lose value as they approach expiry; theta quantifies this daily decay. Theta is also the inspiration for the name "Theta Labs."
+**Strike**
+In prediction market options, the strike is a probability threshold rather than a dollar price. A Yes Call with a 40% strike pays off when the settlement price finishes **above 40%**. See also: Implied probability.
 
 ## U
 
@@ -129,15 +104,13 @@ The gain or loss on positions you still hold, calculated using the current marke
 
 ## V
 
-**Volume (24h)**
-The total value of trades executed in a market over the past 24 hours, expressed in USDC. Volume is a useful signal of market activity and interest; high-volume markets tend to have better liquidity and tighter spreads.
-
-## W
-
-**Watchlist**
-A personal list of markets you follow on Theta Labs. Adding a market to your watchlist lets you monitor its price and activity without having an open position in it.
+**Volume**
+The total value of trades executed in a market. Volume is a useful signal of market activity and interest; high-volume markets tend to have better liquidity and tighter spreads.
 
 ## Y
+
+**Yes Call**
+A call option on a market's **Yes price** — it pays off when the Yes price finishes above the strike at expiry. Buy Yes Calls when you expect the probability to rise.
 
 **YES share**
 A binary outcome token that pays $1.00 if the market resolves YES (the event happens) and $0.00 if it resolves NO. Buying YES shares is equivalent to betting that the event will occur.

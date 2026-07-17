@@ -1,102 +1,53 @@
 ---
-title: "Markets"
-description: "Discover and browse prediction markets from Polymarket and Kalshi."
+title: "Spot Markets"
+description: "Discover and browse prediction markets on the Spot page."
 ---
 
-The Markets page is your unified feed of active prediction markets pulled from both Polymarket (USDC.e on Polygon) and Kalshi (USDC on Solana). You can browse, filter, search, and click into any market to trade — all from a single interface.
+The **Spot** page is your feed of active Polymarket prediction markets. You can browse, filter, and search, then click into any market to trade — see [Spot Trading](/trading/spot-trading) for how orders work.
 
-## Market feed
+## Sort tabs
 
-When you open the Markets page, you see a grid of market cards sorted by 24-hour trading volume by default. Markets from both Polymarket and Kalshi appear together. A source badge on each card tells you which exchange the market comes from.
-
-You can switch between four sort modes using the tabs at the top of the feed:
+Switch between four sort modes using the tabs at the top of the feed:
 
 | Tab | What it shows |
 |-----|--------------|
-| **Trending** | Markets with the highest 24-hour trading volume |
-| **New** | Markets created in the last 48 hours |
-| **Biggest Movers** | Markets with the largest price change in the last 24 hours |
-| **Closing Soon** | Markets expiring within the next 7 days, sorted by expiry time |
+| **Trending** | Markets with the highest total trading volume |
+| **Hot** | Markets with the highest 24-hour volume — the default view |
+| **New** | The newest markets, by start date |
+| **Ending soon** | Markets ordered by how soon they close |
 
 ## Categories
 
-Filter the feed to a specific topic using the category bar beneath the sort tabs. Click any category to show only markets in that group.
+Filter the feed to a topic using the category bar: **All, Politics, Sports, Esports, Crypto, Economy, Tech, Culture, World**.
 
-| Category | What it covers |
-|----------|---------------|
-| **Politics** | Elections, government policy, geopolitics, and international affairs |
-| **Crypto** | Bitcoin, Ethereum, altcoins, DeFi, and on-chain events |
-| **Economics** | Interest rates, stock indices, inflation, GDP, and corporate earnings |
-| **Sports** | Game outcomes, spreads, and tournament results across major leagues |
-| **Entertainment** | Awards shows, movies, music, streaming, and celebrity news |
-| **Science & Tech** | AI, space, biotech, and emerging technology milestones |
-| **Weather** | Temperature highs, precipitation, and storm events by city |
-| **Culture** | Social media, viral moments, religion, and cultural events |
-| **World** | International news and events that don't fit other categories |
-
-When you select **All**, sports markets are hidden by default to keep the feed focused on longer-running markets.
-
-## Dashboard discovery
-
-The dashboard surfaces three curated market lists so you can find what's moving without browsing the full feed.
-
-<CardGroup cols={3}>
-  <Card title="Trending" icon="fire" href="/platform/markets">
-    The five markets with the highest 24-hour trading volume, deduplicated by event so you see distinct topics.
-  </Card>
-  <Card title="Biggest Movers" icon="arrow-trend-up" href="/platform/markets">
-    Markets with the largest absolute price change in the last 24 hours. Toggle between gainers and losers.
-  </Card>
-  <Card title="Ending Soon" icon="clock" href="/platform/markets">
-    Markets closing within the next 48 hours, sorted by expiry time so you can act before they resolve.
-  </Card>
-</CardGroup>
-
-Click any market in these lists to go directly to its trade page. Click the star icon next to a market to add it to your watchlist.
-
-## Daily markets
-
-The **Daily** tab (accessible from the Markets page) shows only markets expiring today or tomorrow. This tab interleaves Polymarket and Kalshi markets so neither source dominates the view.
-
-Daily markets include:
-
-- **Crypto price markets** — Will Bitcoin / Ethereum / Solana / XRP / Dogecoin close above a given price today?
-- **Weather markets** — What will the high temperature be in a given city today?
-- **Sports game markets** — Who wins tonight's NBA or NHL game?
-
-Markets already near resolution (probability below 5% or above 95%) are filtered out from the daily view.
+<Note>
+For sports, the feed shows game moneylines and futures. Per-game prop listings are filtered out to keep the grid focused.
+</Note>
 
 ## Searching
 
-The search bar at the top of the Markets page searches across all active markets from both Polymarket and Kalshi by keyword. Type any word or phrase to find matching markets instantly.
+Two ways to find a market:
 
-<Tip>
-Search works across market titles, so terms like "fed", "bitcoin", "election", or a team name will surface the relevant markets.
-</Tip>
+- The **search box in the top navigation** ("Search markets…") filters the Spot grid by keyword.
+- **Ctrl/⌘ + K** opens a command palette that matches market titles as you type — select a result to jump straight to that market's page.
 
 ## Reading a market card
 
-Each card in the market feed shows the key information you need to evaluate a market at a glance.
-
 | Element | What it means |
 |---------|--------------|
-| **Title** | The question or event the market resolves on |
-| **Image** | A representative image for the market or its parent event |
-| **YES probability** | The current implied probability that the event resolves YES, shown as a percentage (e.g. 65%) |
-| **24h change** | How much the YES probability has moved in the last 24 hours — green for up, red for down |
-| **Volume** | Total dollar value traded on this market across its lifetime |
-| **Source badge** | Whether the market is on Polymarket or Kalshi |
-
-When a single event has multiple related markets (for example, different candidates in an election), the card shows the top outcome by probability and lets you expand to see all options on the trade page.
+| **Title & image** | The question the market resolves on |
+| **Probability** | For binary markets, a large YES percentage labeled "chance" — green at 50% or above, red below |
+| **Yes / No buttons** | One-tap entry points showing the live price on each side |
+| **Top outcomes** | For multi-outcome events, the top two outcomes are listed, each with Yes/No buttons |
+| **Footer** | Total volume ("$X Vol.") plus the time remaining or the number of outcomes |
 
 ## Market detail page
 
-Clicking a market card opens the trade page. This page has three main sections:
+Clicking a card opens the market page:
 
-**Price history chart** — An interactive chart of the YES price over time. Use the time range selector (1D, 1W, 1M, 1Y, All) to zoom in or out. Hover over the chart to see the exact price at any point.
-
-**Orderbook** — The live order book showing pending buy (bid) and sell (ask) orders at each price level. The spread between the best bid and best ask is the cost of immediately entering a position.
-
-**Event siblings** — If the market belongs to a multi-outcome event, you'll see the other related markets listed below the chart. This lets you compare probabilities across all outcomes of the same event before trading.
-
-To place a trade from this page, use the buy/sell panel. See [Spot Trading](/trading/spot-trading) for a full walkthrough of how to execute a trade.
+- **Header** — the market title with its volume, timing, and outcome count, plus a **Share** button.
+- **Price chart** — the market's price history with **1D / 1W / 1M / ALL** ranges.
+- **Outcomes** — each outcome with its current price and 24-hour change. Click an outcome to expand its own chart and live **order book** (bids and asks at each level, with the spread shown). Sports markets default to the moneyline, with a "Show all markets" toggle for the rest.
+- **About** — the market's description and resolution criteria.
+- **Recent orders** — the latest trades in the market.
+- **Trade ticket** — the Buy/Sell panel, docked on the right.

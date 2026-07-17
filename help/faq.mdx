@@ -7,15 +7,38 @@ description: "Frequently asked questions about Theta Labs."
 
 <AccordionGroup>
   <Accordion title="Is Theta Labs free to use?">
-    Signing up and browsing markets is free. Theta Labs does not charge a platform fee to create an account or view market data. When you trade, the underlying exchanges (Polymarket and Kalshi) may apply their own fees, which are reflected in the price you see. Options trading uses a separate paper trading balance, so no real money is at risk there.
+    Signing up and browsing markets is free, and Theta Labs charges no explicit platform fee to trade. On spot trades, Polymarket's own market fees (when a market has them) pass through and are shown as an estimated fee in the trade ticket before you confirm. Options prices include a market-making spread — the quoted price is the full price you pay, with no fee added on top.
   </Accordion>
 
   <Accordion title="Do I need a crypto wallet to sign up?">
-    No. Theta Labs uses embedded wallets powered by Privy, so you can sign in with your email address or a social account (such as Google). A wallet is created and managed for you automatically — you never need to install MetaMask, Phantom, or any other browser extension. If you already have a self-custody wallet you prefer, you can connect it instead.
+    No. Theta Labs uses embedded wallets powered by Privy, so you can sign in with your email address or a Google account. A wallet is created and managed for you automatically — you never need to install MetaMask or any other browser extension. If you already have a self-custody wallet you prefer, you can sign in with it instead.
   </Accordion>
 
   <Accordion title="Is Theta Labs available in my country?">
-    Theta Labs is a front-end platform that aggregates Polymarket and Kalshi. Your eligibility to trade depends on the terms of service of each underlying exchange. Kalshi is a US-regulated exchange and restricts access to eligible US residents. Polymarket's availability varies by jurisdiction. Check the terms of service for [Polymarket](https://polymarket.com) and [Kalshi](https://kalshi.com) directly to confirm whether trading is permitted where you live.
+    Trading is not available in every region. If you're in a restricted region, you can still view markets, but trade tickets will show "Viewing only · trading unavailable in your region." If you're unsure about your eligibility, contact support (see below).
+  </Accordion>
+
+  <Accordion title="How do I contact support?">
+    Three ways:
+    - The in-app **Contact** page — send a message directly from the app
+    - Email **hello@thetalabs.gg**
+    - The community channels: [@thetalabsgg on X](https://x.com/thetalabsgg) and [Discord](https://discord.gg/d9gfrYWSAu)
+  </Accordion>
+</AccordionGroup>
+
+## Deposits and withdrawals
+
+<AccordionGroup>
+  <Accordion title="How do I fund my account?">
+    Send USDC on the Polygon network to your deposit address (shown in the Wallet modal with a QR code). It converts to pUSD — your tradeable balance — automatically, usually in well under a couple of minutes. See [Deposits & Withdrawals](/portfolio/deposit-withdraw).
+  </Accordion>
+
+  <Accordion title="How long does a deposit take to appear?">
+    The Wallet modal tracks your deposit live through three stages: deposit detected, finalizing, and converting to pUSD. The whole process typically completes in well under a couple of minutes; your very first deposit adds a one-time wallet setup of a few extra seconds. If your deposit hasn't appeared after 15 minutes, check the transaction on Polygonscan and contact support with your transaction hash.
+  </Accordion>
+
+  <Accordion title="How do I withdraw?">
+    Click **Withdraw** on your Portfolio page, paste any Polygon address, and enter an amount (minimum $2). Withdrawals pay out native USDC on Polygon, are gas-free, and usually arrive instantly.
   </Accordion>
 </AccordionGroup>
 
@@ -23,7 +46,7 @@ description: "Frequently asked questions about Theta Labs."
 
 <AccordionGroup>
   <Accordion title="How are prediction market prices determined?">
-    Prices on prediction markets represent the crowd's implied probability that an event will resolve YES. For example, a price of 65¢ per YES share means the market collectively believes there is roughly a 65% chance the event happens. Prices shift continuously as traders buy and sell based on new information, the same way prices move in financial markets. On Polymarket, trades are matched through a Central Limit Order Book (CLOB); on Kalshi, a similar order-matching mechanism is used.
+    Prices on prediction markets represent the crowd's implied probability that an event will resolve YES. For example, a price of 65¢ per YES share means the market collectively believes there is roughly a 65% chance the event happens. Prices shift continuously as traders buy and sell based on new information, the same way prices move in financial markets. Polymarket matches trades through a Central Limit Order Book (CLOB).
   </Accordion>
 
   <Accordion title="How do I make money on prediction markets?">
@@ -31,53 +54,34 @@ description: "Frequently asked questions about Theta Labs."
   </Accordion>
 
   <Accordion title="What happens when a market resolves?">
-    When the real-world event that a market tracks reaches its outcome, the market is resolved. Shares on the winning side pay $1.00 each; shares on the losing side pay $0.00. The payout is credited to your wallet automatically. For example, if a market asks "Will Team A win the championship?" and Team A wins, all YES shares pay $1.00 and all NO shares expire worthless.
+    When the real-world event that a market tracks reaches its outcome, the market is resolved. Shares on the winning side are worth $1.00 each; shares on the losing side pay $0.00. Winning positions are flagged on your Portfolio page with a **Redeem** button — click it to credit the payout to your balance.
   </Accordion>
 
   <Accordion title="What happens if a market is cancelled or voided?">
-    Occasionally a market is cancelled before resolution — for example, if the underlying event is postponed indefinitely or the market was created in error. In that case, all share positions are refunded at their original purchase price, so you neither gain nor lose on the trade. Polymarket and Kalshi each have their own cancellation policies; the specific rules are published in their respective terms and market descriptions.
+    Occasionally a market is cancelled before resolution — for example, if the underlying event is postponed indefinitely or the market was created in error. How positions are handled in that case is governed by Polymarket's resolution and cancellation rules, published in its terms and in each market's description.
   </Accordion>
 
   <Accordion title="Can I lose more than I invest?">
-    No, not in spot trading. When you buy YES or NO shares, the maximum you can lose is the amount you paid for those shares. Your downside is always capped at your initial spend. In options trading, the same rule applies when you **buy** a call or put — the premium you pay is your maximum loss. However, if you **sell** options (sell premium), you are required to post collateral to cover your maximum potential obligation, and your loss is limited to that collateral amount.
-  </Accordion>
-</AccordionGroup>
-
-## Platforms and markets
-
-<AccordionGroup>
-  <Accordion title="What's the difference between Polymarket and Kalshi?">
-    Both are prediction market exchanges, but they operate under different regulatory frameworks and on different blockchains.
-
-    - **Polymarket** is a decentralized platform built on the Polygon blockchain. It uses USDC.e as its settlement currency and operates a Central Limit Order Book (CLOB) for trade matching. Polymarket is not available to US residents.
-    - **Kalshi** is a US-regulated exchange (CFTC-regulated) that settles in USDC on Solana. It is available to eligible US residents and operates under stricter compliance rules.
-
-    Theta Labs aggregates markets from both exchanges into a single interface, so you can view and trade across both without switching platforms.
-  </Accordion>
-
-  <Accordion title="Why are some markets only on Polymarket and others only on Kalshi?">
-    Each exchange independently decides which markets to list based on its own editorial process, regulatory constraints, and user demand. Kalshi, as a US-regulated exchange, must obtain CFTC approval for each new contract type, which limits the speed and variety of markets it can offer. Polymarket lists markets more freely. As a result, some topics appear exclusively on one platform. Theta Labs surfaces whichever markets each exchange has available and does not control what either exchange lists.
-  </Accordion>
-
-  <Accordion title="What is a narrative basket?">
-    A narrative is a curated group of related prediction markets bundled together around a common theme — for example, all markets related to a major election, a sports season, or a macroeconomic event. Instead of researching and trading each market individually, you can trade the narrative as a single position. The narrative price reflects the aggregated movement of its constituent markets, giving you broad exposure to a theme with one trade.
-  </Accordion>
-
-  <Accordion title="How long does a deposit take to appear?">
-    Deposit times depend on the network you are sending from and current blockchain congestion. Deposits on Polygon (used for Polymarket trading) typically confirm within a minute or two. Deposits on Solana (used for Kalshi trading) are usually faster, often confirming in under 30 seconds. If your deposit has not appeared after 15 minutes, check the transaction status on the relevant block explorer using your transaction hash. If the transaction is confirmed on-chain and the funds still have not appeared, contact Theta Labs support.
+    No. When you buy YES or NO shares, the maximum you can lose is the amount you paid for those shares. The same applies to options: the premium you pay is the most you can lose, no matter how far the market moves against you.
   </Accordion>
 </AccordionGroup>
 
 ## Options trading
 
 <AccordionGroup>
-  <Accordion title="What is paper trading?">
-    Paper trading lets you practice trading strategies using virtual money — no real funds are at risk. On Theta Labs, options trading is currently paper trading. You start with a $1,000 virtual balance and can buy calls, buy puts, and sell premium exactly as you would in live trading. Your paper P&L is tracked separately from your real spot trading balance. Paper trading is designed so you can learn the mechanics and test strategies before live options trading launches.
+  <Accordion title="What are Yes Calls and No Calls?">
+    They're cash-settled call options on a market's probability. A **Yes Call** pays off when the market's Yes price finishes above your strike at expiry; a **No Call** is the same contract on the No price, so it pays off when the event becomes less likely. There are no puts — a No Call fills that role. See [Options Trading](/trading/options-trading).
   </Accordion>
 
-  <Accordion title="What is an options strike price in prediction markets?">
-    In traditional finance, a strike price is the price at which an option can be exercised. In prediction markets, the equivalent is a **probability threshold**. Because prediction market prices represent implied probabilities (expressed as cents per share, i.e., a percentage), the strike price is stated as a probability level rather than a dollar price.
+  <Accordion title="What is a strike price in prediction market options?">
+    In traditional finance, a strike price is the price at which an option can be exercised. In prediction markets, the equivalent is a **probability threshold**. A Yes Call with a 40% strike needs the market's settlement price to finish **above 40%** to pay off. The further the strike is from the current price, the cheaper the contract — and the bigger the move you need.
+  </Accordion>
 
-    For example, a call option with a 40% strike on a given market means the market's probability must trade **above 40%** for the call to be in the money and potentially profitable. A put option with a 60% strike means the market must trade **below 60%** for the put to be in the money. The strike is simply the threshold the underlying market price must cross for your option to gain value.
+  <Accordion title="How do options settle?">
+    Automatically. The settlement price is the average of the market's price over the **final 60 minutes** before expiry (or exactly 0 or 1 if the market resolves earlier). In-the-money contracts pay the difference between the settlement price and the strike, credited in pUSD; out-of-the-money contracts expire worthless. Every market page has a "How & When This Settles" explainer.
+  </Accordion>
+
+  <Accordion title="Can I sell options?">
+    You can **sell to close** any contract you own before expiry — the sell ticket fills instantly at the dealer's bid. You can't write (sell to open) contracts: all contracts are written and fully collateralized by the platform's dealer desk, which is also why each strike has limited supply and can show "Sold out."
   </Accordion>
 </AccordionGroup>

@@ -1,113 +1,64 @@
 ---
-title: "Deposit & Withdraw"
-description: "Fund your account and move capital between platforms."
+title: "Deposits & Withdrawals"
+description: "Fund your account with USDC on Polygon and withdraw to any Polygon address."
 ---
 
-Theta Labs uses embedded wallets — one on Polygon (EVM) and one on Solana — to hold your funds. Depositing means sending USDC to one of these wallet addresses. Withdrawing moves funds from a connected exchange (Polymarket or Kalshi) back to your wallet.
+Theta Labs runs on a single balance: deposit **USDC on Polygon** and it converts automatically to **pUSD**, your tradeable balance. When you're done, withdraw native USDC to any Polygon address. There are no sub-accounts and no transfer steps.
 
-You can find the **Deposit**, **Withdraw**, and **Transfer** buttons at the top of your Portfolio page.
+The **Deposit** and **Withdraw** buttons live on the Balance card of your Portfolio page; the cash pill in the top navigation also opens the deposit view.
 
 <Warning>
-Always verify the asset and network before sending. Sending the wrong asset (for example, USDC instead of USDC.e on Polygon, or a non-USDC token) or sending to the wrong network will result in permanently lost funds. Theta Labs cannot recover funds sent to incorrect addresses.
+Deposit **USDC on the Polygon network only** — the deposit modal reminds you: "Only send USDC on the correct network." Other tokens or networks are not supported, and funds sent incorrectly may not be recoverable. Contact support immediately if this happens (see the [FAQ](/help/faq) for support channels).
 </Warning>
 
 <Tabs>
   <Tab title="Deposit">
-    ## Depositing to Theta Labs (Polygon)
-
-    Use this to fund your Theta Labs wallet for Polymarket trades.
-
     <Steps>
-      <Step title="Open the Deposit modal">
-        Click **Deposit** on your Portfolio page. The modal displays your EVM wallet address (a `0x…` address on Polygon).
+      <Step title="Open the Wallet modal">
+        Click **Deposit** on your Portfolio page (or the cash pill in the top navigation). If it's your first time, complete the one-time **Enable trading** approval first — this is what lets deposits convert automatically.
       </Step>
-      <Step title="Copy your wallet address">
-        Copy your EVM wallet address from the modal. You can also scan the QR code if your sending wallet supports it.
+      <Step title="Copy your Polygon address">
+        The modal shows your deposit address (`0x…`) with a copy button and a QR code you can scan from a mobile wallet.
       </Step>
-      <Step title="Send USDC.e on Polygon">
-        From your external wallet or exchange, send **USDC.e** (bridged USDC) to your address on the **Polygon** network. Native USDC on Polygon is also accepted.
+      <Step title="Send USDC on Polygon">
+        From your exchange or wallet, send **USDC** to that address on the **Polygon** network.
       </Step>
-      <Step title="Wait for confirmation">
-        Polygon transactions typically confirm within a few seconds, but it may take **a few minutes** for your balance to appear on the Portfolio page. Refresh if needed.
+      <Step title="Watch it convert">
+        The modal tracks progress live: *Deposit detected… → Finalizing… → Converting your deposit to pUSD…* Conversion typically completes in well under a couple of minutes. Your first-ever deposit includes a one-time wallet setup that adds a few extra seconds.
       </Step>
     </Steps>
 
-    ---
-
-    ## Depositing for Kalshi (Solana)
-
-    Use this to fund your Kalshi account.
-
-    <Steps>
-      <Step title="Open the Deposit modal">
-        Click **Deposit** on your Portfolio page. Switch to the Solana tab to see your Solana wallet address (a base58 address starting with a random character).
-      </Step>
-      <Step title="Copy your Solana address">
-        Copy your Solana wallet address from the modal.
-      </Step>
-      <Step title="Send USDC on Solana">
-        From your external wallet or exchange (such as Coinbase or Kraken), send **USDC** to your address on the **Solana** network. Only USDC (not USDT or other stablecoins) is accepted.
-      </Step>
-      <Step title="Wait for confirmation">
-        Solana transactions confirm quickly, but allow **a few minutes** for your balance to update in the Portfolio page.
-      </Step>
-    </Steps>
+    When conversion finishes, the amount appears in your **Available** balance, ready to trade.
   </Tab>
 
   <Tab title="Withdraw">
-    ## Withdrawing from Polymarket
-
-    Withdrawing pulls your Polymarket USDC.e balance back to your Theta Labs EVM wallet on Polygon.
+    Withdrawals send **native USDC on Polygon** from your balance to any address you choose — gas-free, and usually instant.
 
     <Steps>
       <Step title="Open the Withdraw modal">
         Click **Withdraw** on your Portfolio page.
       </Step>
-      <Step title="Select Polymarket">
-        Choose Polymarket as the source. The modal shows your current Polymarket balance available to withdraw.
+      <Step title="Enter the recipient">
+        Paste the destination Polygon address (`0x…`).
       </Step>
-      <Step title="Confirm the withdrawal">
-        Review the destination address (your Theta Labs EVM wallet) and confirm. The funds will arrive in your Theta Labs wallet on Polygon.
+      <Step title="Enter the amount">
+        Type an amount in USDC or click **MAX**. The modal shows "You receive ≈ $X USDC". The minimum withdrawal is **$2**.
       </Step>
-    </Steps>
-
-    ---
-
-    ## Withdrawing from Kalshi
-
-    Withdrawing pulls your Kalshi USDC balance back to your Theta Labs Solana wallet.
-
-    <Steps>
-      <Step title="Open the Withdraw modal">
-        Click **Withdraw** on your Portfolio page.
-      </Step>
-      <Step title="Select Kalshi">
-        Choose Kalshi as the source. The modal shows your current Kalshi balance available to withdraw.
-      </Step>
-      <Step title="Confirm the withdrawal">
-        Review the destination address (your Theta Labs Solana wallet) and confirm.
+      <Step title="Confirm">
+        Confirm the withdrawal. The success screen links to the transaction on Polygonscan.
       </Step>
     </Steps>
   </Tab>
 </Tabs>
 
-## Transferring between platforms
-
-The **Transfer** button moves USDC between your Polymarket account and your Theta Labs EVM wallet. Use this when you want to shift capital between platforms without an external withdrawal.
-
-- **Theta Labs → Polymarket**: Move USDC from your Polygon wallet into your Polymarket trading account so you can place bets there.
-- **Polymarket → Theta Labs**: Pull funds from your Polymarket account back to your Theta Labs wallet.
-
-Transfers operate on Polygon and settle within minutes.
-
 ## Supported assets
 
-| Account | Accepted asset | Network |
-|---------|---------------|---------|
-| Theta Labs wallet | USDC.e (bridged USDC) or USDC | Polygon |
-| Polymarket | USDC.e | Polygon |
-| Kalshi | USDC | Solana |
+| Direction | Asset | Network |
+|-----------|-------|---------|
+| Deposit | USDC | Polygon |
+| Held as | pUSD (converted automatically) | — |
+| Withdraw | Native USDC | Polygon |
 
 <Info>
-USDC.e and USDC are both stablecoins pegged to $1, but they are different tokens on Polygon. Polymarket uses USDC.e (the bridged version). Sending native USDC to a Polymarket address, or USDC.e to a Solana address, will not work correctly.
+pUSD is your tradeable balance on the platform — you never need to manage the conversion yourself. Deposits convert to pUSD on the way in, and withdrawals pay out native USDC on the way out.
 </Info>

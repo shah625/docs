@@ -3,50 +3,64 @@ title: "Quick Start"
 description: "Get trading on Theta Labs in under 5 minutes."
 ---
 
-Theta Labs aggregates Polymarket and Kalshi into a single interface. This guide walks you through signing in, funding your account, and placing your first trade.
+This guide walks you through signing in, funding your account, and placing your first options and spot trades.
 
-<Note>
-Options trading on Theta Labs is **paper trading** — you start with a $1,000 virtual balance and no real money is at risk.
-</Note>
+<Warning>
+Trading on Theta Labs uses **real money**. When you buy an option or spot shares, the amount you spend is at risk.
+</Warning>
 
 <Steps>
-  <Step title="Go to app.thetalabs.gg">
-    Open [app.thetalabs.gg](https://app.thetalabs.gg) in your browser. You'll land on the dashboard once you're signed in.
-  </Step>
-
   <Step title="Sign in">
-    Click **Launch App** and sign in with your email or a social account (Google, Apple, etc.). Theta Labs uses [Privy](https://privy.io) for authentication — no MetaMask, Phantom, or external wallet required. A wallet is created for you automatically when you sign in.
+    On the Theta Labs landing page, click **Start Trading** and sign in with your **email**, **Google account**, or an **external wallet**. Theta Labs uses [Privy](https://privy.io) for authentication — no browser extension or seed phrase is required. An embedded wallet is created for you automatically.
+
+    After signing in for the first time, a short onboarding asks for your name (and optionally your phone number) plus a couple of quick questions about your trading background.
   </Step>
 
-  <Step title="Deposit USDC">
-    Go to your **Portfolio** page and click **Deposit**. Two wallets are shown — an EVM wallet (Polygon) for Polymarket trades and a Solana wallet for Kalshi trades. Send USDC to whichever wallet matches the platform you want to trade on.
-
-    - **Polymarket** → deposit USDC.e on **Polygon**
-    - **Kalshi** → deposit USDC on **Solana**
+  <Step title="Enable trading">
+    The first time you open your wallet, you'll be asked to complete a one-time **Enable trading** approval. This lets Theta Labs convert your deposits and place your trades instantly. Your keys stay with you — the approval is revocable at any time.
   </Step>
 
-  <Step title="Find a market">
-    From the dashboard, use the search bar or browse **Trending**, **Biggest Movers**, and **Ending Soon** to find a market. Markets cover politics, economics, crypto, sports, entertainment, and weather.
+  <Step title="Deposit USDC on Polygon">
+    Click the cash pill in the top navigation (or **Deposit** on your Portfolio page) to open the **Wallet** modal. Scan the QR code or copy your Polygon deposit address, then send **USDC on the Polygon network** from your exchange or wallet.
+
+    Your deposit converts to **pUSD** — your tradeable balance — automatically. The modal shows live progress: *Deposit detected… → Finalizing… → Converting your deposit to pUSD…* Conversion typically completes in well under a couple of minutes.
+
+    <Warning>
+    Send **USDC on Polygon only**. Other tokens or networks are not supported.
+    </Warning>
   </Step>
 
-  <Step title="Place your first trade">
-    Click any market to open its trade page. Select **Yes** or **No**, enter a dollar amount, and confirm the order. Your position appears in the positions panel on the right side of the dashboard.
+  <Step title="Place your first options trade">
+    You land on the **Options** page by default. Pick a market card and choose **Yes Calls** or **No Calls**, then:
+
+    1. Select an expiry from the dropdown.
+    2. Tap an **Ask** price in the chain to add that strike to your ticket.
+    3. Review the payoff chart, **Max profit**, **Max loss**, and **Breakeven**.
+    4. Click **Buy for $X** — your order fills instantly at the quoted price.
+
+    Your maximum loss is the premium you paid. See [Options Trading](/trading/options-trading) for the full guide.
+  </Step>
+
+  <Step title="Or place a spot trade">
+    Switch to the **Spot** tab in the navigation to browse Polymarket markets. Open a market, pick **Yes** or **No** (the buttons show the live price in cents), enter a dollar amount or share count, and click **Buy**.
+
+    Your positions appear on the **Portfolio** page.
   </Step>
 </Steps>
 
 ## Where to go next
 
 <CardGroup cols={2}>
-  <Card title="Spot trading" icon="arrow-right-arrow-left" href="/trading/spot-trading">
-    Learn how YES/NO shares work and how orders are filled on Polymarket and Kalshi.
-  </Card>
   <Card title="Options trading" icon="chart-line" href="/trading/options-trading">
-    Trade calls and puts on prediction market outcomes with paper trading.
+    Yes Calls, No Calls, strikes, expiries, and how settlement works.
   </Card>
-  <Card title="Narratives" icon="layer-group" href="/trading/narratives">
-    Take a single position across a curated basket of related markets.
+  <Card title="Spot trading" icon="arrow-right-arrow-left" href="/trading/spot-trading">
+    How YES/NO shares work and how orders are filled.
   </Card>
-  <Card title="Deposit & withdraw" icon="wallet" href="/portfolio/deposit-withdraw">
-    Detailed instructions for funding your EVM and Solana wallets.
+  <Card title="Deposits & withdrawals" icon="wallet" href="/portfolio/deposit-withdraw">
+    Funding your account and withdrawing USDC to any Polygon address.
+  </Card>
+  <Card title="Rewards & referrals" icon="gift" href="/platform/rewards">
+    Free-share rewards for your first deposit, streaks, and referrals.
   </Card>
 </CardGroup>

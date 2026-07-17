@@ -5,3 +5,7 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Docs-audit working files (not docs pages)
+docs-audit-request.md
+docs-audit-response.md

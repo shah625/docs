@@ -3,92 +3,57 @@ title: "Positions"
 description: "View and manage your open trades."
 ---
 
-The positions panel on your Portfolio page lists every open trade across Polymarket, Kalshi, Narratives, and Options. It is also accessible as a floating panel on the dashboard. Use the tabs to filter by position type.
+Your open trades live on the **Portfolio** page under the **positions** tab, grouped into two sections: **Options** and **Markets** (spot). A **history** tab shows your past activity with **All / Options / Spot** filters.
 
-## Position types
+## Options positions
 
-<Tabs>
-  <Tab title="Spot">
-    ## Spot positions
+Each options position row shows:
 
-    Spot positions are YES or NO shares you hold on Polymarket or Kalshi markets. Each row in the positions table shows:
+| Field | What it means |
+|-------|--------------|
+| **Market & contract** | The market plus your side and strike, e.g. "Yes call · 20% strike" |
+| **Qty** | The number of contracts you hold |
+| **Avg** | Your average entry price, in cents |
+| **Now** | The current mark price, in cents |
+| **Exp** | Days remaining to expiry |
+| **P&L** | Unrealized profit or loss, in dollars and percent |
 
-    | Column | What it means |
-    |--------|--------------|
-    | **Market** | The market title and the platform it comes from (Polymarket or Kalshi) |
-    | **Allocation** | What percentage of your total position value this trade represents, with a bar for quick visual comparison |
-    | **Outcome** | The side you hold — YES (green) or NO (red) |
-    | **Shares** | The number of outcome shares you own |
-    | **Avg price** | Your average cost per share, expressed as a probability (0–1) |
-    | **Current** | The latest market price for your outcome |
-    | **Est. value** | Current market value of your position (shares × current price) |
-    | **P&L** | Unrealized profit or loss in USD |
-    | **P&L (%)** | Percentage gain or loss relative to your cost basis |
+Each row has three actions:
 
-    Click any row to navigate to the market's trading page.
+- **Buy** — go back to the market page to add to the position
+- **Sell** — close early with an in-page sell ticket (see below)
+- **Share** — generate a shareable card of the position
 
-    The **Sum** row at the top of the table aggregates your total estimated value and total P&L across all visible positions.
-  </Tab>
+### Selling an option early
 
-  <Tab title="Narratives">
-    ## Narrative positions
+Clicking **Sell** opens a "Sell {strike}% call" ticket showing the current **bid** next to your average entry, a contracts input, **You receive**, and your **Realized P&L**. Click **Sell for $X** to fill instantly at the dealer's bid.
 
-    Narratives are curated baskets of related prediction markets traded as a single instrument. Each narrative position card shows:
+At expiry, options settle automatically — in-the-money contracts pay out in pUSD, and out-of-the-money contracts expire worthless. See [Options Trading](/trading/options-trading#settlement) for the settlement rules.
 
-    - **Title** — the name of the narrative basket
-    - **Shares** — how many units you hold
-    - **Current basket price** — the current per-share price of the basket (in cents)
-    - **Unrealized P&L** — your gain or loss in USD based on the current basket price versus your entry price
-    - **Current value** — the total USD value of your position
+## Spot positions
 
-    Click a narrative position to open the narrative's detail page where you can adjust or close your position.
-  </Tab>
+Spot positions are YES or NO shares you hold on Polymarket markets. Each row shows the market's icon and title, your holding as "{shares} shares · avg {entry} → {current}", the position's current value, and its P&L.
 
-  <Tab title="Options">
-    ## Options positions
-
-    Options are paper-trading contracts that give you leveraged exposure to prediction market outcomes. Each options position shows:
-
-    | Field | What it means |
-    |-------|--------------|
-    | **Contract type** | Call or Put, and whether you are long (bought) or short (sold) |
-    | **Strike** | The probability level the contract is struck at, shown as a percentage |
-    | **Quantity** | The number of contracts you hold |
-    | **Unrealized P&L** | Your current gain or loss in USD based on the mark price |
-
-    Click an options position to open the full position detail page for that series.
-
-    <Note>
-    Options trading is paper trading — your balance starts at $1,000 virtual and no real capital is at risk. Options P&L is tracked separately and is not included in your total portfolio value.
-    </Note>
-  </Tab>
-</Tabs>
+Aggregate totals aren't summed per-row — your combined open-position value appears in the **In position** cell of the Balance card at the top of the page.
 
 ## Redeeming settled positions
 
-When a prediction market resolves, winning shares become redeemable at $1.00 each. Theta Labs automatically detects redeemable positions and marks them in your positions list.
+When a market resolves in your favor, Theta Labs detects it automatically and flags the position:
 
-<Info>
-Redeemable positions are detected automatically. You do not need to manually check market resolution — if you hold winning shares and the market has settled, the position will be flagged for redemption as soon as Theta Labs picks up the on-chain settlement data.
-</Info>
+1. The position row shows **"resolved — you won"** with a green **Redeem** button.
+2. Click **Redeem**. Each winning share pays exactly $1.00, credited to your pUSD balance.
 
-To redeem a settled position:
+Losing shares expire worthless — no action needed.
 
-1. Open your **Portfolio** page and find the position marked as redeemable.
-2. Click the position to open the market page, then click **Redeem**.
-3. Confirm the transaction. Your USDC will be credited to your wallet (Polygon for Polymarket positions, Solana for Kalshi positions).
+## Closing a spot position early
 
-Each winning share is worth exactly $1.00 at settlement regardless of what price you paid for it.
+You can sell any open spot position before the market settles to lock in a gain, cut a loss, or free up your Available balance:
 
-## Closing a position early
+1. Open the market from the position row.
+2. Switch the trade ticket to **Sell**.
+3. Enter the number of shares (minimum 5) and confirm.
 
-You can sell any open spot position before the market settles if you want to lock in a gain, cut a loss, or free up buying power.
-
-1. Click the position row to go to its market page.
-2. Use the **Sell** tab on the order panel.
-3. Enter the number of shares you want to sell and confirm the order.
-
-The proceeds are returned to your Polymarket or Kalshi buying power balance immediately after the order fills. Realized P&L from the trade will be reflected in your portfolio stats.
+Proceeds credit your pUSD balance as soon as the order fills, and the realized P&L shows up in your portfolio stats.
 
 <Tip>
 Selling early means you receive the current market price rather than the $1 settlement value. If you believe the outcome will resolve in your favor, holding to settlement is typically more profitable — but selling early removes uncertainty.

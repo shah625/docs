@@ -1,216 +1,132 @@
 ---
 title: "Options Trading"
-description: "Trade calls and puts on prediction market outcomes using leveraged, defined-risk contracts."
+description: "Trade Yes Calls and No Calls on prediction market probabilities — leveraged exposure with your risk capped at the premium."
 ---
 
-Options on Theta Labs are derivatives on prediction market probabilities. Instead of buying shares directly, you buy (or sell) the right to profit if a market's probability moves past a specific threshold — called the **strike price** — before an expiry date.
+Options on Theta Labs are cash-settled **call options on a prediction market's probability**. Instead of buying shares directly, you buy the right to profit if a market's price finishes above a specific threshold — the **strike** — at expiry.
 
 This lets you express a view with a fraction of the capital, while capping your downside to the premium you paid.
 
 <Warning>
-Options trading on Theta Labs is currently **paper trading only**. You start with a virtual $1,000 balance. No real money is at risk, and no real funds are required.
+Options on Theta Labs are **real-money trading**, funded by your pUSD balance. The premium you pay is the most you can lose on a contract you buy — but losses are real.
 </Warning>
+
+## Yes Calls and No Calls
+
+Every options market offers two sides:
+
+- A **Yes Call** pays off when the market's **Yes price** finishes **above your strike** at expiry. Buy Yes Calls when you think the probability is going up.
+- A **No Call** is a call on the market's **No price** — it pays off when the No price finishes above your strike, i.e. when the event becomes *less* likely. Buy No Calls when you think the probability is going down.
+
+There are no puts: a No Call plays the same role, since the No price rises as the Yes price falls.
 
 ## Key terms
 
 | Term | What it means |
 |------|--------------|
-| **Strike price** | The probability threshold the market must cross for your option to pay off. "Strike 40%" means the market must exceed 40% probability. |
-| **Premium** | The price you pay to buy an option contract, or receive when you sell one. This is your maximum loss as a buyer. |
-| **Expiry** | The date the contract settles. Options on Theta Labs expire weekly or monthly. |
-| **Call** | Profits if the market price goes **above** your strike. |
-| **Put** | Profits if the market price goes **below** your strike. |
-| **Writing / Selling** | Selling a contract to collect the premium upfront. You take on the obligation to pay if the market moves against you. |
-| **Contracts** | The unit quantity. Each contract covers one unit of the underlying market. |
-
-Options are priced using a Bachelier-style model (similar to Black-Scholes but adapted for probability-bounded markets). The price accounts for time to expiry, implied volatility, and distance from the current probability.
+| **Strike** | The probability threshold your contract is struck at, shown as a percentage. A 40% strike Yes Call pays off if the Yes price settles above 40%. |
+| **Premium (Ask)** | The price you pay per contract, quoted in cents. This is your maximum loss. |
+| **Breakeven** | The settlement price at which your trade breaks even: strike + premium. Shown for every strike in the chain. |
+| **Max return** | The multiple you'd make if the market settles at the maximum (100% for a Yes Call), e.g. "4.2x". |
+| **Expiry** | When the contract stops trading and settles. |
+| **Settlement price** | The average of the market's Yes/No price over the **final 60 minutes** before expiry (time-weighted) — or exactly 0 or 1 if the market resolves before expiry. |
 
 ## The capital efficiency case
 
-> "Will candidate X win?" is trading at 40¢. You think the probability is going higher. Two ways to play it:
+> A market is trading at 40% and you think the probability is going higher. Two ways to play it (illustrative numbers):
 
-| Approach | Capital required | If price hits 60¢ | If price hits 80¢ | If price drops to 30¢ |
-|----------|-----------------|-------------------|-------------------|----------------------|
-| Buy 1,000 shares at 40¢ | **$400** | +$200 (50%) | +$400 (100%) | −$100 (−25%) |
-| Buy a call at 40¢ strike | **$50 premium** | +$150 (300%) | +$350 (700%) | −$50 (capped) |
+| Approach | Capital required | If it settles at 60% | If it settles at 80% | If it drops to 30% |
+|----------|-----------------|----------------------|----------------------|--------------------|
+| Buy 1,000 YES shares at 40¢ | **$400** | +$200 (50%) | +$400 (100%) | −$100 (−25%) |
+| Buy 1,000 Yes Calls, 40% strike, 5¢ premium | **$50** | +$150 (300%) | +$350 (700%) | −$50 (capped) |
 
-The call costs 8× less capital and delivers 7× more upside, with your downside capped at the $50 premium — regardless of how far the price falls.
+The calls cost a fraction of the capital and deliver multiples of the return — with your downside capped at the premium regardless of how far the price falls.
 
-## Calls, puts, and selling
+## How payoff works
 
-<Tabs>
-  <Tab title="Calls">
-    ### What a call is
+At expiry, each contract pays:
 
-    A call gives you the right to profit if the underlying market's probability rises **above your strike price** before expiry.
+```
+Payoff = max(settlement price − strike, 0)
+```
 
-    **When to buy a call:**
-    - You think a market is underpriced and will move higher
-    - You want leveraged upside with a defined maximum loss
-    - You want shorter-term exposure without locking up capital until settlement
+- A Yes Call with a 40% strike, on a market that settles at 65%, pays $0.25 per contract.
+- If the settlement price is at or below your strike, the contract expires worthless and you lose only the premium.
 
-    ### How call payoff works
-
-    At expiry, a call pays:
-    - `max(market price − strike, 0)` per contract
-
-    If the market never crosses your strike, the option expires worthless and you lose only the premium.
-
-    ### Example
-
-    You buy a **call at Strike 40%** on a market currently at 22%, expiring in 4 months. You pay a **$5 premium**.
-
-    | Market price at expiry | Your payoff | Net P&L |
-    |------------------------|-------------|---------|
-    | 30% (below strike) | $0 | −$5 (lose premium) |
-    | 40% (at strike) | $0 | −$5 (lose premium) |
-    | 60% (above strike) | $0.20 per contract | +$0.15 net |
-    | 80% (above strike) | $0.40 per contract | +$0.35 net |
-
-    Your **max loss is always the premium paid**. Your upside scales with how far the market moves above your strike.
-
-    <Tip>
-    Calls on low-probability markets (e.g., Strike 15%) are cheap premiums with massive upside if the event gains traction.
-    </Tip>
-  </Tab>
-  <Tab title="Puts">
-    ### What a put is
-
-    A put gives you the right to profit if the underlying market's probability falls **below your strike price** before expiry.
-
-    **When to buy a put:**
-    - You think a market is overpriced and will move lower
-    - You want to hedge an existing long position in the spot market
-    - You expect a catalyst that will reduce the probability of an event
-
-    ### How put payoff works
-
-    At expiry, a put pays:
-    - `max(strike − market price, 0)` per contract
-
-    If the market stays above your strike, the option expires worthless.
-
-    ### Example
-
-    You buy a **put at Strike 45%** on a market currently at 53%, expiring in 6 weeks. You pay a **$6 premium**.
-
-    | Market price at expiry | Your payoff | Net P&L |
-    |------------------------|-------------|---------|
-    | 50% (above strike) | $0 | −$6 (lose premium) |
-    | 45% (at strike) | $0 | −$6 (lose premium) |
-    | 30% (below strike) | $0.15 per contract | +$9 net |
-    | 10% (below strike) | $0.35 per contract | +$29 net |
-
-    **Max loss = premium paid.** Payoff is capped at the strike value (a market cannot go below 0%).
-
-    <Tip>
-    Puts on high-probability markets (Strike 80%+) can be cheap insurance against a dramatic reversal.
-    </Tip>
-  </Tab>
-  <Tab title="Selling (Writing)">
-    ### What selling an option means
-
-    When you sell (write) an option, you collect the premium upfront and take on the obligation to pay if the market moves against you. You profit when the market stays on your side of the strike.
-
-    **When to sell options:**
-    - You believe a market is unlikely to move significantly before expiry
-    - You want to generate yield (premium income) on markets you're already watching
-    - Short-duration options on stable markets offer the best premium-to-risk ratio
-
-    ### How selling works
-
-    When you sell a call at Strike 25%:
-    - You collect the premium immediately
-    - You profit if the market stays **below 25%** at expiry
-    - If the market crosses 25%, you owe the payoff to the buyer
-
-    You must post **collateral** to cover your maximum possible loss. This collateral is locked until the contract expires or is closed.
-
-    ### Collateral requirements
-
-    | Option type | Collateral per contract |
-    |-------------|------------------------|
-    | Sell a call at Strike K | `max(1 − K − premium, 0)` |
-    | Sell a put at Strike K | `max(K − premium, 0)` |
-
-    ### Example
-
-    You sell a **call at Strike 25%** on a market at 20%. You collect an **8¢ premium** and post **17¢ collateral**.
-
-    | Market price at expiry | What you pay out | Your net |
-    |------------------------|-----------------|---------|
-    | 20% (below strike) | $0 | +$0.08 (keep premium) |
-    | 25% (at strike) | $0 | +$0.08 (keep premium) |
-    | 40% (above strike) | $0.15 | −$0.07 |
-    | 60% (above strike) | $0.35 | −$0.27 |
-
-    **Return on collateral** is displayed before you confirm the trade, along with an annualized yield estimate.
-
-    <Tip>
-    Selling options on markets you believe are near their true probability generates income regardless of direction, as long as the market doesn't spike.
-    </Tip>
-  </Tab>
-</Tabs>
-
-## Paper trading
-
-Options on Theta Labs use a **$1,000 virtual balance**. This means:
-
-- You can trade with full functionality — calls, puts, selling, closing positions
-- No real USDC is required or at risk
-- Gains and losses affect your virtual balance only
-- Your P&L is tracked and displayed in the options dashboard
-
-Your paper balance persists across sessions and is tracked in the options dashboard alongside your cumulative P&L.
-
-<Warning>
-Paper trading results do not reflect what real options would cost or pay in a live market. Liquidity, fees, and slippage would all differ in a real options market.
-</Warning>
+Every options market page includes a **"How & When This Settles"** explainer with the exact rules for that market.
 
 ## Reading the options chain
 
-The options chain shows available contracts for a given market. Each row is a unique combination of:
+Pick **Yes Calls** or **No Calls** and an expiry, and the chain lists the available strikes:
 
-- **Strike price** — the probability threshold (shown as a percentage)
-- **Expiry date** — weekly or monthly
-- **Option type** — call or put
-- **Ask price** — what you pay to buy
-- **Bid price** — what you receive when selling
+| Column | What it shows |
+|--------|--------------|
+| **Strike** | The probability threshold, as a percentage |
+| **Breakeven** | The settlement price where the trade breaks even |
+| **Max return** | Your return multiple if the market settles at the maximum |
+| **Ask** | The price to buy, in cents — tap it to add the strike to your ticket |
 
-Contracts closer to the current market price (at-the-money) are more expensive because they have a higher probability of paying off. Contracts far from the current price (out-of-the-money) are cheaper but require a larger move to become profitable.
+A **Spot** marker highlights the row nearest the market's live probability. Strikes close to the current price cost more because they're more likely to pay off; strikes further away are cheaper but need a bigger move.
 
-### Placing an options trade
+<Note>
+Every contract is fully backed by collateral locked by the platform's dealer desk, so each strike has **limited supply**. The chain shows how many contracts are available, and a strike can show **Sold out** once its capacity is taken.
+</Note>
+
+## Placing a trade
 
 <Steps>
-  <Step title="Choose a market">
-    Navigate to the Options section and select a market from the options chain or the market list.
+  <Step title="Pick a market">
+    Open the **Options** page (the app's default view). Each card shows the market, its live probability, and **Yes Calls** / **No Calls** buttons.
   </Step>
-  <Step title="Select strike and expiry">
-    Pick the strike price and expiry date that match your view. The current market probability is shown for reference.
+  <Step title="Choose your side and expiry">
+    Select **Yes Call** or **No Call**, then pick an expiry from the dropdown (shown as "Expiring {date} ({n}d)").
   </Step>
-  <Step title="Choose call, put, or sell">
-    Select your position type based on your directional view.
+  <Step title="Add strikes to your ticket">
+    Tap the **Ask** price on any strike to add it to the ticket. The ticket supports multiple legs, and you can size in **Contracts or Dollars**.
   </Step>
-  <Step title="Set quantity">
-    Enter the number of contracts. The trade modal shows your total cost (for buys) or collateral required (for sells), max profit, and max loss.
+  <Step title="Review the payoff chart">
+    The ticket shows a payoff-at-expiry chart — drag the cursor to any settlement level to see your P&L there — along with **Max profit**, **Max loss**, and **Breakeven**.
   </Step>
-  <Step title="Review the P&L chart">
-    The modal displays a payoff diagram showing how your P&L changes at different market prices at expiry.
-  </Step>
-  <Step title="Confirm">
-    Click **Buy** or **Sell** to execute. The order fills instantly against the platform market maker.
+  <Step title="Buy">
+    Click **Buy for $X**. Your order fills instantly against the platform dealer at the quoted ask. The minimum order is 1¢ total.
   </Step>
 </Steps>
 
+## Pricing, spreads, and fees
+
+Options are priced by a probability-space model built for prediction markets, accounting for time to expiry, volatility, and the distance between the current price and the strike.
+
+Theta Labs charges no explicit fee on options trades. Quotes include a **market-making spread** (roughly 2% in normal conditions, wider as a strike's remaining capacity fills up) — the price you see in the ticket is the price you pay.
+
+## Expiries
+
+Contracts are listed on several cadences, chosen per market:
+
+- **Daily**
+- **Mon / Wed / Fri**
+- **Weekly** (Fridays)
+- **Monthly** (third Friday)
+
+The standard expiry time is **8:00 pm ET**. Some markets also carry an earlier **final expiry** on their resolution day (for example, before a game starts).
+
+## Settlement
+
+Settlement is automatic — no action needed:
+
+- The **settlement price** is the time-weighted average of the market's Yes/No price over the **final 60 minutes** before expiry. If the underlying market resolves before your expiry, the contract settles at exactly 0 or 1.
+- In-the-money contracts pay `settlement − strike` per contract, credited to your pUSD balance. Out-of-the-money contracts expire worthless.
+- Settlement runs automatically on an hourly cycle after expiry.
+
 ## Managing positions
 
-Your open options positions appear in the Options dashboard. For each position you can see:
+Your open options positions live on the **Portfolio** page. Each row shows the market, your side and strike (e.g. "Yes call · 20% strike"), **Qty**, **Avg** (your entry price), **Now** (the current mark), **Exp** (days to expiry), and unrealized P&L in dollars and percent.
 
-- Current mark price vs your entry price
-- Unrealized P&L
-- Days remaining to expiry
-- Greeks: delta, gamma, theta, vega
+Each position has three actions:
 
-You can close any position before expiry by clicking it and selecting **Close Position**. Closing early lets you lock in a gain or cut a loss without waiting for settlement.
+- **Buy** — jump back to the market to add to the position
+- **Sell** — close early via a sell ticket showing the live bid, your entry, what you'll receive, and your realized P&L; click **Sell for $X** to fill at the dealer's bid
+- **Share** — generate a shareable card of the position
 
-At expiry, positions settle automatically based on the market's final probability. Winners receive their payoff; losing positions expire worthless.
+<Note>
+You can only **buy** options on Theta Labs (and sell to close what you own). Writing contracts — selling to open — isn't available; all contracts are written and fully collateralized by the platform's dealer desk.
+</Note>

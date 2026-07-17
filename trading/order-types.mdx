@@ -1,13 +1,13 @@
 ---
 title: "Order Types"
-description: "Understand how orders execute on Polymarket and Kalshi, and how to minimize slippage."
+description: "How orders execute on Theta Labs, and how to minimize slippage."
 ---
 
-Theta Labs routes your trades through the native order books of Polymarket and Kalshi. Understanding how these markets execute orders helps you get better prices and avoid unexpected costs.
+Theta Labs routes spot trades through Polymarket's native order book and fills options trades against its own dealer desk. Understanding how each executes helps you get better prices and avoid unexpected costs.
 
 ## Market orders
 
-All trades on Theta Labs are submitted as **market orders** — they execute immediately at the best available price.
+All spot trades on Theta Labs are **market orders** — they execute immediately at the best available price. The ticket footer says it plainly: *"Market order · fills at the best available price."*
 
 When you place a trade, the platform:
 
@@ -15,19 +15,17 @@ When you place a trade, the platform:
 2. Submits your order to the exchange
 3. Fills as much as possible at the current price, then continues at the next available price level if needed
 
-Market orders prioritize speed and certainty of execution over getting the exact price you saw. The actual fill price may differ slightly from the price displayed — this difference is called **slippage**.
+Market orders prioritize speed and certainty of execution over getting the exact price you saw. The actual fill price may differ slightly from the price displayed — this difference is called **slippage**. Theta Labs applies an automatic slippage guard of about 2% on your behalf: if the market moves further than that mid-order, the order won't fill at the worse price.
+
+<Note>
+A **Limit** option is visible in the trade ticket but not yet enabled — limit orders are coming soon.
+</Note>
 
 ## The orderbook
-
-Both Polymarket and Kalshi use limit-order-based books, but the underlying mechanics differ:
 
 ### Polymarket (CLOB)
 
 Polymarket uses a **Central Limit Order Book (CLOB)**. Orders sit in the book as bids and asks. When you place a market order to buy, it matches against the lowest available ask. The CLOB is off-chain for matching but settles on-chain on Polygon.
-
-### Kalshi
-
-Kalshi uses a traditional exchange orderbook with limit orders. The bid-ask spread tends to be slightly wider on less liquid markets. Kalshi trades settle directly on Solana via USDC.
 
 ### Reading the spread
 
@@ -37,6 +35,8 @@ The **bid-ask spread** is the difference between what sellers want and what buye
 - **Ask** = the lowest price someone is willing to sell at
 - A narrow spread (e.g., 39¢ bid / 41¢ ask) means a liquid market — you can trade near the fair value
 - A wide spread (e.g., 30¢ bid / 50¢ ask) means the market is thin — large orders will move the price significantly
+
+You can see the live order book — bids and asks at each price level, plus the spread — on every market page.
 
 ## Slippage
 
@@ -66,6 +66,10 @@ A few practical rules for sizing your trades:
 - **Start small on new markets.** Until you understand a market's liquidity and spread behavior, keep initial positions small.
 - **Account for the spread cost.** If you buy at 41¢ and the bid is 39¢, you're starting 2¢ in the hole. Factor this into your expected return.
 
-<Info>
-Options trades on Theta Labs execute instantly against the platform market maker at a quoted price — there is no orderbook slippage for options. The price you see in the trade modal is the price you pay.
-</Info>
+## How options orders execute
+
+Options trades work differently from spot:
+
+- Orders fill **instantly against the platform dealer** at the quoted price — there is no orderbook and no slippage. The price in the ticket is the price you pay.
+- Quotes include a market-making spread (see [Options Trading](/trading/options-trading#pricing-spreads-and-fees)).
+- Supply is finite: each strike is backed by real collateral, so a strike can show **Sold out** once its capacity is taken.

@@ -1,29 +1,30 @@
 ---
 title: "Spot Trading"
-description: "Buy and sell YES/NO shares on Polymarket and Kalshi markets using USDC."
+description: "Buy and sell YES/NO shares on Polymarket markets using your pUSD balance."
 ---
 
 Spot trading is the simplest way to take a position on a prediction market. You buy shares that represent a probability — each share is worth between $0 and $1, settling to exactly $1 if your outcome is correct, or $0 if it isn't.
 
+Spot markets on Theta Labs come from **Polymarket**, and trades are funded by your **pUSD balance**.
+
 ## How spot trading works
 
-Every market on Theta Labs has two sides: **YES** and **NO**. The price of a share reflects the crowd's implied probability of that outcome occurring.
+Every market has two sides: **YES** and **NO**. The price of a share reflects the crowd's implied probability of that outcome occurring.
 
 - A YES share priced at **40¢** implies a **40% probability** the event happens
 - A NO share priced at **60¢** implies a **60% probability** the event does not happen
-- YES price + NO price always equal $1.00
+- YES and NO prices are complementary — together they sum to approximately $1.00 (live bid/ask spreads mean the two displayed prices may not add up exactly)
 
 When a market resolves, every winning share pays out **$1.00** and every losing share pays out **$0.00**.
 
-<Note>
-Theta Labs aggregates markets from two platforms. **Polymarket** markets settle in USDC.e on Polygon. **Kalshi** markets settle in USDC on Solana. Your wallet holds funds for both automatically.
-</Note>
-
 ## Finding a market
 
-Use the search bar at the top of the Trade page to search by keyword, topic, or person. You can also browse by category — politics, sports, crypto, science, and more.
+Browse the **Spot** page, or search two ways:
 
-Markets from Polymarket display a blue **Poly** badge. Markets from Kalshi display a purple **Kalshi** badge.
+- The **search box in the top navigation** ("Search markets…") filters the market grid by keyword.
+- Press **Ctrl/⌘ + K** to open the command palette and jump straight to any market.
+
+See [Spot Markets](/platform/markets) for the full guide to browsing, categories, and market pages.
 
 ## Buying shares
 
@@ -45,21 +46,22 @@ Both YES and NO shares work identically — you're always betting that your chos
 
 <Steps>
   <Step title="Select a market">
-    Search or browse to find the market you want to trade. Click it to open the market detail page.
+    Search or browse to find the market you want to trade. Click it to open the market page.
   </Step>
   <Step title="Choose YES or NO">
-    Select the outcome you want to buy. The current price shows the implied probability.
+    The **Yes** and **No** buttons show the live price in cents (e.g. "Yes 62¢").
   </Step>
   <Step title="Enter your amount">
-    Type the dollar amount you want to spend, or enter the number of shares directly. The order panel will show your estimated shares and cost.
+    Type a dollar amount, or flip the **USD/Shares** toggle to enter a share count directly. The ticket shows your **Avg price**, **Cost**, and **To win**.
   </Step>
-  <Step title="Review and confirm">
-    Check the price, share count, and potential payout. Click **Buy** to submit the order.
-  </Step>
-  <Step title="Order executes">
-    Your order fills at the best available price. Your position appears in your portfolio.
+  <Step title="Buy">
+    Click **Buy** to submit. Your order fills at the best available price, and the position appears on your **Portfolio** page.
   </Step>
 </Steps>
+
+<Note>
+Order minimums: buys must be at least $1 (or 5 shares' worth at the current price, whichever is greater); sells must be at least 5 shares.
+</Note>
 
 ## Selling shares
 
@@ -69,22 +71,22 @@ You can sell your shares at any time before a market resolves — you don't have
 - Cut a loss if you change your view
 - Free up capital to redeploy elsewhere
 
-To sell, open the market from your portfolio or the trade page, select **Sell**, enter the number of shares you want to close, and confirm. You receive the current market price for each share sold.
+To sell, open the market from your portfolio or the Spot page, switch the ticket to **Sell**, enter the number of shares to close (minimum 5), and confirm. Proceeds are credited to your pUSD balance at the fill price.
 
 <Tip>
 The NO side of a market is often mispriced when sentiment is skewed heavily toward YES. Trading NO can offer better value in markets with very high or very low implied probabilities.
 </Tip>
 
-## Settlement
+## Settlement and redemption
 
-When a market resolves, the outcome is determined by the rules defined by Polymarket or Kalshi. Once resolved:
+When a market resolves, the outcome is determined by Polymarket's resolution rules. Once resolved:
 
-- **Winning shares** (e.g., YES shares on a YES outcome) automatically pay out **$1.00 each**
-- **Losing shares** expire worthless at **$0.00**
-- Proceeds are credited to your wallet automatically — no action needed
+- **Winning shares** are worth **$1.00 each**; losing shares expire worthless.
+- Winning positions show up on your **Portfolio** page marked "resolved — you won", with a green **Redeem** button.
+- Click **Redeem** to credit the payout to your pUSD balance.
 
 Settlement timing varies by market. Some markets resolve within hours of the event; others take days while the result is confirmed.
 
 <Note>
-You do not need to manually claim winnings. Settlement is handled automatically and funds appear in your wallet balance once processed.
+Redeeming is a single click from your Portfolio page — Theta Labs detects resolved positions automatically and flags them for you.
 </Note>

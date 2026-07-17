@@ -8,12 +8,6 @@
     "light": "#b0b0b0",
     "dark": "#181818"
   },
-  "navbar": {
-    "primary": {
-      "type": "github",
-      "href": "https://github.com/shah625/thetalabs"
-    }
-  },
   "navigation": {
     "tabs": [
       {
@@ -30,9 +24,8 @@
           {
             "group": "Trading",
             "pages": [
-              "trading/spot-trading",
               "trading/options-trading",
-              "trading/narratives",
+              "trading/spot-trading",
               "trading/order-types"
             ]
           },
@@ -48,7 +41,7 @@
             "group": "Platform",
             "pages": [
               "platform/markets",
-              "platform/watchlist",
+              "platform/rewards",
               "platform/leaderboard"
             ]
           },
@@ -62,5 +55,11 @@
         ]
       }
     ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/thetalabsgg",
+      "discord": "https://discord.gg/d9gfrYWSAu"
+    }
   }
 }
