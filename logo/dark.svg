@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="720" height="200">
+  <g transform="translate(-40,-100)">
+    <polygon points="170,118 112,212 228,212" fill="#00bf63" stroke="#00bf63" stroke-width="16" stroke-linejoin="round"/>
+    <polygon points="172,182 290,182 232,278" fill="#ff3131" stroke="#ff3131" stroke-width="16" stroke-linejoin="round"/>
+  </g>
+  <text x="270" y="134" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="104" font-weight="700" letter-spacing="-3" fill="#ffffff">updown</text>
+</svg>

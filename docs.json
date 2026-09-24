@@ -2,7 +2,11 @@
   "$schema": "https://mintlify.com/docs.json",
   "name": "updown",
   "theme": "luma",
-  "favicon": "https://media.brand.dev/d074fd05-42de-4fd0-9991-70d24490b8d3.svg",
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
   "colors": {
     "primary": "#3ecf8e",
     "light": "#7ce3ad",
