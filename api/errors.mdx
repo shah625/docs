@@ -14,14 +14,25 @@ Every error has the same body. Switch on `code`; `message` is for people and may
 | HTTP | `code` | Meaning |
 |---|---|---|
 | 400 | `BAD_REQUEST` | A parameter is missing or invalid; `message` says which. |
+| 400 | `INSUFFICIENT_BALANCE` | Not enough buying power for a buy, or not enough contracts for a sell. |
+| 400 | `LIMIT_EXCEEDED` | Over a key, account or market limit; `message` says which. |
+| 400 | `MARKET_NOT_OPEN` | The market isn't on the order book, isn't trading yet, or has closed. |
+| 400 | `POST_ONLY_CROSS` | A `post_only` order would have traded at once. |
+| 400 | `SELF_TRADE` | Would trade against your own resting order. |
+| 400 | `ORDER_REJECTED` | Refused for another reason; `message` says why. |
 | 401 | `UNAUTHORIZED` | No API key, or one that isn't valid. See [Authentication](/api/authentication#when-a-key-is-refused). |
+| 403 | `FORBIDDEN` | The key lacks the permission, or the account can't trade yet (Terms, allow trading). |
+| 404 | `ORDER_NOT_FOUND` | No order with that id on your account. |
 | 404 | `MARKET_NOT_FOUND` | No market with that ticker on the book. |
 | 404 | `SERIES_NOT_FOUND` | No series with that ticker. |
 | 404 | `NOT_FOUND` | No such route. |
 | 405 | `METHOD_NOT_ALLOWED` | The market-data endpoints take `GET` only. |
+| 409 | `IDEMPOTENCY_CONFLICT` | That `client_order_id` was used for a different order. |
+| 409 | `ACCOUNT_BUSY` | Another request on your account is still running. Retry in a moment. |
 | 429 | `RATE_LIMITED` | Too many requests. Wait `Retry-After` seconds. See [Rate limits](/api/rate-limits). |
 | 500 | `INTERNAL_ERROR` | Something went wrong on our side. |
-| 503 | `EXCHANGE_UNAVAILABLE` | The book could not be read just now. Retry. |
+| 503 | `TRADING_PAUSED` | Trading is paused platform-wide; `message` says until when. Cancels still work. |
+| 503 | `EXCHANGE_UNAVAILABLE` | The book could not be read, or an order couldn't be confirmed. Retry — an order with the **same** `client_order_id`. |
 
 ## Websocket error replies
 

@@ -78,13 +78,14 @@
               "api/introduction",
               "api/authentication",
               "api/markets",
+              "api/orders",
               "api/websocket",
               "api/rate-limits",
               "api/errors"
             ]
           },
           {
-            "group": "Endpoints",
+            "group": "Market data",
             "pages": [
               "api-reference/list-series",
               "api-reference/get-series",
@@ -94,6 +95,19 @@
               "api-reference/get-trades",
               "api-reference/exchange-status",
               "api-reference/get-account"
+            ]
+          },
+          {
+            "group": "Order entry",
+            "pages": [
+              "api-reference/create-order",
+              "api-reference/get-order",
+              "api-reference/list-orders",
+              "api-reference/cancel-order",
+              "api-reference/cancel-all-orders",
+              "api-reference/get-positions",
+              "api-reference/get-fills",
+              "api-reference/get-balance"
             ]
           }
         ]

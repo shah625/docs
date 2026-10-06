@@ -15,6 +15,8 @@ Each client IP address gets a budget of **20 requests per second**, with bursts 
 
 Over the limit, you get HTTP `429` with code `RATE_LIMITED`. Wait `Retry-After` seconds, then continue.
 
+**New orders** have their own budget per API key: **10 per second**, bursts of **20**. **Cancels are never limited** — you can always pull your orders.
+
 Failed API-key attempts have their own, much smaller budget. An address that keeps sending invalid keys is locked out for at least a minute and gets `429` until then.
 
 ## Websocket

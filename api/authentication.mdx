@@ -3,7 +3,7 @@ title: "Authentication"
 description: "API keys: what they can do, test and live keys, limits, and how to send one."
 ---
 
-Market data needs no key. An API key is for acting as **your account**: today that is [`GET /account`](/api-reference/get-account); order entry, your orders, fills and positions will use the same key when they ship.
+Market data needs no key. An API key is for acting as **your account**: [placing and cancelling orders](/api/orders), reading your orders, fills, positions and balance, and [`GET /account`](/api-reference/get-account).
 
 <Note>
 API keys are in early access. To request one, [contact support](/help/support).
@@ -15,8 +15,8 @@ A key is tied to one account and carries the permissions you gave it when you ma
 
 | Permission | Allows |
 |---|---|
-| **Read** | Reading your account through the API. |
-| **Trade** | Placing and cancelling orders, within the key's limits (when order entry ships). |
+| **Read** | Reading your account through the API: orders, fills, positions, balance. |
+| **Trade** | Placing and cancelling orders, within the key's limits. |
 
 **A key can never withdraw, transfer or change your account.** Moving money out stays in the app, behind your own sign-in. If a key leaks, the worst it can do is trade within the limits you set.
 
@@ -24,10 +24,10 @@ A key is tied to one account and carries the permissions you gave it when you ma
 
 | | Prefix | Trades |
 |---|---|---|
-| **Test** | `udk_test_` | The practice book only. No real money. |
+| **Test** | `udk_test_` | The practice book only, no real money. Not usable yet — the practice book isn't open. |
 | **Live** | `udk_live_` | Real money. |
 
-Build and test with a test key, then make a live key when you are ready.
+Until the practice book opens, start with a live key and small limits (see below).
 
 ## Key format
 
@@ -75,7 +75,7 @@ When you create a key you can narrow it further. Every limit is optional.
 | **IP allowlist** | The key works only from these addresses (up to 10). |
 | **Expiry** | The key stops working after a number of days (1–365). |
 
-An account can have up to **5 active keys**. The trading limits take effect with order entry; `GET /account` already shows them.
+A **trade** key starts at **$20 per order** and **$500 per day** unless you set other limits. An account can have up to **5 active keys**. `GET /account` shows a key's limits.
 
 ## When a key is refused
 

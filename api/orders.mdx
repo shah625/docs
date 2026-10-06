@@ -1,0 +1,142 @@
+---
+title: "Order entry"
+description: "Place, track and cancel orders with a trade key — and retry safely when a request times out."
+---
+
+Order entry needs an API key with the **Trade** permission (reads need **Read**). See [Authentication](/api/authentication) for how to get one. Every order is a limit order on one market (window), on the outcome you choose.
+
+<Warning>
+Orders are **real money**. A live trade key trades your account's cash within the key's limits.
+</Warning>
+
+## Place an order
+
+```bash
+curl -X POST https://api.updown.fast/trade-api/v1/portfolio/orders \
+  -H "Authorization: Bearer $UPDOWN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "market_ticker": "sol-15m-261006-1945-2000",
+    "outcome": "up",
+    "action": "buy",
+    "price": "0.45",
+    "count": "10",
+    "time_in_force": "good_till_canceled",
+    "post_only": true,
+    "client_order_id": "mm-000123"
+  }'
+```
+
+```json 201 Created
+{
+  "order": {
+    "order_id": "o5870619",
+    "client_order_id": "mm-000123",
+    "market_ticker": "sol-15m-261006-1945-2000",
+    "outcome": "up",
+    "action": "buy",
+    "price": "0.45",
+    "time_in_force": "good_till_canceled",
+    "post_only": true,
+    "status": "resting",
+    "count": "10",
+    "fill_count": "0",
+    "remaining_count": "10",
+    "created_ts_ms": 1791316273732
+  }
+}
+```
+
+| Field | |
+|---|---|
+| `market_ticker` | The window to trade, from [`GET /markets`](/api-reference/list-markets). |
+| `outcome` | `up` or `down`. |
+| `action` | `buy` opens or adds to a position; `sell` sells contracts you hold. |
+| `price` | Your limit, on the **outcome's own** scale: a Down buy at `"0.30"` pays at most 30¢ a contract. `"0.01"`–`"0.99"`. |
+| `count` | Contracts, `"1"`–`"10000"`. |
+| `time_in_force` | `good_till_canceled` (default): what doesn't fill rests on the book until it fills, you cancel it, or the window closes. `immediate_or_cancel`: fills what it can now, the rest is cancelled. |
+| `post_only` | `true` refuses the order if any of it would trade at once, so it can only add to the book. Good-till-canceled only. |
+| `client_order_id` | **Required.** Your id for the order — see below. |
+
+The response is the order as the book holds it **after** your request: a buy that crosses the book comes back already part- or fully filled (`fill_count`, `average_fill_price`, `fees_paid`).
+
+**A buy holds cash** while it rests: the price plus the most a fill could cost in fees, per contract. The hold is released the moment the order fills at a better price, is cancelled, or the window closes. [`GET /portfolio/balance`](/api-reference/get-balance) shows what you can spend right now.
+
+## Retrying safely with `client_order_id`
+
+Networks drop requests. `client_order_id` makes a retry safe:
+
+- **Same id, same order** → you get back the order already placed. Never a second one.
+- **Same id, different order** → `409 IDEMPOTENCY_CONFLICT`.
+
+So when a request times out, or answers `503 EXCHANGE_UNAVAILABLE`, **resend it with the same `client_order_id`** — or look it up with [`GET /portfolio/orders?client_order_id=…`](/api-reference/list-orders). Never retry with a new id: if the first request did reach the book, a new id places a second order.
+
+Ids are 1–64 characters (letters, digits, `.` `_` `:` `-`) and unique per account, across all your keys.
+
+## Order status
+
+| `status` | Meaning |
+|---|---|
+| `resting` | On the book, possibly part-filled (`fill_count` > 0). |
+| `executed` | Fully filled. |
+| `canceled` | Cancelled by you, by `immediate_or_cancel`, or when the window closed. `fill_count` shows anything that filled first. |
+
+## Cancel
+
+```bash
+# One order (URL-encode any "/" in the id)
+curl -X DELETE https://api.updown.fast/trade-api/v1/portfolio/orders/o5870619 \
+  -H "Authorization: Bearer $UPDOWN_API_KEY"
+
+# Everything you have resting — or one market / series
+curl -X DELETE "https://api.updown.fast/trade-api/v1/portfolio/orders?series_ticker=sol-15m" \
+  -H "Authorization: Bearer $UPDOWN_API_KEY"
+```
+
+Cancels are **never rate limited**, so you can always pull your orders. Cancel-all covers orders you placed through the API.
+
+## Your orders, positions, fills and balance
+
+| Endpoint | Returns |
+|---|---|
+| [`GET /portfolio/orders`](/api-reference/list-orders) | Your API orders of the last 24 hours, newest first. Filter by `market_ticker`, `client_order_id`, `status`. |
+| [`GET /portfolio/orders/{order_id}`](/api-reference/get-order) | One order. |
+| [`GET /portfolio/positions`](/api-reference/get-positions) | Contracts you hold in windows that haven't settled, with their cost. |
+| [`GET /portfolio/fills`](/api-reference/get-fills) | Your trades on the book, as taker or maker, newest first. |
+| [`GET /portfolio/balance`](/api-reference/get-balance) | `buying_power`: what you can spend on new orders now. |
+
+Winning contracts settle automatically after the window closes; the payout lands in your account's cash.
+
+## Limits
+
+Three layers apply to every order, and the tightest wins:
+
+1. **Your key's limits** — max order, max per day, max resting orders per market, which series. Trade keys start at **$20 per order** and **$500 per day** unless you set others. [`GET /account`](/api-reference/get-account) shows them.
+2. **Your account's limit** — a cap on how much you can have at risk across all open windows at once.
+3. **The market's limit** — a cap on all users together in one window.
+
+Going over any of them answers `400 LIMIT_EXCEEDED` with a message saying which. New orders are also limited to **10 per second per key** (bursts of 20); see [Rate limits](/api/rate-limits).
+
+## Before your first order
+
+- Your account must have accepted the current Terms of Service and **allowed trading** on its wallet (a one-time step in the app). Without them, a buy answers `403 FORBIDDEN` saying which.
+- Orders go only to markets on the order book — the ones [`GET /markets`](/api-reference/list-markets) lists. Anything else answers `400 MARKET_NOT_OPEN`.
+- Test keys can't place orders yet: the practice book isn't open.
+
+## Errors
+
+| HTTP | `code` | Meaning |
+|---|---|---|
+| 400 | `BAD_REQUEST` | A field is missing or invalid; `message` says which. |
+| 400 | `INSUFFICIENT_BALANCE` | Not enough buying power for a buy, or not enough contracts for a sell. |
+| 400 | `LIMIT_EXCEEDED` | Over a key, account or market limit. |
+| 400 | `MARKET_NOT_OPEN` | Not on the order book, not trading yet, or closed. |
+| 400 | `POST_ONLY_CROSS` | A `post_only` order would have traded at once. |
+| 400 | `SELF_TRADE` | Would trade against your own resting order. |
+| 403 | `FORBIDDEN` | The key lacks the permission, or the account can't trade yet. |
+| 404 | `ORDER_NOT_FOUND` | No order with that id on your account. |
+| 409 | `IDEMPOTENCY_CONFLICT` | That `client_order_id` was used for a different order. |
+| 409 | `ACCOUNT_BUSY` | Another request on your account is still running. Retry in a moment (same `client_order_id`). |
+| 429 | `RATE_LIMITED` | Too many new orders. Wait `Retry-After` seconds. |
+| 503 | `TRADING_PAUSED` | Trading is paused platform-wide; `message` says until when. Cancels still work. |
+| 503 | `EXCHANGE_UNAVAILABLE` | We couldn't confirm the order. Retry with the **same** `client_order_id`. |

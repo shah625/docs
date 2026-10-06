@@ -62,7 +62,7 @@ Every command carries an `id` you choose; the reply echoes it.
 | `window_lifecycle` | markets / series | A window's events: `open` with its `price_to_beat`, then `closed`, then `settled` with `result` and `settlement_price`. |
 | `prices` | `symbols` | Live price of an underlying: the current price at once, then every print. |
 
-Private channels (`fill`, `user_orders`, `market_positions`, `balance`) arrive with order entry; today they answer error `8` (`AUTH_REQUIRED`).
+Private channels (`fill`, `user_orders`, `market_positions`, `balance`) are coming soon; today they answer error `8` (`AUTH_REQUIRED`). Until then, read your orders and fills over [REST](/api/orders).
 
 ### Prices
 

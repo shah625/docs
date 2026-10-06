@@ -1,13 +1,13 @@
 ---
 title: "Trade API"
 sidebarTitle: "Introduction"
-description: "Read updown's interval markets from your own code: REST for snapshots, one websocket for live updates."
+description: "Trade updown's interval markets from your own code: REST for orders and snapshots, one websocket for live updates."
 ---
 
-The Trade API lets a program — a trading bot, a market-making system, an AI agent, a dashboard — read updown's interval markets directly. It is built for speed and for machines: every response follows a published schema, every price is an exact string, and the live feed tells you when you have missed a message.
+The Trade API lets a program — a trading bot, a market-making system, an AI agent, a dashboard — read and trade updown's interval markets directly. It is built for speed and for machines: every response follows a published schema, every price is an exact string, and the live feed tells you when you have missed a message.
 
 <Note>
-Today the API is **read-only**: market data is public, and an API key lets you check your key with [`GET /account`](/api-reference/get-account). Placing and cancelling orders through the API is coming soon.
+Market data is public — no key needed. [Placing and cancelling orders](/api/orders) needs an API key with the **Trade** permission; API keys are in early access.
 </Note>
 
 ## Base URLs
@@ -86,7 +86,7 @@ Every endpoint and message is generated from the same schemas the server checks 
   <Card title="Authentication" icon="key" href="/api/authentication">
     API keys: test and live, permissions, limits.
   </Card>
-  <Card title="Endpoints" icon="code" href="/api-reference/list-markets">
-    Every REST endpoint, with a live "Try it" box.
+  <Card title="Order entry" icon="arrow-right-arrow-left" href="/api/orders">
+    Place, track and cancel orders; retry safely.
   </Card>
 </CardGroup>
