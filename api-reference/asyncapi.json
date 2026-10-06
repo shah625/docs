@@ -1,0 +1,1027 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "updown Trade API websocket",
+    "version": "1.0.0",
+    "description": "ONE websocket. Public channels (orderbook_delta, ticker, trade, window_lifecycle, prices) need no key. Every data message carries a per-subscription seq; a gap means re-request a snapshot. Generated from packages/protocol — do not edit by hand."
+  },
+  "servers": {
+    "production": {
+      "host": "api.updown.fast",
+      "pathname": "/trade-api/ws/v1",
+      "protocol": "wss"
+    }
+  },
+  "channels": {
+    "trade-api-ws": {
+      "address": "/trade-api/ws/v1",
+      "messages": {
+        "subscribe": {
+          "name": "subscribe",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "cmd": {
+                "type": "string",
+                "const": "subscribe"
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "channels": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "orderbook_delta",
+                        "ticker",
+                        "trade",
+                        "window_lifecycle",
+                        "prices",
+                        "fill",
+                        "user_orders",
+                        "market_positions",
+                        "balance",
+                        "order_group_updates"
+                      ]
+                    }
+                  },
+                  "market_tickers": {
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                      "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                    }
+                  },
+                  "series_tickers": {
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                      "description": "Series ticker, e.g. \"btc-15m\"."
+                    }
+                  },
+                  "symbols": {
+                    "maxItems": 64,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(X:[A-Z0-9]{2,12}USD|P:[A-Z0-9]{2,12}|K:[A-Z0-9][A-Z0-9._-]{2,80}|[A-Z0-9.]{1,12})$",
+                      "description": "Underlying symbol: \"AAPL\", \"X:BTCUSD\", \"P:OPENAI\", \"K:<kalshi market ticker>\"."
+                    }
+                  }
+                },
+                "required": [
+                  "channels"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "cmd",
+              "params"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "unsubscribe": {
+          "name": "unsubscribe",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "cmd": {
+                "type": "string",
+                "const": "unsubscribe"
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "sids": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  }
+                },
+                "required": [
+                  "sids"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "cmd",
+              "params"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "update_subscription": {
+          "name": "update_subscription",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "cmd": {
+                "type": "string",
+                "const": "update_subscription"
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "sid": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "add_markets",
+                      "delete_markets",
+                      "get_snapshot"
+                    ]
+                  },
+                  "market_tickers": {
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                      "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                    }
+                  },
+                  "series_tickers": {
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                      "description": "Series ticker, e.g. \"btc-15m\"."
+                    }
+                  },
+                  "symbols": {
+                    "maxItems": 64,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(X:[A-Z0-9]{2,12}USD|P:[A-Z0-9]{2,12}|K:[A-Z0-9][A-Z0-9._-]{2,80}|[A-Z0-9.]{1,12})$",
+                      "description": "Underlying symbol: \"AAPL\", \"X:BTCUSD\", \"P:OPENAI\", \"K:<kalshi market ticker>\"."
+                    }
+                  }
+                },
+                "required": [
+                  "sid",
+                  "action"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "cmd",
+              "params"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "list_subscriptions": {
+          "name": "list_subscriptions",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "cmd": {
+                "type": "string",
+                "const": "list_subscriptions"
+              }
+            },
+            "required": [
+              "id",
+              "cmd"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "subscribed": {
+          "name": "subscribed",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "type": {
+                "type": "string",
+                "const": "subscribed"
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "channel": {
+                    "type": "string",
+                    "enum": [
+                      "orderbook_delta",
+                      "ticker",
+                      "trade",
+                      "window_lifecycle",
+                      "prices",
+                      "fill",
+                      "user_orders",
+                      "market_positions",
+                      "balance",
+                      "order_group_updates"
+                    ]
+                  },
+                  "sid": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "channel",
+                  "sid"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "unsubscribed": {
+          "name": "unsubscribed",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "type": {
+                "type": "string",
+                "const": "unsubscribed"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "sid"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "ok": {
+          "name": "ok",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "type": {
+                "type": "string",
+                "const": "ok"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "subscriptions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "sid": {
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "channel": {
+                          "type": "string",
+                          "enum": [
+                            "orderbook_delta",
+                            "ticker",
+                            "trade",
+                            "window_lifecycle",
+                            "prices",
+                            "fill",
+                            "user_orders",
+                            "market_positions",
+                            "balance",
+                            "order_group_updates"
+                          ]
+                        },
+                        "market_tickers": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                            "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                          }
+                        },
+                        "series_tickers": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                            "description": "Series ticker, e.g. \"btc-15m\"."
+                          }
+                        },
+                        "symbols": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "pattern": "^(X:[A-Z0-9]{2,12}USD|P:[A-Z0-9]{2,12}|K:[A-Z0-9][A-Z0-9._-]{2,80}|[A-Z0-9.]{1,12})$",
+                            "description": "Underlying symbol: \"AAPL\", \"X:BTCUSD\", \"P:OPENAI\", \"K:<kalshi market ticker>\"."
+                          }
+                        }
+                      },
+                      "required": [
+                        "sid",
+                        "channel",
+                        "market_tickers",
+                        "series_tickers"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "error": {
+          "name": "error",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "type": {
+                "type": "string",
+                "const": "error"
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "description": "1 UNKNOWN_COMMAND, 2 INVALID_PARAMS, 3 UNKNOWN_CHANNEL, 4 UNKNOWN_SID, 5 MARKET_NOT_FOUND, 6 SERIES_NOT_FOUND, 7 TOO_MANY_SUBSCRIPTIONS, 8 AUTH_REQUIRED, 9 RATE_LIMITED, 10 INTERNAL, 11 MESSAGE_TOO_LARGE. MESSAGE_TOO_LARGE (a frame over 64 KB) is followed by a close (1009); RATE_LIMITED for a flood of queued commands by a close (1008)."
+                  },
+                  "msg": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "msg"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "orderbook_snapshot": {
+          "name": "orderbook_snapshot",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "orderbook_snapshot"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "up": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                          "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^(0|[1-9]\\d*)$",
+                          "description": "Contracts, as a string (v1: whole contracts)."
+                        }
+                      ],
+                      "description": "[price, contracts resting at that price]"
+                    }
+                  },
+                  "down": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "string",
+                          "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                          "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                        },
+                        {
+                          "type": "string",
+                          "pattern": "^(0|[1-9]\\d*)$",
+                          "description": "Contracts, as a string (v1: whole contracts)."
+                        }
+                      ],
+                      "description": "[price, contracts resting at that price]"
+                    }
+                  },
+                  "checksum": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "market_ticker",
+                  "up",
+                  "down",
+                  "checksum"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "orderbook_delta": {
+          "name": "orderbook_delta",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "orderbook_delta"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "outcome": {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "price": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "delta": {
+                    "type": "string",
+                    "pattern": "^-?[1-9]\\d*$",
+                    "description": "Signed change in contracts at a level, as a string."
+                  },
+                  "checksum": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "market_ticker",
+                  "outcome",
+                  "price",
+                  "delta",
+                  "checksum"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "ticker": {
+          "name": "ticker",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "ticker"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "up_bid": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "up_bid_size": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "up_ask": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "up_ask_size": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "last_price": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  }
+                },
+                "required": [
+                  "market_ticker"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "trade": {
+          "name": "trade",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "trade"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "trade_id": {
+                    "type": "string"
+                  },
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "taker_outcome": {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "taker_action": {
+                    "type": "string",
+                    "enum": [
+                      "buy",
+                      "sell"
+                    ]
+                  },
+                  "price": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "up_price": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "down_price": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "count": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "ts_ms": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991,
+                    "description": "Epoch milliseconds (UTC)."
+                  }
+                },
+                "required": [
+                  "trade_id",
+                  "market_ticker",
+                  "taker_outcome",
+                  "taker_action",
+                  "price",
+                  "up_price",
+                  "down_price",
+                  "count",
+                  "ts_ms"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "window_lifecycle": {
+          "name": "window_lifecycle",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "window_lifecycle"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "series_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                    "description": "Series ticker, e.g. \"btc-15m\"."
+                  },
+                  "event": {
+                    "type": "string",
+                    "enum": [
+                      "scheduled",
+                      "open",
+                      "paused",
+                      "closed",
+                      "settled"
+                    ]
+                  },
+                  "open_ts_ms": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991,
+                    "description": "Epoch milliseconds (UTC)."
+                  },
+                  "close_ts_ms": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991,
+                    "description": "Epoch milliseconds (UTC)."
+                  },
+                  "price_to_beat": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$",
+                    "description": "Price of the underlying in dollars, as a decimal string."
+                  },
+                  "result": {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "settlement_price": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$",
+                    "description": "Price of the underlying in dollars, as a decimal string."
+                  }
+                },
+                "required": [
+                  "market_ticker",
+                  "series_ticker",
+                  "event",
+                  "open_ts_ms",
+                  "close_ts_ms"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "price": {
+          "name": "price",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "price"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string",
+                    "pattern": "^(X:[A-Z0-9]{2,12}USD|P:[A-Z0-9]{2,12}|K:[A-Z0-9][A-Z0-9._-]{2,80}|[A-Z0-9.]{1,12})$",
+                    "description": "Underlying symbol: \"AAPL\", \"X:BTCUSD\", \"P:OPENAI\", \"K:<kalshi market ticker>\"."
+                  },
+                  "price": {
+                    "type": "string",
+                    "pattern": "^\\d+(\\.\\d+)?$",
+                    "description": "Price of the underlying in dollars, as a decimal string."
+                  },
+                  "t_ms": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991,
+                    "description": "Epoch milliseconds (UTC)."
+                  }
+                },
+                "required": [
+                  "symbol",
+                  "price",
+                  "t_ms"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  },
+  "operations": {
+    "sendCommand": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/trade-api-ws"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/trade-api-ws/messages/subscribe"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/unsubscribe"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/update_subscription"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/list_subscriptions"
+        }
+      ]
+    },
+    "receiveMessage": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/trade-api-ws"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/trade-api-ws/messages/subscribed"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/unsubscribed"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/ok"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/error"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/orderbook_snapshot"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/orderbook_delta"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/ticker"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/trade"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/window_lifecycle"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/price"
+        }
+      ]
+    }
+  }
+}

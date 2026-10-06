@@ -68,8 +68,41 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "API",
+        "groups": [
+          {
+            "group": "Trade API",
+            "pages": [
+              "api/introduction",
+              "api/authentication",
+              "api/markets",
+              "api/websocket",
+              "api/rate-limits",
+              "api/errors"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api-reference/list-series",
+              "api-reference/get-series",
+              "api-reference/list-markets",
+              "api-reference/get-market",
+              "api-reference/get-orderbook",
+              "api-reference/get-trades",
+              "api-reference/exchange-status",
+              "api-reference/get-account"
+            ]
+          }
+        ]
       }
     ]
+  },
+  "api": {
+    "playground": { "display": "interactive" },
+    "examples": { "languages": ["curl", "python", "javascript"] }
   },
   "redirects": [
     { "source": "/account-setup", "destination": "/account-and-profile" },

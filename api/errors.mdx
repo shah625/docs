@@ -1,0 +1,56 @@
+---
+title: "Errors"
+description: "REST error codes, websocket error numbers and close codes."
+---
+
+## REST
+
+Every error has the same body. Switch on `code`; `message` is for people and may change.
+
+```json
+{ "code": "MARKET_NOT_FOUND", "message": "no market sol-15m-261006-1630-1645" }
+```
+
+| HTTP | `code` | Meaning |
+|---|---|---|
+| 400 | `BAD_REQUEST` | A parameter is missing or invalid; `message` says which. |
+| 401 | `UNAUTHORIZED` | No API key, or one that isn't valid. See [Authentication](/api/authentication#when-a-key-is-refused). |
+| 404 | `MARKET_NOT_FOUND` | No market with that ticker on the book. |
+| 404 | `SERIES_NOT_FOUND` | No series with that ticker. |
+| 404 | `NOT_FOUND` | No such route. |
+| 405 | `METHOD_NOT_ALLOWED` | The market-data endpoints take `GET` only. |
+| 429 | `RATE_LIMITED` | Too many requests. Wait `Retry-After` seconds. See [Rate limits](/api/rate-limits). |
+| 500 | `INTERNAL_ERROR` | Something went wrong on our side. |
+| 503 | `EXCHANGE_UNAVAILABLE` | The book could not be read just now. Retry. |
+
+## Websocket error replies
+
+A command that fails gets an `error` reply with a numbered code. The numbers never change meaning.
+
+```json
+{ "id": 3, "type": "error", "msg": { "code": 1, "msg": "unknown command bogus" } }
+```
+
+| Code | Name | Meaning |
+|---|---|---|
+| 1 | `UNKNOWN_COMMAND` | `cmd` isn't one of the four commands. |
+| 2 | `INVALID_PARAMS` | Bad JSON or bad parameters; `msg` says what. |
+| 3 | `UNKNOWN_CHANNEL` | No such channel. |
+| 4 | `UNKNOWN_SID` | No subscription with that `sid` on this connection. |
+| 5 | `MARKET_NOT_FOUND` | No such market. |
+| 6 | `SERIES_NOT_FOUND` | No such series. |
+| 7 | `TOO_MANY_SUBSCRIPTIONS` | Over 100 subscriptions on this connection. |
+| 8 | `AUTH_REQUIRED` | A private channel. |
+| 9 | `RATE_LIMITED` | Commands sent too fast. |
+| 10 | `INTERNAL` | Something went wrong on our side. |
+| 11 | `MESSAGE_TOO_LARGE` | A message over 64 KB. The connection then closes. |
+
+## Websocket close codes
+
+| Code | Meaning |
+|---|---|
+| `1001` | The server is restarting. Reconnect and resubscribe. |
+| `1008` | Too many commands queued. Slow down, then reconnect. |
+| `1009` | A message over 64 KB. |
+
+Always reconnect with a short, growing delay, resubscribe, and rebuild books from the fresh snapshots.

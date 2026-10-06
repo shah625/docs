@@ -42,3 +42,14 @@
 - Never use "bet", "betting", or "wager". Say "trade" or "trading".
 - Say "same-day and next-day" for options expiries. "0DTE" appears only as Home's clock label.
 - Mention selling options and the Neutral outlook only as "coming soon", matching the app.
+
+## API tab (`api/`, `api-reference/`) — added 2026-10-06
+
+The API tab is written for developers, market makers and AI agents, and follows different rules from the user guides (the owner's calls, 2026-10-06):
+
+- The **order book** is described openly there (bids, levels, depth, checksums) — the API is the book. The user guides keep the rule above and never mention it.
+- Fields the API returns are documented as they are, including `fee_schedule` (the fee formula) and `settlement_source` / `contract_terms` (the price sources) — they are public to anyone who calls the API.
+- Still never say who provides liquidity or trades against API users: describe mechanics only (orders, bids, fills, the taker side).
+- `api-reference/openapi.json` and `asyncapi.json` are GENERATED in the main repo (`packages/protocol`, `npm run generate -w packages/protocol`) — never edit them here; copy them over after a change. Each endpoint page in `api-reference/` is a stub pointing at one operation; its title and text come from the spec.
+- Example API keys must be obvious fakes (`udk_live_0123456789abcdef_EXAMPLE…`). Never paste a real key, even a revoked one.
+- Every number in an example (checksums, prices) must be real: compute checksums with the recipe on `api/websocket`.

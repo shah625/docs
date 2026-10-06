@@ -1,0 +1,101 @@
+---
+title: "Authentication"
+description: "API keys: what they can do, test and live keys, limits, and how to send one."
+---
+
+Market data needs no key. An API key is for acting as **your account**: today that is [`GET /account`](/api-reference/get-account); order entry, your orders, fills and positions will use the same key when they ship.
+
+<Note>
+API keys are in early access. To request one, [contact support](/help/support).
+</Note>
+
+## What a key can and can't do
+
+A key is tied to one account and carries the permissions you gave it when you made it.
+
+| Permission | Allows |
+|---|---|
+| **Read** | Reading your account through the API. |
+| **Trade** | Placing and cancelling orders, within the key's limits (when order entry ships). |
+
+**A key can never withdraw, transfer or change your account.** Moving money out stays in the app, behind your own sign-in. If a key leaks, the worst it can do is trade within the limits you set.
+
+## Test and live keys
+
+| | Prefix | Trades |
+|---|---|---|
+| **Test** | `udk_test_` | The practice book only. No real money. |
+| **Live** | `udk_live_` | Real money. |
+
+Build and test with a test key, then make a live key when you are ready.
+
+## Key format
+
+```
+udk_live_0123456789abcdef_EXAMPLEsecretEXAMPLEsecretEXAMPLEsecret00
+└──┬───┘ └──────┬───────┘ └───────────────────┬───────────────────┘
+ prefix      key id                         secret
+```
+
+The key id identifies the key in lists and logs. The secret is shown **once**, when you create the key — updown stores only a one-way fingerprint of it and can never show it again. If you lose it, revoke the key and make a new one.
+
+## Sending a key
+
+Send it as a bearer token on every request that needs it:
+
+```bash
+curl https://api.updown.fast/trade-api/v1/account \
+  -H "Authorization: Bearer $UPDOWN_API_KEY"
+```
+
+```json
+{
+  "account": {
+    "key_id": "0123456789abcdef",
+    "key_name": "my bot",
+    "environment": "live",
+    "scopes": ["read"],
+    "limits": {},
+    "server_time_ms": 1791304000000
+  }
+}
+```
+
+Call `GET /account` first whenever you set up a new key: it confirms the key works and shows exactly what it is allowed to do.
+
+## Limits on a key
+
+When you create a key you can narrow it further. Every limit is optional.
+
+| Limit | Effect |
+|---|---|
+| **Max order** | The largest single order, in dollars. |
+| **Max per day** | Total dollars the key may trade in a day. |
+| **Max open orders** | How many orders may rest at once. |
+| **IP allowlist** | The key works only from these addresses (up to 10). |
+| **Expiry** | The key stops working after a number of days (1–365). |
+
+An account can have up to **5 active keys**. The trading limits take effect with order entry; `GET /account` already shows them.
+
+## When a key is refused
+
+A refused key gets HTTP `401` with code `UNAUTHORIZED` and a message saying why:
+
+| Message | Meaning |
+|---|---|
+| `send your API key as Authorization: Bearer udk_…` | No key on the request. |
+| `Invalid API key.` | The key doesn't exist or the secret is wrong. |
+| `This API key has been revoked.` | Revoked by its owner. Make a new one. |
+| `This API key has expired.` | Past its expiry. |
+| `This API key is for the other environment (test keys work only on the practice book).` | A test key on a live endpoint, or the reverse. |
+| `This API key can't be used from this IP address.` | Outside the key's IP allowlist. |
+| `This account is suspended.` | The account behind the key is suspended. [Contact support](/help/support). |
+
+Repeated failed attempts from one address are locked out for a while and answer `429`. Revoking a key takes effect within about 10 seconds.
+
+## Keeping keys safe
+
+- Keep keys in environment variables or a secrets manager — never in code, a repository, a chat or a screenshot.
+- Give each program its own key with only the permissions and limits it needs, so you can revoke one without stopping the others.
+- Use an IP allowlist for anything running on a fixed server.
+- If a key may have been seen by anyone else, revoke it straight away.

@@ -1,0 +1,33 @@
+---
+title: "Rate limits"
+description: "How much you can call the REST API and the websocket, and how to tell when you're near the limit."
+---
+
+## REST
+
+Each client IP address gets a budget of **20 requests per second**, with bursts of up to **40**. Every response tells you where you stand:
+
+| Header | Meaning |
+|---|---|
+| `UpDown-RateLimit-Remaining` | Requests left in your burst right now. |
+| `UpDown-RateLimit-Reset` | Seconds until your burst is full again. |
+| `Retry-After` | On a `429` only: seconds to wait before retrying. |
+
+Over the limit, you get HTTP `429` with code `RATE_LIMITED`. Wait `Retry-After` seconds, then continue.
+
+Failed API-key attempts have their own, much smaller budget. An address that keeps sending invalid keys is locked out for at least a minute and gets `429` until then.
+
+## Websocket
+
+| Limit | Value |
+|---|---|
+| Connections per IP address | 20 |
+| Subscriptions per connection | 100 |
+| Commands per connection | 10 per second, bursts of 20 |
+| Largest message you can send | 64 KB |
+
+## Staying under the limits
+
+- **Use the websocket for anything live.** One connection with a series subscription replaces polling every market, and updates arrive as they happen.
+- Use REST for a one-off read or to seed state, then follow changes on the websocket.
+- Back off on `429`; don't retry in a tight loop.

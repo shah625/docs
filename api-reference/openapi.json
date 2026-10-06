@@ -1,0 +1,1381 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "updown Trade API",
+    "version": "1.0.0",
+    "description": "Public REST API. Market data needs no key; `/account` (and order entry, when it ships) takes an API key. Prices are dollar strings on the 1¢ grid, counts are contract strings, times are epoch ms. Generated from packages/protocol — do not edit by hand."
+  },
+  "servers": [
+    {
+      "url": "https://api.updown.fast/trade-api/v1",
+      "description": "production"
+    }
+  ],
+  "paths": {
+    "/exchange/status": {
+      "get": {
+        "operationId": "getExchangeStatus",
+        "summary": "Exchange status",
+        "description": "Whether the API is up and reading the book, and whether any market is open for trading.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Exchange status.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/series": {
+      "get": {
+        "operationId": "listSeries",
+        "summary": "List series",
+        "description": "Every recurring market — a series opens a new window on a fixed schedule (`sol-15m`: every 15 minutes) — with its settlement rule, price grid and fees.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Every series.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeriesListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/series/{series_ticker}": {
+      "get": {
+        "operationId": "getSeries",
+        "summary": "Get series",
+        "description": "One series by its ticker.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "series_ticker",
+            "in": "path",
+            "required": true,
+            "description": "e.g. sol-15m",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "One series.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SeriesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "SERIES_NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/markets": {
+      "get": {
+        "operationId": "listMarkets",
+        "summary": "List markets",
+        "description": "Markets (windows) on the order book, newest first, filtered by series and status. A window stays listed until about an hour after it settles.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "series_ticker",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+              "description": "Series ticker, e.g. \"btc-15m\"."
+            }
+          },
+          {
+            "name": "series",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+              "description": "Series ticker, e.g. \"btc-15m\"."
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "scheduled",
+                "open",
+                "paused",
+                "closed",
+                "settled"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching markets.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/markets/{ticker}": {
+      "get": {
+        "operationId": "getMarket",
+        "summary": "Get market",
+        "description": "One window: its status, times, price to beat, top of book and, once settled, the result.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "ticker",
+            "in": "path",
+            "required": true,
+            "description": "Market ticker, e.g. sol-15m-261006-1630-1645",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "One market.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "MARKET_NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/markets/{ticker}/orderbook": {
+      "get": {
+        "operationId": "getOrderbook",
+        "summary": "Get orderbook",
+        "description": "The book as bids only, per outcome, best price first. An offer to sell Up at p is the same liquidity as a bid for Down at 1 − p, so it is listed once, under `down`. `checksum` covers the full book's top 10 levels per side — the same number the websocket sends.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "ticker",
+            "in": "path",
+            "required": true,
+            "description": "Market ticker",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "depth",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The book.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderbookResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "MARKET_NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/markets/{ticker}/trades": {
+      "get": {
+        "operationId": "getTrades",
+        "summary": "Get trades",
+        "description": "Public trades of a market, newest first, described from the taker's side. Pass `cursor` back for the next (older) page. Accounts are never published.",
+        "security": [],
+        "parameters": [
+          {
+            "name": "ticker",
+            "in": "path",
+            "required": true,
+            "description": "Market ticker",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trades.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TradesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "MARKET_NOT_FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account": {
+      "get": {
+        "operationId": "getAccount",
+        "summary": "Get account",
+        "description": "The API key this request was made with, as the server sees it: name, environment, permissions and limits. Never returns the secret. Call it to check a key works.",
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (code BAD_REQUEST).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No key, or one that isn't valid — revoked, expired, wrong environment or IP (code UNAUTHORIZED).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (code RATE_LIMITED); wait `Retry-After` seconds.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The book could not be read (code EXCHANGE_UNAVAILABLE); retry.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "An API key from your account: `Authorization: Bearer udk_<live|test>_<id>_<secret>`."
+      }
+    },
+    "schemas": {
+      "ExchangeStatusResponse": {
+        "type": "object",
+        "properties": {
+          "exchange_status": {
+            "type": "object",
+            "properties": {
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "paper",
+                  "live"
+                ],
+                "description": "paper = the practice book (demo), live = real money."
+              },
+              "exchange_active": {
+                "type": "boolean"
+              },
+              "trading_active": {
+                "type": "boolean"
+              },
+              "server_time_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              }
+            },
+            "required": [
+              "environment",
+              "exchange_active",
+              "trading_active",
+              "server_time_ms"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "exchange_status"
+        ],
+        "additionalProperties": false
+      },
+      "SeriesListResponse": {
+        "type": "object",
+        "properties": {
+          "series": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ticker": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                  "description": "Series ticker, e.g. \"btc-15m\"."
+                },
+                "title": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "crypto",
+                    "stocks"
+                  ]
+                },
+                "underlying": {
+                  "type": "string"
+                },
+                "interval_minutes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "settlement_source": {
+                  "type": "string",
+                  "enum": [
+                    "coinbase",
+                    "pyth",
+                    "robinhood-chain"
+                  ]
+                },
+                "contract_terms": {
+                  "type": "string"
+                },
+                "price_ranges": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "string",
+                        "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                        "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                      },
+                      "end": {
+                        "type": "string",
+                        "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                        "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                      },
+                      "step": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "start",
+                      "end",
+                      "step"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "tick_size": {
+                  "type": "string"
+                },
+                "fee_schedule": {
+                  "type": "object",
+                  "properties": {
+                    "maker": {
+                      "type": "string"
+                    },
+                    "taker": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "maker",
+                    "taker"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "ticker",
+                "title",
+                "category",
+                "underlying",
+                "interval_minutes",
+                "settlement_source",
+                "contract_terms",
+                "price_ranges",
+                "tick_size",
+                "fee_schedule"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "series"
+        ],
+        "additionalProperties": false
+      },
+      "SeriesResponse": {
+        "type": "object",
+        "properties": {
+          "series": {
+            "type": "object",
+            "properties": {
+              "ticker": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                "description": "Series ticker, e.g. \"btc-15m\"."
+              },
+              "title": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "crypto",
+                  "stocks"
+                ]
+              },
+              "underlying": {
+                "type": "string"
+              },
+              "interval_minutes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "settlement_source": {
+                "type": "string",
+                "enum": [
+                  "coinbase",
+                  "pyth",
+                  "robinhood-chain"
+                ]
+              },
+              "contract_terms": {
+                "type": "string"
+              },
+              "price_ranges": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "string",
+                      "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                      "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                    },
+                    "end": {
+                      "type": "string",
+                      "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                      "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                    },
+                    "step": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end",
+                    "step"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "tick_size": {
+                "type": "string"
+              },
+              "fee_schedule": {
+                "type": "object",
+                "properties": {
+                  "maker": {
+                    "type": "string"
+                  },
+                  "taker": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "maker",
+                  "taker"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "ticker",
+              "title",
+              "category",
+              "underlying",
+              "interval_minutes",
+              "settlement_source",
+              "contract_terms",
+              "price_ranges",
+              "tick_size",
+              "fee_schedule"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "series"
+        ],
+        "additionalProperties": false
+      },
+      "MarketsResponse": {
+        "type": "object",
+        "properties": {
+          "markets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ticker": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                  "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                },
+                "series_ticker": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                  "description": "Series ticker, e.g. \"btc-15m\"."
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "scheduled",
+                    "open",
+                    "paused",
+                    "closed",
+                    "settled"
+                  ]
+                },
+                "open_ts_ms": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991,
+                  "description": "Epoch milliseconds (UTC)."
+                },
+                "close_ts_ms": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991,
+                  "description": "Epoch milliseconds (UTC)."
+                },
+                "price_to_beat": {
+                  "type": "string",
+                  "pattern": "^\\d+(\\.\\d+)?$",
+                  "description": "Price of the underlying in dollars, as a decimal string."
+                },
+                "result": {
+                  "type": "string",
+                  "enum": [
+                    "up",
+                    "down"
+                  ]
+                },
+                "settlement_price": {
+                  "type": "string",
+                  "pattern": "^\\d+(\\.\\d+)?$",
+                  "description": "Price of the underlying in dollars, as a decimal string."
+                },
+                "settled_ts_ms": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991,
+                  "description": "Epoch milliseconds (UTC)."
+                },
+                "up_bid": {
+                  "type": "string",
+                  "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                  "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                },
+                "up_bid_size": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d*)$",
+                  "description": "Contracts, as a string (v1: whole contracts)."
+                },
+                "up_ask": {
+                  "type": "string",
+                  "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                  "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                },
+                "up_ask_size": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d*)$",
+                  "description": "Contracts, as a string (v1: whole contracts)."
+                },
+                "last_price": {
+                  "type": "string",
+                  "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                  "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                },
+                "price_ranges": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "string",
+                        "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                        "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                      },
+                      "end": {
+                        "type": "string",
+                        "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                        "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                      },
+                      "step": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "start",
+                      "end",
+                      "step"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "tick_size": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ticker",
+                "series_ticker",
+                "status",
+                "open_ts_ms",
+                "close_ts_ms",
+                "price_ranges",
+                "tick_size"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "markets"
+        ],
+        "additionalProperties": false
+      },
+      "MarketResponse": {
+        "type": "object",
+        "properties": {
+          "market": {
+            "type": "object",
+            "properties": {
+              "ticker": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+              },
+              "series_ticker": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                "description": "Series ticker, e.g. \"btc-15m\"."
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "scheduled",
+                  "open",
+                  "paused",
+                  "closed",
+                  "settled"
+                ]
+              },
+              "open_ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "close_ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "price_to_beat": {
+                "type": "string",
+                "pattern": "^\\d+(\\.\\d+)?$",
+                "description": "Price of the underlying in dollars, as a decimal string."
+              },
+              "result": {
+                "type": "string",
+                "enum": [
+                  "up",
+                  "down"
+                ]
+              },
+              "settlement_price": {
+                "type": "string",
+                "pattern": "^\\d+(\\.\\d+)?$",
+                "description": "Price of the underlying in dollars, as a decimal string."
+              },
+              "settled_ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "up_bid": {
+                "type": "string",
+                "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+              },
+              "up_bid_size": {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$",
+                "description": "Contracts, as a string (v1: whole contracts)."
+              },
+              "up_ask": {
+                "type": "string",
+                "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+              },
+              "up_ask_size": {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$",
+                "description": "Contracts, as a string (v1: whole contracts)."
+              },
+              "last_price": {
+                "type": "string",
+                "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+              },
+              "price_ranges": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "string",
+                      "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                      "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                    },
+                    "end": {
+                      "type": "string",
+                      "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                      "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                    },
+                    "step": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end",
+                    "step"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "tick_size": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ticker",
+              "series_ticker",
+              "status",
+              "open_ts_ms",
+              "close_ts_ms",
+              "price_ranges",
+              "tick_size"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "market"
+        ],
+        "additionalProperties": false
+      },
+      "OrderbookResponse": {
+        "type": "object",
+        "properties": {
+          "orderbook": {
+            "type": "object",
+            "properties": {
+              "market_ticker": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+              },
+              "up": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                      "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^(0|[1-9]\\d*)$",
+                      "description": "Contracts, as a string (v1: whole contracts)."
+                    }
+                  ],
+                  "description": "[price, contracts resting at that price]"
+                }
+              },
+              "down": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                      "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^(0|[1-9]\\d*)$",
+                      "description": "Contracts, as a string (v1: whole contracts)."
+                    }
+                  ],
+                  "description": "[price, contracts resting at that price]"
+                }
+              },
+              "checksum": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              }
+            },
+            "required": [
+              "market_ticker",
+              "up",
+              "down",
+              "checksum",
+              "ts_ms"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "orderbook"
+        ],
+        "additionalProperties": false
+      },
+      "TradesResponse": {
+        "type": "object",
+        "properties": {
+          "trades": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "trade_id": {
+                  "type": "string"
+                },
+                "market_ticker": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                  "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                },
+                "taker_outcome": {
+                  "type": "string",
+                  "enum": [
+                    "up",
+                    "down"
+                  ]
+                },
+                "taker_action": {
+                  "type": "string",
+                  "enum": [
+                    "buy",
+                    "sell"
+                  ]
+                },
+                "price": {
+                  "type": "string",
+                  "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                  "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                },
+                "up_price": {
+                  "type": "string",
+                  "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                  "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                },
+                "down_price": {
+                  "type": "string",
+                  "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                  "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                },
+                "count": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9]\\d*)$",
+                  "description": "Contracts, as a string (v1: whole contracts)."
+                },
+                "ts_ms": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991,
+                  "description": "Epoch milliseconds (UTC)."
+                }
+              },
+              "required": [
+                "trade_id",
+                "market_ticker",
+                "taker_outcome",
+                "taker_action",
+                "price",
+                "up_price",
+                "down_price",
+                "count",
+                "ts_ms"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "cursor": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "trades"
+        ],
+        "additionalProperties": false
+      },
+      "AccountResponse": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "object",
+            "properties": {
+              "key_id": {
+                "type": "string"
+              },
+              "key_name": {
+                "type": "string"
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "live",
+                  "test"
+                ]
+              },
+              "scopes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "read",
+                    "trade"
+                  ]
+                }
+              },
+              "limits": {
+                "type": "object",
+                "properties": {
+                  "max_order_usd": {
+                    "type": "number"
+                  },
+                  "max_daily_usd": {
+                    "type": "number"
+                  },
+                  "max_open_orders": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "markets": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "server_time_ms": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "key_id",
+              "key_name",
+              "environment",
+              "scopes",
+              "limits",
+              "server_time_ms"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "account"
+        ],
+        "additionalProperties": false
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "BAD_REQUEST",
+              "NOT_FOUND",
+              "SERIES_NOT_FOUND",
+              "MARKET_NOT_FOUND",
+              "METHOD_NOT_ALLOWED",
+              "RATE_LIMITED",
+              "UNAUTHORIZED",
+              "INTERNAL_ERROR",
+              "EXCHANGE_UNAVAILABLE"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

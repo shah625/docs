@@ -1,0 +1,127 @@
+---
+title: "Websocket"
+description: "Live order books, tickers, trades, window events and underlying prices on one connection."
+---
+
+One websocket carries every live update. Public channels need no key.
+
+```
+wss://api.updown.fast/trade-api/ws/v1
+```
+
+## Quick example
+
+```js Node.js
+import WebSocket from "ws";
+
+const ws = new WebSocket("wss://api.updown.fast/trade-api/ws/v1");
+
+ws.on("open", () => {
+  ws.send(JSON.stringify({
+    id: 1,
+    cmd: "subscribe",
+    params: { channels: ["orderbook_delta", "ticker"], series_tickers: ["sol-15m"] },
+  }));
+});
+
+ws.on("message", (data) => console.log(JSON.parse(data)));
+```
+
+```
+← {"id":1,"type":"subscribed","msg":{"channel":"orderbook_delta","sid":1}}
+← {"id":1,"type":"subscribed","msg":{"channel":"ticker","sid":2}}
+← {"type":"orderbook_snapshot","sid":1,"seq":1,"ts_ms":1791304746141,
+   "msg":{"market_ticker":"sol-15m-261006-1630-1645","up":[["0.01","20"]],
+          "down":[["0.95","20"],["0.94","23"],["0.92","26"]],"checksum":2742566057}}
+← {"type":"ticker","sid":2,"seq":1,"ts_ms":1791304746141,
+   "msg":{"market_ticker":"sol-15m-261006-1630-1645","up_bid":"0.01","up_bid_size":"20","up_ask":"0.05","up_ask_size":"20"}}
+← {"type":"orderbook_delta","sid":1,"seq":2,"ts_ms":1791304747210,
+   "msg":{"market_ticker":"sol-15m-261006-1630-1645","outcome":"down","price":"0.94","delta":"-3","checksum":2599747692}}
+```
+
+## Commands
+
+Every command carries an `id` you choose; the reply echoes it.
+
+| Command | Params | Reply |
+|---|---|---|
+| `subscribe` | `channels`, plus `market_tickers` and/or `series_tickers` (or `symbols` for `prices`) | One `subscribed` per channel, each with its `sid`. |
+| `unsubscribe` | `sids` | One `unsubscribed` per sid. |
+| `update_subscription` | `sid`, `action`: `add_markets` · `delete_markets` · `get_snapshot`, plus tickers or symbols | `ok`. |
+| `list_subscriptions` | — | `ok` with `msg.subscriptions`. |
+
+**Subscribe to a series, not a window, to follow it automatically.** With `series_tickers: ["sol-15m"]`, each new window's `window_lifecycle` event and first `orderbook_snapshot` arrive on the same subscription — no resubscribing every 15 minutes. You can pass up to 100 tickers per command.
+
+## Channels
+
+| Channel | Keyed by | Sends |
+|---|---|---|
+| `orderbook_delta` | markets / series | An `orderbook_snapshot` per market, then one `orderbook_delta` per changed level. |
+| `ticker` | markets / series | Top of book on the Up scale and the last trade price, when they change. |
+| `trade` | markets / series | Every public trade (same shape as [`GET /markets/{ticker}/trades`](/api-reference/get-trades)). |
+| `window_lifecycle` | markets / series | A window's events: `open` with its `price_to_beat`, then `closed`, then `settled` with `result` and `settlement_price`. |
+| `prices` | `symbols` | Live price of an underlying: the current price at once, then every print. |
+
+Private channels (`fill`, `user_orders`, `market_positions`, `balance`) arrive with order entry; today they answer error `8` (`AUTH_REQUIRED`).
+
+### Prices
+
+```json
+→ { "id": 2, "cmd": "subscribe", "params": { "channels": ["prices"], "symbols": ["X:BTCUSD", "AAPL"] } }
+← { "type": "price", "sid": 3, "seq": 1, "ts_ms": 1791304719510,
+    "msg": { "symbol": "X:BTCUSD", "price": "85587.91", "t_ms": 1791304719509 } }
+```
+
+Symbols are a stock (`AAPL`) or crypto (`X:BTCUSD`), upper case, up to 64 per command. `t_ms` is when the price printed at its source; `ts_ms` is when the server sent it. These are the same prices windows open and settle on.
+
+## Sequence numbers and recovery
+
+Every data message has the envelope `{ type, sid, seq, ts_ms, msg }`. `seq` starts at 1 and goes up by exactly 1 per message **on that subscription**.
+
+- **If `seq` jumps, you missed messages.** Send `update_subscription` with `action: "get_snapshot"` (or resubscribe) and drop your local books until fresh snapshots arrive.
+- **Snapshots carry the whole book; deltas carry one level.** A delta means: the contracts at `price` on `outcome`'s bid side change by `delta`. A level that reaches 0 is removed.
+
+## Checksums
+
+Every `orderbook_snapshot` and `orderbook_delta` carries the **checksum of the book after it is applied**. Compute it on your side after each message; if it doesn't match, your copy is wrong — request a snapshot.
+
+1. Take each side's levels best first (highest price first) and keep the top **10**.
+2. Write each level as `price:count`, exactly as sent on the wire: `0.55:10`.
+3. Join a side's levels with `,`, prefix them with `up:` and `down:`, and join the two sides with `|`:
+   `up:0.55:10,0.54:3|down:0.44:7` (an empty side is just `up:` or `down:`).
+4. The checksum is the **CRC-32** (the zlib / PNG one) of that string's UTF-8 bytes, as an unsigned 32-bit integer.
+
+<CodeGroup>
+
+```python Python
+import zlib
+
+def checksum(up, down):
+    side = lambda levels: ",".join(f"{p}:{n}" for p, n in levels[:10])
+    return zlib.crc32(f"up:{side(up)}|down:{side(down)}".encode())
+
+# up / down are lists of [price, count] strings, best first
+assert checksum([["0.01", "20"]], [["0.95", "20"], ["0.94", "23"], ["0.92", "26"]]) == 2742566057
+```
+
+```js Node.js
+import { crc32 } from "node:zlib"; // Node 22+
+
+const side = (levels) => levels.slice(0, 10).map(([p, n]) => `${p}:${n}`).join(",");
+const checksum = (up, down) => crc32(`up:${side(up)}|down:${side(down)}`);
+```
+
+</CodeGroup>
+
+The REST [orderbook](/api-reference/get-orderbook) returns the same checksum for the same book, so you can seed a book from REST and continue on the websocket.
+
+## Limits
+
+| Limit | Value |
+|---|---|
+| Connections per IP address | 20 |
+| Subscriptions per connection | 100 |
+| Commands per connection | 10 per second, bursts of 20 |
+| Largest message you can send | 64 KB |
+
+The server pings every 10 seconds; standard websocket clients answer automatically. A connection that stops answering is closed. Flooding commands closes the connection with code `1008`, and a message over 64 KB with `1009`. See [Errors](/api/errors) for the numbered error replies.

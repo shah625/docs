@@ -1,0 +1,75 @@
+---
+title: "Markets and windows"
+description: "How series, windows, prices and settlement work in the API."
+---
+
+## Series and markets
+
+A **series** is a recurring market on one underlying at one cadence. `sol-15m` opens a new window on SOL every 15 minutes; `aapl-60m` one on AAPL every hour.
+
+A **market** is one **window** of a series — a single binary contract that settles **Up** or **Down**. Its ticker names the series and the window, for example `sol-15m-261006-1630-1645`. Treat tickers as opaque strings and read the times from the market itself.
+
+| Endpoint | Returns |
+|---|---|
+| [`GET /series`](/api-reference/list-series) | Every series, with its rule in words (`contract_terms`), price grid, fees and settlement source. |
+| [`GET /markets`](/api-reference/list-markets) | The windows on the book, newest first. Filter with `series_ticker` and `status`. |
+| [`GET /markets/{ticker}`](/api-reference/get-market) | One window. |
+
+A window stays listed from when it is scheduled until about an hour after it settles. To follow a series from window to window without polling, subscribe to it by `series_tickers` on the [websocket](/api/websocket).
+
+## The contract
+
+Each window has a **price to beat**: the underlying's price at the window's open (`price_to_beat`).
+
+- **Up** pays **$1** per contract if the underlying's settlement price at the close is **at least** the price to beat. Both prices are rounded to 4 decimals, and a tie goes Up.
+- **Down** pays **$1** per contract otherwise.
+
+Exactly one side pays, so an Up contract at 30¢ and a Down contract at 70¢ are the same position seen from opposite sides. The exact rule for each series, including where its prices come from, is in its `contract_terms` and `settlement_source`.
+
+## Status
+
+```
+scheduled ──▶ open ──▶ closed ──▶ settled
+                │  ▲
+                ▼  │
+               paused
+```
+
+| Status | Meaning |
+|---|---|
+| `scheduled` | Created, waiting for its opening price. `price_to_beat` may be absent. |
+| `open` | Trading. |
+| `paused` | Trading halted. Cancels are still accepted. |
+| `closed` | Past the close; no orders. Waiting for the settlement price. |
+| `settled` | Done: `result` (`up` or `down`), `settlement_price` and `settled_ts_ms` are set. |
+
+## Prices and the book
+
+Prices are dollars on a 1¢ grid, `"0.01"` to `"0.99"` (`price_ranges`, `tick_size`). Because Up and Down always add up to $1, the book is published as **bids only**, one list per outcome:
+
+- `up` — bids to buy Up.
+- `down` — bids to buy Down. An offer to sell Up at 30¢ is the same liquidity as a bid for Down at 70¢, so it appears here.
+
+So the best Up **ask** is `1 − best down bid`. A market's `up_bid` / `up_ask` fields give you the top of book on the Up scale directly.
+
+```json
+{
+  "orderbook": {
+    "market_ticker": "sol-15m-261006-1630-1645",
+    "up":   [["0.01", "20"]],
+    "down": [["0.95", "20"], ["0.94", "23"], ["0.92", "26"]],
+    "checksum": 2742566057,
+    "ts_ms": 1791304746141
+  }
+}
+```
+
+Here the best Up bid is 1¢ and the best Up ask is 1 − 0.95 = 5¢. Each level is `[price, contracts]`, best price first.
+
+## Trades
+
+[`GET /markets/{ticker}/trades`](/api-reference/get-trades) lists a market's trades newest first. Each trade is described from the **taker's** side (`taker_outcome`, `taker_action`, `price`) and on both scales (`up_price` + `down_price` = 1). Accounts are never published. Page back with `cursor`.
+
+## Fees
+
+Each series publishes the fee it charges per contract right now in `fee_schedule`, as a formula in `p` (the price), for example a taker fee of `min(0.07 * p * (1 - p), 0.0175)` and a maker fee of `0`. Read it from the API rather than hard-coding it: it can change.

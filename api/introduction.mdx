@@ -1,0 +1,92 @@
+---
+title: "Trade API"
+sidebarTitle: "Introduction"
+description: "Read updown's interval markets from your own code: REST for snapshots, one websocket for live updates."
+---
+
+The Trade API lets a program — a trading bot, a market-making system, an AI agent, a dashboard — read updown's interval markets directly. It is built for speed and for machines: every response follows a published schema, every price is an exact string, and the live feed tells you when you have missed a message.
+
+<Note>
+Today the API is **read-only**: market data is public, and an API key lets you check your key with [`GET /account`](/api-reference/get-account). Placing and cancelling orders through the API is coming soon.
+</Note>
+
+## Base URLs
+
+| | URL |
+|---|---|
+| REST | `https://api.updown.fast/trade-api/v1` |
+| Websocket | `wss://api.updown.fast/trade-api/ws/v1` |
+
+## Your first request
+
+Market data needs no key. List the markets open right now:
+
+```bash
+curl "https://api.updown.fast/trade-api/v1/markets?status=open"
+```
+
+```json
+{
+  "markets": [
+    {
+      "ticker": "sol-15m-261006-1630-1645",
+      "series_ticker": "sol-15m",
+      "status": "open",
+      "open_ts_ms": 1791304200000,
+      "close_ts_ms": 1791305100000,
+      "price_to_beat": "120.7",
+      "up_bid": "0.02",
+      "up_bid_size": "20",
+      "up_ask": "0.07",
+      "up_ask_size": "20",
+      "price_ranges": [{ "start": "0.01", "end": "0.99", "step": "0.01" }],
+      "tick_size": "0.01"
+    }
+  ]
+}
+```
+
+Then read that market's book:
+
+```bash
+curl "https://api.updown.fast/trade-api/v1/markets/sol-15m-261006-1630-1645/orderbook"
+```
+
+For live updates, open the [websocket](/api/websocket) instead of polling.
+
+## Conventions
+
+These hold everywhere in the API, REST and websocket alike.
+
+- **Prices are dollar strings** on a 1¢ grid: `"0.01"` to `"0.99"`, always two decimals. A contract pays $1, so a price is also the implied chance.
+- **Counts are contract strings**: `"20"`, never a number. Whole contracts only.
+- **Underlying prices** (the price to beat, the settlement price) are decimal strings: `"120.7"`.
+- **Times are epoch milliseconds**, UTC, as numbers: `1791304200000`.
+- **Tickers are opaque.** A market ticker such as `sol-15m-261006-1630-1645` happens to contain its window's times, but never parse it — read `open_ts_ms` and `close_ts_ms`.
+- **Responses wrap the resource in a named key** (`{ "market": … }`, `{ "trades": [ … ], "cursor": … }`), so fields can be added later without breaking your parser. Ignore fields you don't recognise.
+- **Errors** are `{ "code": "MARKET_NOT_FOUND", "message": "…" }` with a stable `code` to switch on. See [Errors](/api/errors).
+
+## Machine-readable specs
+
+Every endpoint and message is generated from the same schemas the server checks its own responses against, so the specs cannot drift from what the server sends.
+
+- OpenAPI 3.1 (REST): [`openapi.json`](https://github.com/shah625/docs/blob/main/api-reference/openapi.json)
+- AsyncAPI 3.0 (websocket): [`asyncapi.json`](https://github.com/shah625/docs/blob/main/api-reference/asyncapi.json)
+- For AI agents: [`llms.txt`](https://docs.updown.fast/llms.txt), and every page is available as Markdown by adding `.md` to its URL.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Markets and windows" icon="clock" href="/api/markets">
+    Series, windows, statuses, the price to beat and settlement.
+  </Card>
+  <Card title="Websocket" icon="bolt" href="/api/websocket">
+    Live books, tickers, trades and prices on one connection.
+  </Card>
+  <Card title="Authentication" icon="key" href="/api/authentication">
+    API keys: test and live, permissions, limits.
+  </Card>
+  <Card title="Endpoints" icon="code" href="/api-reference/list-markets">
+    Every REST endpoint, with a live "Try it" box.
+  </Card>
+</CardGroup>
