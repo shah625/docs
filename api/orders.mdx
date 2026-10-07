@@ -93,7 +93,7 @@ curl -X DELETE "https://api.updown.fast/trade-api/v1/portfolio/orders?series_tic
   -H "Authorization: Bearer $UPDOWN_API_KEY"
 ```
 
-Cancels are **never rate limited**, so you can always pull your orders. Cancel-all covers orders you placed through the API.
+Cancels are **never rate limited**, so you can always pull your orders. Cancel-all covers orders you placed through the API. To have them pulled automatically if your program loses its connection, turn on [cancel on disconnect](/api/websocket#cancel-on-disconnect).
 
 ## Your orders, positions, fills and balance
 
@@ -104,6 +104,8 @@ Cancels are **never rate limited**, so you can always pull your orders. Cancel-a
 | [`GET /portfolio/positions`](/api-reference/get-positions) | Contracts you hold in windows that haven't settled, with their cost. |
 | [`GET /portfolio/fills`](/api-reference/get-fills) | Your trades on the book, as taker or maker, newest first. |
 | [`GET /portfolio/balance`](/api-reference/get-balance) | `buying_power`: what you can spend on new orders now. |
+
+To have orders, fills and positions **pushed** to you instead, use the websocket's [private channels](/api/websocket#your-account-private-channels).
 
 Winning contracts settle automatically after the window closes; the payout lands in your account's cash.
 

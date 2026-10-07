@@ -1,6 +1,6 @@
 ---
 title: "Websocket"
-description: "Live order books, tickers, trades, window events and underlying prices on one connection."
+description: "Live order books, tickers, trades, prices — and, with an API key, your own orders, fills and positions — on one connection."
 ---
 
 One websocket carries every live update. Public channels need no key.
@@ -45,6 +45,7 @@ Every command carries an `id` you choose; the reply echoes it.
 
 | Command | Params | Reply |
 |---|---|---|
+| `cancel_on_disconnect` | `enabled` (keyed connections only) | `ok`. See [Cancel on disconnect](#cancel-on-disconnect). |
 | `subscribe` | `channels`, plus `market_tickers` and/or `series_tickers` (or `symbols` for `prices`) | One `subscribed` per channel, each with its `sid`. |
 | `unsubscribe` | `sids` | One `unsubscribed` per sid. |
 | `update_subscription` | `sid`, `action`: `add_markets` · `delete_markets` · `get_snapshot`, plus tickers or symbols | `ok`. |
@@ -62,7 +63,7 @@ Every command carries an `id` you choose; the reply echoes it.
 | `window_lifecycle` | markets / series | A window's events: `open` with its `price_to_beat`, then `closed`, then `settled` with `result` and `settlement_price`. |
 | `prices` | `symbols` | Live price of an underlying: the current price at once, then every print. |
 
-Private channels (`fill`, `user_orders`, `market_positions`, `balance`) are coming soon; today they answer error `8` (`AUTH_REQUIRED`). Until then, read your orders and fills over [REST](/api/orders).
+With an API key you also get three **private channels** for your own account — see [Your account](#your-account-private-channels) below.
 
 ### Prices
 
@@ -73,6 +74,49 @@ Private channels (`fill`, `user_orders`, `market_positions`, `balance`) are comi
 ```
 
 Symbols are a stock (`AAPL`) or crypto (`X:BTCUSD`), upper case, up to 64 per command. `t_ms` is when the price printed at its source; `ts_ms` is when the server sent it. These are the same prices windows open and settle on.
+
+## Your account (private channels)
+
+Connect with your API key in the handshake and three more channels open — your **own** orders, fills and positions, pushed the moment they change. No polling.
+
+```js Node.js
+const ws = new WebSocket("wss://api.updown.fast/trade-api/ws/v1", {
+  headers: { Authorization: `Bearer ${process.env.UPDOWN_API_KEY}` },
+});
+
+ws.on("open", () => {
+  ws.send(JSON.stringify({ id: 1, cmd: "subscribe", params: { channels: ["user_orders", "fill", "market_positions"] } }));
+});
+```
+
+A bad key is refused before the connection opens (HTTP `401` with the reason, the same messages as [REST](/api/authentication#when-a-key-is-refused)). Without a key the connection works as before, with the public channels only.
+
+| Channel | Sends |
+|---|---|
+| `user_orders` | Your order, every time it changes: placed, part-filled, filled, cancelled, closed with its window. On subscribe: every order you have resting. |
+| `fill` | Each of your fills, as taker **or** maker, with `is_taker`, the fee and `post_position` — your contracts of that outcome after the fill. |
+| `market_positions` | Your position in a market's outcome, every time it changes (`count` `"0"` = closed out). On subscribe: every open position. |
+
+They cover your whole account; add `market_tickers` to narrow them. `user_orders` carries the same order object as [REST](/api/orders), with `client_order_id` on orders you placed through the API.
+
+```json
+{ "type": "fill", "sid": 2, "seq": 1, "ts_ms": 1791316274012,
+  "msg": { "fill_id": "f912", "order_id": "o5870619", "client_order_id": "mm-000123",
+           "market_ticker": "sol-15m-261006-1945-2000", "outcome": "up", "action": "buy",
+           "price": "0.45", "count": "3", "fee": "0", "is_taker": false,
+           "post_position": "3", "fill_ts_ms": 1791316274005 } }
+```
+
+### Cancel on disconnect
+
+Turn it on for a connection and, if that connection drops **for any reason** — your program crashes, your network fails, a heartbeat is missed, or we restart the server — every order your account has resting through the API is cancelled. Your quotes never sit on the book while you can't see it.
+
+```json
+→ { "id": 2, "cmd": "cancel_on_disconnect", "params": { "enabled": true } }
+← { "id": 2, "type": "ok" }
+```
+
+Send `"enabled": false` to turn it off. It applies to the account, so with two connections that both enable it, either one dropping cancels everything. After reconnecting, read [`GET /portfolio/orders`](/api-reference/list-orders) (or subscribe to `user_orders`) before quoting again.
 
 ## Sequence numbers and recovery
 

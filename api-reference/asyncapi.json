@@ -3,7 +3,7 @@
   "info": {
     "title": "updown Trade API websocket",
     "version": "1.0.0",
-    "description": "ONE websocket. Public channels (orderbook_delta, ticker, trade, window_lifecycle, prices) need no key. Every data message carries a per-subscription seq; a gap means re-request a snapshot. Generated from packages/protocol — do not edit by hand."
+    "description": "ONE websocket. Public channels (orderbook_delta, ticker, trade, window_lifecycle, prices) need no key; the private channels (user_orders, fill, market_positions) and cancel_on_disconnect need an API key sent in the handshake (Authorization: Bearer udk_…). Every data message carries a per-subscription seq; a gap means re-request a snapshot. Generated from packages/protocol — do not edit by hand."
   },
   "servers": {
     "production": {
@@ -45,8 +45,8 @@
                         "trade",
                         "window_lifecycle",
                         "prices",
-                        "fill",
                         "user_orders",
+                        "fill",
                         "market_positions",
                         "balance",
                         "order_group_updates"
@@ -234,6 +234,42 @@
             "additionalProperties": false
           }
         },
+        "cancel_on_disconnect": {
+          "name": "cancel_on_disconnect",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Client-chosen id, echoed on the reply."
+              },
+              "cmd": {
+                "type": "string",
+                "const": "cancel_on_disconnect"
+              },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "enabled"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "cmd",
+              "params"
+            ],
+            "additionalProperties": false
+          }
+        },
         "subscribed": {
           "name": "subscribed",
           "payload": {
@@ -260,8 +296,8 @@
                       "trade",
                       "window_lifecycle",
                       "prices",
-                      "fill",
                       "user_orders",
+                      "fill",
                       "market_positions",
                       "balance",
                       "order_group_updates"
@@ -358,8 +394,8 @@
                             "trade",
                             "window_lifecycle",
                             "prices",
-                            "fill",
                             "user_orders",
+                            "fill",
                             "market_positions",
                             "balance",
                             "order_group_updates"
@@ -960,6 +996,323 @@
             ],
             "additionalProperties": false
           }
+        },
+        "user_order": {
+          "name": "user_order",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "user_order"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "client_order_id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9._:-]{1,64}$",
+                    "description": "Your id for the order, unique per account. Retrying with the same id never places a second order."
+                  },
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "outcome": {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "buy",
+                      "sell"
+                    ]
+                  },
+                  "price": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "time_in_force": {
+                    "type": "string",
+                    "enum": [
+                      "good_till_canceled",
+                      "immediate_or_cancel"
+                    ],
+                    "description": "good_till_canceled: what doesn't fill rests on the book until it fills, you cancel it or the window closes. immediate_or_cancel: fills what it can now; the rest is cancelled."
+                  },
+                  "post_only": {
+                    "type": "boolean"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "resting",
+                      "executed",
+                      "canceled"
+                    ]
+                  },
+                  "count": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "fill_count": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "remaining_count": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "average_fill_price": {
+                    "type": "string"
+                  },
+                  "fees_paid": {
+                    "type": "string"
+                  },
+                  "created_ts_ms": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991,
+                    "description": "Epoch milliseconds (UTC)."
+                  }
+                },
+                "required": [
+                  "order_id",
+                  "market_ticker",
+                  "outcome",
+                  "action",
+                  "price",
+                  "time_in_force",
+                  "post_only",
+                  "status",
+                  "count",
+                  "fill_count",
+                  "remaining_count"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "fill": {
+          "name": "fill",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "fill"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "fill_id": {
+                    "type": "string"
+                  },
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "client_order_id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9._:-]{1,64}$",
+                    "description": "Your id for the order, unique per account. Retrying with the same id never places a second order."
+                  },
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "outcome": {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "buy",
+                      "sell"
+                    ]
+                  },
+                  "price": {
+                    "type": "string",
+                    "pattern": "^0\\.(0[1-9]|[1-9]\\d)$",
+                    "description": "Contract price in dollars, \"0.01\"–\"0.99\" (v1: whole cents)."
+                  },
+                  "count": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "fee": {
+                    "type": "string"
+                  },
+                  "is_taker": {
+                    "type": "boolean"
+                  },
+                  "post_position": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "fill_ts_ms": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991,
+                    "description": "Epoch milliseconds (UTC)."
+                  }
+                },
+                "required": [
+                  "fill_id",
+                  "order_id",
+                  "market_ticker",
+                  "outcome",
+                  "action",
+                  "price",
+                  "count",
+                  "fee",
+                  "is_taker",
+                  "post_position",
+                  "fill_ts_ms"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "market_position": {
+          "name": "market_position",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "market_position"
+              },
+              "sid": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "seq": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "ts_ms": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Epoch milliseconds (UTC)."
+              },
+              "msg": {
+                "type": "object",
+                "properties": {
+                  "market_ticker": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]{0,63}-\\d{6}-\\d{4}-\\d{4}(d\\d{1,2})?$",
+                    "description": "Market ticker (one window of a series), e.g. \"btc-15m-261002-1400-1415\". Opaque."
+                  },
+                  "outcome": {
+                    "type": "string",
+                    "enum": [
+                      "up",
+                      "down"
+                    ]
+                  },
+                  "count": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "description": "Contracts, as a string (v1: whole contracts)."
+                  },
+                  "cost": {
+                    "type": "string"
+                  },
+                  "average_price": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "market_ticker",
+                  "outcome",
+                  "count",
+                  "cost",
+                  "average_price"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "type",
+              "sid",
+              "seq",
+              "ts_ms",
+              "msg"
+            ],
+            "additionalProperties": false
+          }
         }
       }
     }
@@ -982,6 +1335,9 @@
         },
         {
           "$ref": "#/channels/trade-api-ws/messages/list_subscriptions"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/cancel_on_disconnect"
         }
       ]
     },
@@ -1020,6 +1376,15 @@
         },
         {
           "$ref": "#/channels/trade-api-ws/messages/price"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/user_order"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/fill"
+        },
+        {
+          "$ref": "#/channels/trade-api-ws/messages/market_position"
         }
       ]
     }
