@@ -59,7 +59,7 @@ For live updates, open the [websocket](/api/websocket) instead of polling — wi
 These hold everywhere in the API, REST and websocket alike.
 
 - **Prices are dollar strings** on a 1¢ grid: `"0.01"` to `"0.99"`, always two decimals. A contract pays $1, so a price is also the implied chance.
-- **Counts are contract strings**: `"20"`, never a number. Whole contracts only.
+- **Counts are contract strings** with up to two decimals: `"20"`, `"2.50"`, never a number. The smallest size is `"0.01"`; responses always show two decimals (`"20.00"`).
 - **Underlying prices** (the price to beat, the settlement price) are decimal strings: `"120.7"`.
 - **Times are epoch milliseconds**, UTC, as numbers: `1791304200000`.
 - **Tickers are opaque.** A market ticker such as `sol-15m-261006-1630-1645` happens to contain its window's times, but never parse it — read `open_ts_ms` and `close_ts_ms`.

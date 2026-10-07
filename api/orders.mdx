@@ -53,7 +53,7 @@ curl -X POST https://api.updown.fast/trade-api/v1/portfolio/orders \
 | `outcome` | `up` or `down`. |
 | `action` | `buy` opens or adds to a position; `sell` sells contracts you hold. |
 | `price` | Your limit, on the **outcome's own** scale: a Down buy at `"0.30"` pays at most 30¢ a contract. `"0.01"`–`"0.99"`. |
-| `count` | Contracts, `"1"`–`"10000"`. |
+| `count` | Contracts, up to two decimals: `"0.01"`–`"10000"`. |
 | `time_in_force` | `good_till_canceled` (default): what doesn't fill rests on the book until it fills, you cancel it, or the window closes. `immediate_or_cancel`: fills what it can now, the rest is cancelled. |
 | `post_only` | `true` refuses the order if any of it would trade at once, so it can only add to the book. Good-till-canceled only. |
 | `client_order_id` | **Required.** Your id for the order — see below. |
