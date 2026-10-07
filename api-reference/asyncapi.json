@@ -533,8 +533,8 @@
                         },
                         {
                           "type": "string",
-                          "pattern": "^(0|[1-9]\\d*)$",
-                          "description": "Contracts, as a string (v1: whole contracts)."
+                          "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                          "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                         }
                       ],
                       "description": "[price, contracts resting at that price]"
@@ -552,8 +552,8 @@
                         },
                         {
                           "type": "string",
-                          "pattern": "^(0|[1-9]\\d*)$",
-                          "description": "Contracts, as a string (v1: whole contracts)."
+                          "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                          "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                         }
                       ],
                       "description": "[price, contracts resting at that price]"
@@ -631,7 +631,7 @@
                   },
                   "delta": {
                     "type": "string",
-                    "pattern": "^-?[1-9]\\d*$",
+                    "pattern": "^-?(0|[1-9]\\d*)(\\.\\d{1,2})?$",
                     "description": "Signed change in contracts at a level, as a string."
                   },
                   "checksum": {
@@ -700,8 +700,8 @@
                   },
                   "up_bid_size": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "up_ask": {
                     "type": "string",
@@ -710,8 +710,8 @@
                   },
                   "up_ask_size": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "last_price": {
                     "type": "string",
@@ -802,8 +802,8 @@
                   },
                   "count": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "ts_ms": {
                     "type": "integer",
@@ -1078,18 +1078,18 @@
                   },
                   "count": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "fill_count": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "remaining_count": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "average_fill_price": {
                     "type": "string"
@@ -1195,8 +1195,8 @@
                   },
                   "count": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "fee": {
                     "type": "string"
@@ -1206,8 +1206,8 @@
                   },
                   "post_position": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "fill_ts_ms": {
                     "type": "integer",
@@ -1284,8 +1284,8 @@
                   },
                   "count": {
                     "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "description": "Contracts, as a string (v1: whole contracts)."
+                    "pattern": "^(0|[1-9]\\d*)(\\.\\d{1,2})?$",
+                    "description": "Contracts, as a string — up to two decimals (centi-contracts)."
                   },
                   "cost": {
                     "type": "string"
