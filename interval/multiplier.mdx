@@ -61,7 +61,7 @@ What a multiplier order pays depends only on where the price closes:
 | **At or past the cap** | The maximum, shown as **Win up to** |
 
 - An Up order loses on a close under the price to beat. A Down order loses on a close at or above it, because an unchanged close settles Up. See the [tie rule](/interval/how-windows-work#up-and-down).
-- On an unchanged close, an Up order pays about what it pays just past the price to beat (nothing at 10×). A Down order loses its stake.
+- On an unchanged close, an Up order pays about what it pays just past the price to beat (a small part of the stake at 10×). A Down order loses its stake.
 - The **break-even** is the close at which the order pays back exactly its stake. Every close past it is a profit.
 - The cap is set when you buy, so the most an order can pay is known up front.
 
@@ -87,7 +87,7 @@ The split moves in three stages:
 
 - **1× to 3×:** your stake moves from the regular contract into the target option. A right call always pays something.
 - **3.5× to 7×:** the regular contract holds at 15% while your stake moves from the target option into the higher-strike option. A right call still always pays something.
-- **7× to 10×:** the regular contract is released. At 10×, your whole stake is in the higher-strike option, so a right call that ends short of the higher strike pays $0.
+- **7× to 10×:** the regular contract is released. At 10×, 90% of your stake is in the higher-strike option, with 5% left in the regular contract and 5% in the target option, so a right call that ends short of the higher strike still pays a little back (about a fifth of the stake on a close one typical move past the price to beat), never $0.
 
 <Accordion title="Exact split at each setting">
   | Setting | Regular contract | Target option | Higher-strike option |
@@ -102,7 +102,7 @@ The split moves in three stages:
   | 7× | 15% | 30% | 55% |
   | 8× | 10% | 20% | 70% |
   | 9× | 5% | 10% | 85% |
-  | 10× | — | — | 100% |
+  | 10× | 5% | 5% | 90% |
 
   Settings between the rows blend in a straight line from one row to the next.
 </Accordion>
