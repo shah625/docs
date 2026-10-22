@@ -8,7 +8,7 @@ import { StakeSplitChart } from "/snippets/stake-split-chart.jsx";
 The **Multiplier** is a slider on the interval ticket, from **1×** to **10×**. A regular interval contract pays the same $1 whether the price closes one cent or five dollars past the price to beat. A **multiplier order** pays **more the further the price closes in your direction**, up to a cap. In exchange it pays **less, or nothing, when the move is small**. The most you can lose is your stake.
 
 <Warning>
-You can pick the right direction and still lose money. If the price closes only a little past the price to beat, a multiplier order can pay back less than you put in. At 10×, a close just past it pays nothing. Check the break-even, the purple **To beat**, before you buy.
+You can pick the right direction and still lose money. If the price closes only a little past the price to beat, a multiplier order can pay back less than you put in. At 10×, a close just past it returns only a small part of your stake. Check the break-even, the purple **To beat**, before you buy.
 </Warning>
 
 ## Where it's offered
@@ -56,7 +56,7 @@ What a multiplier order pays depends only on where the price closes:
 | Where the price closes | What the order pays |
 |------------------------|---------------------|
 | **The wrong side** of the price to beat | $0. You lose your stake. |
-| **Just past** the price to beat | A small payout. The higher the setting, the less it pays here. At 10× it pays nothing. At 1× it pays like a regular contract. |
+| **Just past** the price to beat | A small payout. The higher the setting, the less it pays here: at 10× only a small part of the stake. At 1× it pays like a regular contract. |
 | **Further your way** | The payout climbs with the distance. |
 | **At or past the cap** | The maximum, shown as **Win up to** |
 
