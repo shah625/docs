@@ -8,7 +8,7 @@ import { StakeSplitChart } from "/snippets/stake-split-chart.jsx";
 The **Multiplier** is a slider on the interval ticket, from **1×** to **10×**. A regular interval contract pays the same $1 whether the price closes one cent or five dollars past the price to beat. A **multiplier order** pays **more the further the price closes in your direction**, up to a cap. In exchange it pays **less, or nothing, when the move is small**. The most you can lose is your stake.
 
 <Warning>
-You can pick the right direction and still lose money. If the price closes only a little past the price to beat, a multiplier order can pay back less than you put in. At 10×, a close just past it pays nothing. Check the break-even, the purple **To beat**, before you buy.
+You can pick the right direction and still lose money. If the price closes only a little past the price to beat, a multiplier order can pay back less than you put in. At 10×, a close just past it returns only a small part of your stake. Check the break-even, the purple **To beat**, before you buy.
 </Warning>
 
 ## Where it's offered
@@ -56,12 +56,12 @@ What a multiplier order pays depends only on where the price closes:
 | Where the price closes | What the order pays |
 |------------------------|---------------------|
 | **The wrong side** of the price to beat | $0. You lose your stake. |
-| **Just past** the price to beat | A small payout. The higher the setting, the less it pays here. At 10× it pays nothing. At 1× it pays like a regular contract. |
+| **Just past** the price to beat | A small payout. The higher the setting, the less it pays here: at 10× only a small part of the stake. At 1× it pays like a regular contract. |
 | **Further your way** | The payout climbs with the distance. |
 | **At or past the cap** | The maximum, shown as **Win up to** |
 
 - An Up order loses on a close under the price to beat. A Down order loses on a close at or above it, because an unchanged close settles Up. See the [tie rule](/interval/how-windows-work#up-and-down).
-- On an unchanged close, an Up order pays about what it pays just past the price to beat (nothing at 10×). A Down order loses its stake.
+- On an unchanged close, an Up order pays about what it pays just past the price to beat (a small part of the stake at 10×). A Down order loses its stake.
 - The **break-even** is the close at which the order pays back exactly its stake. Every close past it is a profit.
 - The cap is set when you buy, so the most an order can pay is known up front.
 
@@ -87,7 +87,7 @@ The split moves in three stages:
 
 - **1× to 3×:** your stake moves from the regular contract into the target option. A right call always pays something.
 - **3.5× to 7×:** the regular contract holds at 15% while your stake moves from the target option into the higher-strike option. A right call still always pays something.
-- **7× to 10×:** the regular contract is released. At 10×, your whole stake is in the higher-strike option, so a right call that ends short of the higher strike pays $0.
+- **7× to 10×:** the regular contract is released. At 10×, 90% of your stake is in the higher-strike option, with 5% left in the regular contract and 5% in the target option, so a right call that ends short of the higher strike still pays a little back (about a fifth of the stake on a close one typical move past the price to beat), never $0.
 
 <Accordion title="Exact split at each setting">
   | Setting | Regular contract | Target option | Higher-strike option |
@@ -102,7 +102,7 @@ The split moves in three stages:
   | 7× | 15% | 30% | 55% |
   | 8× | 10% | 20% | 70% |
   | 9× | 5% | 10% | 85% |
-  | 10× | — | — | 100% |
+  | 10× | 5% | 5% | 90% |
 
   Settings between the rows blend in a straight line from one row to the next.
 </Accordion>
@@ -134,6 +134,8 @@ If the price has already moved your way when you buy, the higher strike and the 
   </Step>
   <Step title="Drag the Multiplier slider">
     The setting shows beside the slider, from "1.0×" to "10.0×". At **5×**, the order makes **5 times your stake** in profit if the price closes far enough your way: $5 at 5× makes **+$25**. The card shows the price it takes. Smaller moves pay less; bigger moves pay more, up to the cap. If a window can't offer more than 1×, the slider is disabled.
+
+    The slider is not a straight line. A quarter of the way along is **2×**, halfway is **3×**, three quarters is **5×**, and only the last quarter runs from 5× up to 10×. The settings most orders win at sit in the first half of the bar, where the break-even stays close to the live price. Under the setting, the slider shows the order's **chance of profit** as you move it, for example **35% win**.
   </Step>
   <Step title="Read the card">
     The card under the slider shows the real numbers for your order (see below). The market's **To beat** turns purple and shows your break-even, and a dashed purple line marks it on the chart ("Break-even $X").

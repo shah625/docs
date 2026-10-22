@@ -11,7 +11,7 @@ export const StakeSplitChart = () => {
     [7, 0.15, 0.3, 0.55],
     [8, 0.1, 0.2, 0.7],
     [9, 0.05, 0.1, 0.85],
-    [10, 0, 0, 1],
+    [10, 0.05, 0.05, 0.9],
   ];
   const PARTS = [
     { cls: "ssc-regular", label: "Regular contract", ink: "#ffffff" },
