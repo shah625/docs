@@ -1,0 +1,102 @@
+---
+title: "Trade credit"
+description: "What trade credit is, how you get it, what it's spent on, and what happens to it when you win, lose, or sell."
+---
+
+**Trade credit** is a promotional balance beside your cash, shown in blue. It's spent **before** your cash on immediate interval buys. The profit it makes is yours. The credit itself can't be withdrawn.
+
+As the app puts it: "Credit is used on trades first — the profit is yours to withdraw."
+
+## The rules
+
+- Trade credit can only be used to trade on updown.
+- It can't be withdrawn or transferred, and it has no cash value.
+- Profit you earn on a trade funded with trade credit is yours.
+- It counts in neither **Cash** nor **Portfolio**. The top bar shows it separately as **Credit**.
+- Unused credit is forfeited if your account is suspended or closed.
+- Credit obtained against the rules can be reversed, and promotions can be changed or ended.
+
+The [Terms](https://www.updown.fast/terms) set out the full promotion rules. See also [Legal and eligibility](/help/legal-and-eligibility).
+
+## How you get it
+
+Credit arrives on its own. Promotions need no claim.
+
+When a promotion is running, the app shows the offer and its amount. Each account can get at most one of the three promotions (sign-up bonus, first-deposit match, covered trade), ever.
+
+| Way | How it works | Notification |
+|-----|-------------|-------------|
+| **Sign-up bonus** | A new account gets credit when it's created. Once per account. | "Thanks for joining. It's used before your cash, and you keep the profit." |
+| **First-deposit match** | Your **first** deposit is matched dollar for dollar in credit, up to the cap in the offer. An offer can set a minimum deposit, and a smaller deposit doesn't count as your first. Any deposit that reaches your balance counts: USDG on Robinhood Chain, a stablecoin moved over from another network, or our payment partner. Only deposits made while the promotion runs count. | "We matched your first deposit. It's used before your cash, and you keep the profit." |
+| **Covered trade** | For accounts created while the promotion runs. Your first trade to finish decides: a window held to the close, or one you sold out of. If its cash result is a loss, you get credit equal to the cash you lost, up to the cap in the offer. A win gets nothing, and a break-even doesn't use the cover up. The cover still applies if the promotion ends later. | "Your first trade lost, so we covered it. It's used before your cash, and you keep the profit." |
+| **Creator rewards** | Every 500 points you claim become $5.00 of trade credit. You claim them from the Rewards popup or the Creator reward card on Portfolio. See [Creator rewards](/platform/creator-rewards). | "You turned 500 pts into trade credit. It's used before your cash, and you keep the profit." |
+| **From the updown team** | Occasional credits from the team. | "A credit from the updown team. It's used before your cash, and you keep the profit." |
+
+Each notification is titled "$X trade credit added".
+
+### Where offers show
+
+- **Signed out:** a strip above the top bar on every page, for example "Your first trade is covered on us…", with a **Sign up** button. Its **×** hides it for that offer.
+- **Signed in, on a phone:** a one-line banner above the trades on the **Home** tab. Its **×** hides it for that offer.
+- A first-deposit offer has a **Deposit now** button that opens the deposit menu. See [Deposit and withdraw](/portfolio/deposit-withdraw).
+
+## What it's spent on
+
+Credit is used first, then cash, on:
+
+- immediate interval buys from the ticket;
+- each pick of a [Bundle](/interval/bundles).
+
+It's never used on:
+
+- limit orders;
+- multiplier orders, which use cash only;
+- orders placed through the [Trade API](/api/introduction).
+
+When credit funds a buy, the "Trade executed" card reads, for example, "$3.00 credit + $2.00 cash · you keep the profit". The Bundle slip shows "Trade credit · used first", and its receipt reads "$X credit used · you keep the profit".
+
+## What happens to it
+
+Credit is pooled per window, across both sides.
+
+| Event | What happens |
+|-------|-------------|
+| **Win at the close** | You keep your cash and get the profit: the payout less your whole stake, credit included. The credit is used up. Example: $5 of credit buys contracts that pay $10, so you get $5. |
+| **Loss at the close** | The credit is lost. Only your own cash part of the stake is taken. |
+| **Push** (the payout exactly equals the stake) | The credit comes back to your credit balance. |
+| **Sold before the close at a profit** | Your cash stake comes back, plus the profit. The credit is used up. |
+| **Sold at a loss or break-even** | What the sale brings refills your credit first, up to the credit you used, then your cash stake. |
+
+For example, say you buy with $5 of cash and $5 of credit, then sell before the close:
+
+| Sold for | What you get back |
+|----------|-------------------|
+| $4 | $4 back as credit, and no cash |
+| $10 | $5 back as credit, and $5 cash |
+| $12 | $7 cash. The credit is used up. |
+
+Before you sell, **Live Positions** previews the split: "Sell ≈ $X back as credit · $Y to wallet", or "Sell ≈ $X credit used (profit) · $Y to wallet". After a sale that returns credit, the "Trade executed" card reads "$X back as trade credit".
+
+<Note>
+Your P&L counts the cash result. That applies to **Realized P&L**, the Portfolio chart, and the leaderboards. A loss funded by credit counts only the cash you lost. A win counts its profit.
+</Note>
+
+## Where your credit shows
+
+- **Credit** in the top bar, on desktop, while you have some;
+- the Portfolio trade-credit line: "$A trade credit · $B in positions · not withdrawable — the profit is". A is your spendable credit, and B is credit in open positions;
+- "+ $Y credit" beside **Buying power** in **Live Positions**;
+- "Trade credit · used first" on the Bundle slip.
+
+See [Portfolio overview](/portfolio/overview).
+
+## Messages
+
+| Message | What it means |
+|---------|--------------|
+| "Trade credit is unavailable right now — try again in a moment." | Credit couldn't be applied. Try again shortly. |
+| "Trade credit is busy — try again in a moment." | Credit couldn't be applied. Try again shortly. |
+| "Insufficient balance: need $X of cash after credit, have $Y." | Your credit doesn't cover the buy, and your cash can't cover the rest. |
+| "Insufficient balance: not enough cash after your trade credit." | The same, without the amounts. |
+| "Insufficient balance: this order needs $X, you have $Y (cash + credit)." | A Bundle costs more than your cash and credit together. |
+| "This order costs more than your cash and credit — lower the amounts or deposit." | The Bundle slip's note before you buy. |

@@ -1,0 +1,136 @@
+---
+title: "Team access"
+description: "Let another updown account view or trade yours, accept an invite, and switch into accounts you were let into."
+---
+
+Team lets other updown accounts use yours, such as a partner or a teammate. "They switch into your account from their own login, so you can always see who did what. Your money stays in your wallet: a member can never withdraw, deposit, change your profile or settings, or invite anyone."
+
+Open it from the avatar menu → **Team**, or on a phone from ☰ → **Team**. Team notices in the bell open it too. Signed out, the page reads "Log in to manage who can use your account."
+
+Some accounts can't use Team.
+
+## Roles
+
+| Role | What the member can do |
+|------|------------------------|
+| **View only** | "Sees your positions, balance, orders and history. Can't trade." |
+| **Can trade** | "Also places, sells and cancels orders, and makes API keys on your account (revoked when you remove them). Their orders are kept within 15¢ of the market price." |
+
+<Warning>
+"Can trade lets them trade your balance. They can never withdraw it, but they can lose it. Only give this to someone you trust with your money."
+</Warning>
+
+## Invite someone
+
+<Steps>
+  <Step title="Open Team">
+    Avatar menu → **Team**. Find **People who can use your account**.
+  </Step>
+  <Step title="Enter their username">
+    Type it in **Username** ("Their updown username").
+  </Step>
+  <Step title="Choose their access">
+    Pick **View only** (the default) or **Can trade** under **Access**.
+  </Step>
+  <Step title="Send the invite">
+    Click **Send invite**. Their row reads "Invited · waiting" until they accept, then "Has access".
+  </Step>
+</Steps>
+
+They get an "Account invite" notification. A team holds up to **5 people**, counting invites that are still waiting. Each person must have accepted the Terms on their own account first.
+
+## Accept an invite
+
+<Steps>
+  <Step title="Open the invite">
+    Click the "Account invite" notification in the bell, or open **Team**.
+  </Step>
+  <Step title="Accept or decline">
+    Under **Invites**, click **Accept** or **Decline**.
+  </Step>
+</Steps>
+
+A Can trade invite adds a note: "Accepting a Can trade invite lets you place orders with that account's money. Every order you place is shown to its owner."
+
+## Switch accounts
+
+Accounts you were let into are listed under **Accounts you can use** on the Team page, each with its role.
+
+- **Desktop:** avatar menu → **Use Sam's account** (one entry per account).
+- **Team page:** **Use account** on the account's row. The active one reads "In use in this tab".
+- **Phones:** switch on the Team page. The ☰ drawer has no switch entries.
+
+While you use another account, a blue line above the top bar reads, for example, "You're using Sam's account · View only." Click **Back to my account** there, or in the avatar menu, to return. The avatar menu's label reads "Using Sam's account", with your role.
+
+<Note>
+"Switching applies to this tab only — open another tab to keep your own account beside it."
+</Note>
+
+### While you use someone else's account
+
+- The whole site shows their account: balance, positions, activity, and their bell. You can't mark their notices read.
+- **Deposit**, **Withdraw**, and **Settings** show "You're using Sam's account. Only the account owner can do that." with **Back to my account**.
+- With **View only**, every ticket is disabled: "You have view-only access to this account."
+- With **Can trade**, an order priced more than 15¢ past the market price is refused.
+- You can't have orders on both your own account and theirs in the same market.
+- The take box reads "Takes are posted from your own account."
+- If the owner removes you, the tab returns to your own account.
+
+## Manage your team
+
+**As the owner:**
+
+- **Change a role** with the role buttons on the member's row. Moving someone to Can trade asks "Let them trade your balance?" → **Yes, can trade** or **No**.
+- **Remove someone:** **Remove** → **Remove now** (or **Cancel invite** for an invite still waiting), or **Keep** to back out. Removing a Can trade member warns "Orders resting on your account will be cancelled." API keys they made on your account are revoked.
+
+With nobody on your team, the list reads "Nobody else can use your account."
+
+**As a member:** click **Leave** on the account's row → **Leave now**, or **Stay** to back out.
+
+## What members did
+
+The owner sees a log of every action members took on the account:
+
+| Column | Shows |
+|--------|-------|
+| **When** | The time of the action. |
+| **Who** | The member. |
+| **Action** | What they did (below). |
+| **Result** | "Done" or "Refused". |
+
+The actions are "Bought", "Multi-buy" (a [Bundle](/interval/bundles), under its old name), "Sold", "Placed a limit order", "Cancelled an order", "Multiplier buy", "Multiplier sale", "Made an API key", "Revoked an API key", "Placed an order (API key)", "Cancelled an order (API key)", and "Cancelled orders (API key)". An empty log reads "Nothing yet."
+
+"Keys a member made on your account are on your API keys page, with who made them." Open that page from the avatar menu → **API keys** (desktop). Developers can start at the [Trade API](/api/introduction).
+
+## Messages
+
+| Message | Meaning |
+|---------|---------|
+| "No account is called “sam”." | No updown account has that username. Check the spelling. |
+| "That's your own account." | You can't invite yourself. |
+| "Sam already has access." / "Sam is already invited." | They're already on your team. |
+| "A team can have at most 5 people — remove someone first." | Your team is full, counting waiting invites. |
+| "You've sent a lot of invites. Try again later." | Inviting is paused for a while. |
+| "That invite is no longer open." | The invite was cancelled or already answered. |
+| "That person isn't on your team any more." | They left or were removed. |
+| "This account can't share access." | This account can't use Team. |
+| "Accept the Terms on your own account first, then try again." | You haven't accepted the Terms on your own account yet. |
+| "On a shared account, orders can't be priced more than 15¢ past the market (about 48¢ now)." | A Can trade member's limit price is too far from the market price. |
+| "There's no market price to check this order against right now, so it can't be placed on a shared account. Try again in a moment." | Wait a moment and try again. |
+| "Your own account has orders in this market. Cancel them first: you can't have orders on both accounts in the same market." | Cancel your own orders in that market first. |
+| "An account you have access to has orders in this market. Trade it from one account at a time." | Trade that market from one account only. |
+
+## Your responsibility
+
+<Warning>
+The Terms make you responsible for everything members do with your account: "You may let other people use your account through Team; you are responsible for everything they do with it, and each of them must meet these requirements and accept these Terms." See [Legal and eligibility](/help/legal-and-eligibility).
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="Notifications" icon="bell" href="/platform/notifications">
+    The Team notices you and your members get.
+  </Card>
+  <Card title="Account and profile" icon="user" href="/account-and-profile">
+    Settings, the avatar menu, and your profile.
+  </Card>
+</CardGroup>

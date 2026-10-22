@@ -6,10 +6,10 @@
 drafts/
 *.draft.mdx
 
-# Docs-audit working files (not docs pages)
-docs-audit-request.md
-docs-audit-response.md
-docs-rebuild-request.md
-docs-rebuild-response.md
-docs-update-request.md
-docs-update-response.md
+# Working files exchanged with the production codebase (not docs pages)
+docs-*-request.md
+docs-*-response.md
+
+# Internal writing rules (they name internal accounts and vendors; never publish)
+AGENTS.md
+.atlas-analysis.json

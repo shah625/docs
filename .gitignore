@@ -1,0 +1,4 @@
+# Working files exchanged with the production codebase. They hold internal
+# detail (vendors, evidence paths, internal accounts), so never commit them.
+docs-*-request.md
+docs-*-response.md

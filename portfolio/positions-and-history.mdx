@@ -1,79 +1,166 @@
 ---
 title: "Positions and history"
-description: "Read your open positions, close them, and follow your activity and settled-window pages."
+description: "Read your open positions and multiplier orders, sell back before the close, follow your Activity, and open settled-window pages."
 ---
 
-Your open positions and activity live on the **Portfolio** page. Interval market pages add a **Live Positions** panel, and options stock pages add a **Positions** table.
+Your open positions and your history live on the **Portfolio** page. Each interval market page also has a **Live Positions** panel for the window on screen. That's where you sell back and cancel waiting orders.
 
 ## Open positions
 
-Under **Your positions → Open**, one list shows interval positions first, then options.
+**Portfolio → Your positions → Open** lists every open interval position and multiplier order together, sorted by close time. The tab shows a count. On a phone, tap the **Positions** tab under the value card.
+
+With nothing open, it reads "No open positions", with a **Browse markets** button.
+
+Positions refresh every 10 seconds. Contracts show two decimals ("1.00 contracts").
 
 ### Interval rows
 
 | Element | What it shows |
 |---------|--------------|
-| **Title** | Image and market title |
+| **Title** | The market image and title |
 | **Status line** | "▲ 15m · closes in 12m", or "15m · settling" once the window has closed |
-| **Detail line** | "3.00 contracts · 51¢ → 53¢ · pays $3.00 if up" (entry price → current price) |
-| **Value / P&L** | The current value and "+$X (+Y%)", or "awaiting settle" after the close |
-| **Button** | **Trade** opens the market page. **View** once the window is settling. A **Settles at close** chip appears instead on markets that have been retired. |
+| **Detail line** | "3.00 contracts · 51¢ → 53¢ · pays $3.00 if up": your contracts, your entry price → the current price ("—" when there's none), and what they pay if your side wins |
+| **Value and P&L** | The position's current value, with the P&L and percent beneath it ("+$0.06 (+2.0%)"), or "awaiting settle" after the close |
+| **Button** | **Trade** opens the market page while the window is live. **View** opens the window once it's settling. A **Settles at close** chip shows instead when the market has no page. |
 
-Interval positions refresh every 10 seconds.
+Portfolio values a position at the midpoint of the current bid and ask. **Live Positions** shows what selling would bring, so the two figures can differ.
 
-### Options rows
+### Multiplier rows
 
-Each shows "SPY above $770" or "SPY below $762", a line "▲ Call · Option · closes in 3h 05m" (or "paying out" / "settling"), "1.00 contracts · $1.23 → $1.50", the value and P&L, and a **Trade** button. You cannot sell an option from Portfolio; the button opens the stock page. See [Positions & settlement](/options/positions-and-settlement).
+| Element | What it shows |
+|---------|--------------|
+| **Title** | The market title |
+| **Status line** | ▲ or ▼, then "15 min · closes in 12m", or "15 min · settling" |
+| **Detail line** | "2.4× multiplier · $5.00 stake · wins up to $23.10 · pays off the close" |
+| **Value and P&L** | The order's live value, with the P&L against the stake beneath it ("+$0.20 (+4.0%)"), or "awaiting settle". While a sale goes through, the value is what the sale pays. With no live value, it shows the stake. |
+| **Button** | **Trade** while the window is live, **View** once it's settling |
 
-### Orders
+You sell a multiplier order from **Live Positions**, not from Portfolio. See [Multiplier](/interval/multiplier).
 
-The **Orders** tab is for limit orders, which are not yet available. It reads "No open orders".
+## Live Positions on a market page
 
-## Live Positions on an interval market page
+On screens 1024 px and wider, **Live Positions** sits in the right rail. On narrower screens, it's under the chart. Click the chevron beside the title to collapse it.
 
-The panel above the outcome row shows your contracts in the current window:
+| Element | What it shows |
+|---------|--------------|
+| **Buying power $X** | Your **Cash**: what you can spend now. "+ $Y credit" appears beside it while you have trade credit (hover: "Trade credit is used before your cash; you keep the profit it makes"). |
+| **Multiplier orders** | Listed first, each with a **Sell ~$X** button. See [Multiplier](/interval/multiplier). |
+| **A row per side you hold** | A coloured dot, "Up", "3.00 contracts", the value ("$1.62"), and a red **Sell** button. The sub-line reads "entry 51¢ · now 54¢" · "pays $3.00 if Up". |
+| **Trade-credit line** | When trade credit funds the position: "Sell ≈ $X back as credit · $Y to wallet", or "Sell ≈ $X credit used (profit) · $Y to wallet" |
+| **Value** / **Unrealized** | This window's totals: "Value $X" and "Unrealized +$X (+Y%)" |
+| **Total return** | Your result on this market across settled windows. It shows once you've traded the market. |
+| **Open orders** | Your waiting limit orders in this window, each with **Cancel** |
 
-- **Buying power** at the top: your available cash.
-- One row per side with a color dot, the side label, the contract count, the value, and a **Sell** button.
-- A sub-line with "entry 51¢ · now 54¢" and "pays $5.00 if Up".
-- Totals: **Value**, **Unrealized** ("+$0.15 (+5.9%)"), and **Total return** (your realized profit or loss on this market).
+- A side's value is what selling the whole side would bring now, after the fee. **Value** and **Unrealized** use it too.
+- "now 54¢" is the current price to buy that side.
+- The **Value**, **Unrealized**, and **Total return** totals don't include multiplier orders.
+- With nothing held, the panel reads "No position in this window yet."
+- When sales are paused, a pause note appears in the panel.
+- Positions refresh every 10 seconds, prices every 1.5 seconds, and open orders every 5 seconds.
 
-When you hold nothing it reads "No position in this window yet."
+### Open orders
 
-## Closing early
+Each waiting limit order has a row: a side dot, "Buy Up" or "Sell Up", then "10 @ 45¢". Once part of it fills, " · 2 filled" is added. The list covers this market's current window only. Limit orders you placed from a trade dialog show here too.
 
-- **Interval:** tap **Sell** on a side's row in **Live Positions** to sell that side's whole position at the current bid. To sell part of it, use the ticket's **Market → Sell** form. See [Placing interval orders](/interval/placing-orders#selling-back).
-- **Options:** tap **Sell $X** in the stock page's **Positions** table. See [Positions & settlement](/options/positions-and-settlement#selling-back).
+- **Cancel** takes one tap, with no confirmation step. The order leaves the list, and the cash a buy held returns to **Buying power** at once.
+- At the window's close, every order still waiting is cancelled automatically, and its held cash returns. Any part that already filled is a normal position and settles with the window.
+
+This panel is the one place to see and cancel your limit orders. See [Placing orders](/interval/placing-orders).
+
+## Selling before the close
+
+<Steps>
+  <Step title="Tap Sell">
+    In **Live Positions**, tap **Sell** on a side's row. It sells that side's whole position in one tap, at the current bid, with no confirmation step. It won't fill far below the current bid.
+  </Step>
+  <Step title="Wait for the row to update">
+    While a sale goes through, every **Sell** button reads "Selling…". Then the row updates, or disappears if you've sold everything.
+  </Step>
+</Steps>
+
+To sell part of a position, use the ticket's **Sell** tab. **Market** sells by dollars ("Sell value") and shows the contracts you sell ("You sell 9.80 contracts"). **Limit** offers whole contracts at your price. See [Placing orders](/interval/placing-orders).
+
+After a **Market** sale, the "Trade executed" card reads, for example, "Sold **$4.90** Up @ 49¢" (after the fee) and "+$0.40 realized · settling…". Nothing moves at the moment of the sale. The difference between what the sale brought and what you paid is paid or collected within about a minute.
+
+- You can't sell more than you hold: "You don't hold that many contracts to sell."
+- Trade credit behind a position comes back as credit on a sale at a loss, and is used up on a sale at a profit. See [Trade credit](/portfolio/trade-credit).
 
 <Tip>
-Selling an interval position early gives you the current bid rather than the $1 settlement value. Holding to the close pays more if your side wins, but selling removes the uncertainty.
+Selling early gets you the current bid instead of the $1 a winning contract pays at settlement. Holding to the close pays more if your side wins, but selling removes the uncertainty.
 </Tip>
 
 ## Activity
 
-The activity table lists every fill and settlement, newest first, with filters **All activity / Interval / Options / Spot** and columns **Market / Action / Amount / P&L / Time**.
+**Activity** sits in the Portfolio page's right column. On a phone, tap the **Activity** tab under the value card.
 
-| Action chip | Detail |
-|-------------|--------|
-| **Buy** | "3.00 contracts @ 51¢" or, for options, "1.00 contracts @ $1.23" |
-| **Sell** | Sold back before settlement, with proceeds and P&L |
-| **Won** | "· paid $1 each" (interval) or "· settled in the money" (options) |
-| **Lost** | "· settled worthless" (interval) or "· expired worthless" (options) |
-| **Settled** | "· nothing owed either way" (an interval window where you held both sides) |
-| **Refund** | "· no settlement price, premium refunded" (options only) |
+- **Filters:** **All activity** · **Trades** (buys and sales only) · **Takes** (buys you posted with a take).
+- **Columns:** **Market** · **Action** · **Amount** · **P&L** · **Time**. On a phone, each row is a two-line card.
 
-Times are relative ("now", "12m", "3h", "5d"), then a date. Interval history shows up to 200 rows.
+| Column | What it shows |
+|--------|--------------|
+| **Market** | The logo, the asset name, and the cadence ("Bitcoin (BTC) 15 min"), with a detail line underneath. A multiplier order adds a stamp, such as "10×". |
+| **Action** | A chip, and a ▲ or ▼ for the direction |
+| **Amount** | Signed cash ("+$9.80" / "−$5.00") |
+| **P&L** | The result with percent ("+$4.80 (+96%)"), or "—" |
+| **Time** | Relative ("now", "12m", "3h", "5d"), then a short date after 30 days. Hover for the full date and time. |
+
+### Interval rows
+
+| Chip | Detail line |
+|------|------------|
+| **Buy** | "3.00 contracts @ 51¢" |
+| **Sell** | A sale before the close, with what it brought and its P&L |
+| **Won** | "3.00 contracts · paid $1 each" |
+| **Lost** | "· settled worthless" |
+| **Settled** | "· nothing owed either way": the window left nothing to pay or collect |
+| **Take** | A blue chip on a buy you posted with a take. The row shows the quote, the GIF, and "♥ N likes". |
+
+### Multiplier rows
+
+A multiplier order gets a **Buy** row when you place it, and one result row.
+
+| Event | Chip | Detail line | Amount | P&L |
+|-------|------|------------|--------|-----|
+| Placed | **Buy** | "$5.00 stake" | −$5.00 | — |
+| Sold early | **Sell** | "$5.00 stake · sold for $6.12" | +$6.12 | +$1.12 |
+| Paid out | **Won** | "$5.00 stake · paid $8.40" | +$8.40 | The payout less the stake |
+| Settled worthless | **Lost** | "$5.00 stake · settled worthless" | $0.00 | −$5.00 |
+| Refunded | **Settled** | "$5.00 stake · refunded" | +$5.00 | $0.00 |
+
+Multiplier results don't count toward your **Volume** or **Realized P&L** stats. Each finished multiplier order also sends a notification: "Multiplier won $X" (the profit), "Multiplier paid $X" (back, but less than the stake), "Multiplier lost $X", "Multiplier refunded: $X", or "Multiplier sold for $X (+$Y)".
+
+### How Activity groups rows
+
+- A window you sold out of completely shows only its **Sell** rows. Any rounding cent lands on the last sale.
+- A window where you held both sides shows the winning side.
+- Each row opens that window's settled page.
+- You see 25 rows, then **Show more** · N older. History reaches back to your latest 200 interval events, plus up to 200 multiplier events.
+- Very old accounts may see a few rows with labels from earlier products.
+
+Empty states read "No activity yet" / "Trades and settlements will show up here." (with **Browse markets**), "No trades yet", or "No takes yet" / "Trades posted with a take or a GIF land here."
 
 <Note>
-A window you sold out of completely shows only its **Sell** rows. If you held both sides of a window, the winning side is shown. Withdrawals never appear on public profiles.
+Deposits and withdrawals aren't listed in Activity, on your page or a public one. The "Withdrew $X" notification is the record of a withdrawal. See [Notifications](/platform/notifications).
 </Note>
 
 ## Settled-window pages
 
-Click an interval activity row's title, or pick a window from the **Past** dropdown on a market page, to open its result page: the eyebrow "Crypto · 15 min · settled", the **Result** ("Up won" or "Down won"), **Open**, **Close**, and the full chart with the level to beat marked "Target".
+Every window has its own page once it's settled. Open one from:
 
-A page appears shortly after the close. Before it is recorded, it reads "This window isn't recorded yet — Windows are saved shortly after they close." with a **Back to the live market** link.
+- the **Past** menu or a result pill on a market page;
+- a row in **Activity**;
+- a settlement notification.
 
-<Info>
-Accounts from before the pivot may see older position types and a **Spot** activity filter. Those belong to a discontinued product and appear only if you still hold positions in it.
-</Info>
+The page, top to bottom:
+
+1. **Header:** a back arrow, the market art, the market name and cadence (for example "Bitcoin (BTC)", "15 min Up or Down"), the date and window ("October 21 · 2:00 PM – 2:15 PM"), and a **Settled** chip. A window that hasn't closed shows **Live** instead.
+2. **Result:** **To beat** and **Final** on the left. On the right, the window time over "Up Won" or "Down Won", or "Settling…" until the result is in.
+3. **Chart:** the recorded window, with a "Target $X" pill for the price to beat and a "CLOSE $X" pill in the result's colour.
+4. **Under the chart:** "This window has ended." · **Past ▾** · **Go to Live**. **Go to Live** opens the market's current window.
+5. **Market Rules** for that window.
+
+On desktop, the right rail shows "This window has ended." with **Go to Live**, then **Other intervals** (the same market at its other cadences) and similar markets.
+
+The page shows the window's result, not your payout. Your result is in **Activity**. For how a window's result is decided, see [How windows work](/interval/how-windows-work).
+
+If a window still isn't recorded 5 minutes after its close, the page reads "This window isn't recorded", with a **Back to the live market** link.

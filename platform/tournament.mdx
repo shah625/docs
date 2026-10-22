@@ -1,15 +1,17 @@
 ---
 title: "Tournament"
-description: "A two-week competition ranked by realized P&L across options and interval markets, with a $1,000 prize pool for the top three."
+description: "The Trading Tournament: a fixed competition on interval markets, ranked by ROI (the return on what you spent), with prizes for the top three."
 ---
 
-The **Tournament** is a fixed two-week competition. Click **Tournament** in the top bar to open it. The header shows the dates, the prize pool, a **Starts in** or **Ends in** countdown, and a **Rules & Prizes** link.
+The **Trading Tournament** is a fixed competition on interval markets. Traders are ranked by **ROI**: the return on what they spent. The top three when it ends win a prize. Anyone can see the board, signed in or out.
 
-## The current round
+## This round
 
 | | |
 |---|---|
-| **Dates** | Thursday, Sep 24, 12:00 AM → Wednesday, Oct 7, 11:59 PM ET |
+| **Dates** | Thursday, Oct 22, 12:00 AM → Wednesday, Oct 28, 11:59 PM ET |
+| **Ranked by** | ROI (return on what you spent) |
+| **To be ranked** | $50 total spent on buys |
 | **Prize pool** | $1,000 |
 | **1st place** | $600 |
 | **2nd place** | $300 |
@@ -17,34 +19,96 @@ The **Tournament** is a fixed two-week competition. Click **Tournament** in the 
 
 Prizes are paid out after the tournament ends.
 
-## How you are ranked
+## Find the tournament
 
-Rankings are based on your **realized P&L across the whole tournament**, from both **options and interval markets**: what your settled positions paid out minus what you staked, selling back included. The **Rules & Prizes** dialog has the full rules for the current round.
+The tournament lives in the **Leaderboard** tab. There's no Tournament link in the top bar or the menu.
 
-- **All P&L counts.** Options and interval trades both count toward your standing.
-- **Realized P&L only**, from positions that **settle or are sold inside the tournament**. Open positions do not count until they settle.
-- **Ties** break on traded volume.
+<Tabs>
+  <Tab title="Desktop">
+    Open the side panel's **Leaderboard** tab. The **Tournament** section sits at the top. Click **Go to tournament page →**.
+  </Tab>
+  <Tab title="Phone">
+    Tap **Home** in the tab bar, then the **Leaderboard** tab. The **Tournament** section sits at the top. Tap **Go to tournament page →**.
+  </Tab>
+</Tabs>
 
-## The board
+The section's header shows a status: **Starts in 1d 4h**, **Live · 2d 4h left**, or **Final**. Open, it shows the top six as tiles, with their ROI and the prize for the top three. Before anyone is ranked, it shows the three prizes instead. If you're ranked outside the top six, your own line follows, such as "You · #9 · +12.5%". While it's live and you're under the minimum, the line shows how far you have to go. Collapse the section with the chevron. It disappears 3 days after the tournament ends.
 
-The top three get a podium once three traders are ranked, with the prize shown beside each trophy. Below it, the list is headed "All traders · ranked by P&L" (or "Final standings · ranked by P&L" once the round is over):
+In the final six hours you can also open the page from the strip above the top bar. See [The final hours](#the-final-hours).
+
+## How you're ranked
+
+**ROI** is your net result on interval markets across the whole tournament, divided by the total you spent on buys (every buy, at what it cost). Spend $100 in total and finish $50 ahead: **+50%**. ROI shows as a percent with one decimal, such as "+12.5%".
+
+- **Early sales count.** So do windows you hold to the close.
+- **Open positions count while it's live**, valued at the current price and updated every couple of minutes. Their cost counts in what you spent.
+- **The final board counts only interval windows that close inside the tournament.** A position still open at the end doesn't count.
+- **Ties** break on the bigger P&L, then traded volume.
+- **Multiplier orders don't count.**
+- **Trade credit:** buys made with [trade credit](/portfolio/trade-credit) count toward what you spent, but your P&L is your cash result.
+
+### The minimum to be ranked
+
+You're ranked, and can win a prize, once your **total spent on buys** reaches the minimum in the table above. Every buy you make during the tournament adds up at what it cost, so it can be many small trades. There's no minimum number of trades.
+
+The app calls this figure "total volume". It's the cost of your buys, not the **Volume** stat on your profile. Until you reach it, the page shows how far you have to go:
+
+"Your total volume is $12.00. $38.00 more and you're ranked ($50 in total volume, every buy added up)."
+
+## The tournament page
+
+| Element | What it shows |
+|---------|---------------|
+| **Header** | "Tournament", a subtitle with the prize pool and the ranking (ROI, the return on what you spent), and a **Rules & Prizes** link |
+| **Dates** | The length, the dates, and a countdown: **Starts in** before it opens, **Ends in** while it runs, **Status: Final** once it's over |
+| **Podium** | The three prizes, until three traders are ranked. Then the top three traders, each with their prize, ROI, P&L, and 24-hour move |
+| **Your row** | Your rank, P&L, ROI, and 24-hour move, whenever you're ranked. Under the minimum, how far you have to go |
+| **The list** | "Top 20 · ranked by ROI", or "Final standings · ranked by ROI" once it's over |
+
+The list has these columns:
 
 | Column | Description |
 |--------|-------------|
 | **#** | Rank |
-| **Trader** | Icon and username, linking to the public profile |
-| **Volume** | Volume traded in the round |
-| **P&L** | Realized P&L in the round |
-| **24h** | Rank change over the last day |
+| **Trader** | Avatar and name, linking to the profile, with the trader's [ELO](/platform/leaderboards-and-elo) chip and X link |
+| **P&L** | Net P&L in the tournament (hidden on phones) |
+| **ROI** | Return on what they spent |
+| **24h** | Rank change over the last day, such as "Up 3 in the last 24h". Everyone is level on the first day. |
 
-Your row carries a **You** tag and is pinned below the top 50 if you are outside it. The board refreshes every 10 seconds. Before anyone has traded it reads "No trades yet. Be the first on the board."
+Hover an ROI or P&L figure to see the P&L and the total spent behind it.
 
-In the final six hours, a banner across the app counts down: "Tournament ends in 2h 14m — you're #4, $3.10 behind #3".
+The page refreshes every 10 seconds. If you're signed out, you see the board but have no row. Before the start, the board says when the tournament opens. Once it's live, until someone reaches the minimum, it reads "Be the first on the board."
 
-## Rolling leaderboards
+## Rules & Prizes
 
-The side panel's **Leaderboard** tab (wide screens) shows the same ranking over rolling windows: **24H**, **7D**, **30D**, **ALL**, and **Tournament**, with a **Full board →** link. Your Portfolio header's **Rank** stat is your Tournament position.
+**Rules & Prizes** on the tournament page opens the full rules: the ranking rule above, the minimum, the dates, and the prizes. Prizes are paid out after the tournament ends.
 
-<Note>
-See [Positions & settlement](/options/positions-and-settlement) and [How windows work](/interval/how-windows-work) for when each product settles.
-</Note>
+## The final hours
+
+With six hours or less to go, a strip above the top bar counts down on every page, such as "Tournament ends in 2h 14m · you're #4, 3.4 pts of ROI behind #3". Tap it to open the tournament page. The end of the line depends on where you stand:
+
+| Where you stand | The strip ends |
+|-----------------|----------------|
+| First | "you're #1, defend it" |
+| Ranked below first | "you're #4, 3.4 pts of ROI behind #3" |
+| Under the minimum | "$38.00 more volume to get on the board" |
+| Signed out | "trade now to get on the board" |
+
+## Eligibility
+
+To be ranked, and so to win a prize, you need to reach the minimum. Tournaments are a promotion under the "Trade credit, rewards and promotions" section of the [Terms of Service](https://www.updown.fast/terms#promotions), which set out who can take part. See [Legal & eligibility](/help/legal-and-eligibility).
+
+<CardGroup cols={2}>
+  <Card title="Leaderboards and ELO" icon="ranking-star" href="/platform/leaderboards-and-elo">
+    The rolling P&L and ELO boards, and your trader rating.
+  </Card>
+  <Card title="How windows work" icon="clock" href="/interval/how-windows-work">
+    When a window closes and settles.
+  </Card>
+  <Card title="Trade credit" icon="ticket" href="/portfolio/trade-credit">
+    How credit-funded buys count toward your result.
+  </Card>
+  <Card title="Profiles & social" icon="users" href="/platform/profiles-and-social">
+    Trader profiles, following, and the feed.
+  </Card>
+</CardGroup>

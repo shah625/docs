@@ -1,69 +1,230 @@
 ---
 title: "Navigating updown"
-description: "Home, the top bar, the phone tab bar, the side panel, and search."
+description: "Where you land, the top bar, the phone tabs and menu, the side panel, search, the status bar, and site notices."
 ---
 
-There is no separate marketing site. The root of the app is **Home**, labelled **Explore** in the navigation, and it sits inside the app shell whether or not you are signed in.
+## Where you land
+
+Open updown and you land on the **Bitcoin · 5 min** Up or Down market. Everyone starts there, signed in or not, on a computer or a phone. Click the **updown** logo any time to come back to it.
+
+There's no separate home page on desktop. You start on a live market, with the side panel beside it on wide screens. See [The market page](/interval/the-market-page) for what's on it, and the [Quickstart](/quickstart) for a first trade.
+
+What you see depends on the width of your screen:
+
+| Screen | What you get |
+|--------|--------------|
+| Under 768 px (phones) | A logo row, a floating tab bar, and the ☰ menu |
+| 768 px and wider | The top bar and the status bar |
+| 1280 px and wider | The side panel as well |
+
+---
 
 ## The top bar (desktop)
 
-From left to right:
+The top bar is one row. It has no section links. From left to right:
 
-| Item | What it does |
-|------|-------------|
-| **updown** mark | Goes to Home |
-| **Options** | The flagship. Lands on SPY's options page |
-| **Interval** | The interval markets hub, "Browse markets" |
-| **Explore** | Home |
-| **Portfolio** | Your balance, positions, and profile |
-| **Tournament** | The current competition |
-| **Search markets…** pill | Opens search (also **Ctrl/⌘ + K**) |
-| Globe icon | Appears only when your region is flagged: "Trading is unavailable in your region" |
-| **Cash** and **Portfolio** figures | Your wallet balance and total value. **Cash** opens the deposit dialog; **Portfolio** opens the page |
-| Avatar menu | **Profile**, **Light mode** / **Dark mode**, **Log out**. Signed out, a **Login** button instead |
+| Item | Shown to | What it does |
+|------|----------|--------------|
+| **updown** logo | Everyone | Opens Bitcoin · 5 min |
+| **Search markets…** | Everyone | Opens [search](#search). You can also press **Ctrl K** or **⌘K** |
+| Rewards bar | Signed in, if your account earns creator rewards | A gift icon, your points, then "Claim", or the points still to go, such as "380 left". Click it for the **Creator Rewards** popup |
+| Bell | Signed in | Your notifications. A red count shows how many are unread |
+| **Cash** | Signed in | What you have available to trade. Click it to deposit |
+| **Credit** | Signed in, while you hold trade credit | Your unused trade credit. Opens your Portfolio |
+| **Portfolio** | Signed in | Your cash plus your open positions at their current value. Opens your Portfolio |
+| Avatar menu | Signed in | Your account links. Signed out, a **Login** button sits here instead |
+
+Hover a figure for its tooltip: "Cash = available to trade · click to deposit", "Portfolio = cash + open positions", and for **Credit**, "Trade credit = used before your cash on every trade · you keep the profit it makes; the credit itself can't be withdrawn".
+
+The figures show cents under $1,000 ("$3.85"), whole dollars up to four digits ("$3,181"), and a short form above that ("$14.5K", "$1.2M").
+
+### Deposit
+
+There's no separate **Deposit** button. Click **Cash** to open **"Deposit with"**. On a phone, tap **Home** → **Deposit**. See [Deposit and withdraw](/portfolio/deposit-withdraw).
+
+### The rewards bar
+
+The bar fills toward 500 points. Every 500 points turns into $5 of trade credit. Its tooltip reads "Make your first trade to start earning points", "380 pts to go until your next $5", or "Your points are ready to turn into trade credit". You can also open the popup from the avatar menu → **Rewards**. See [Creator rewards](/platform/creator-rewards).
+
+### Notifications
+
+Click the bell to open **Notifications**. The dropdown lists your newest 50 notices, and opening it marks them read. The count stops at "99+". With nothing there yet, it reads "Nothing yet. A follow, a copied trade, a like or a settled trade lands here." See [Notifications](/platform/notifications).
+
+### The avatar menu
+
+Click your avatar or name. From top to bottom:
+
+| Item | What it opens |
+|------|---------------|
+| **Profile** | Your Portfolio page, which is also your profile |
+| **Rewards** | The **Creator Rewards** popup |
+| **Settings** | Your profile, visibility, emails, **Log out**, and **Delete account**. See [Account and profile](/account-and-profile) |
+| **API keys** | Keys for trading through your own program. See the [API docs](/api/introduction) |
+| **Team** | Let other people use your account. See [Team access](/platform/team-access) |
+| **Use \{name\}'s account** / **Back to my account** | Switch into an account you've been let into, and back |
+| **Light mode** / **Dark mode** | The theme switch. Dark is the default, and your choice is saved in this browser |
+| **Log out** | Signs you out |
+
+While you're using someone else's account, the top of the menu reads "Using \{owner\}'s account" with your role, "View only" or "Can trade".
+
+---
 
 ## On a phone
 
-Phones have a centred **updown** mark with a ☰ button, and a floating tab bar:
+### The logo row
 
-| Tab | Where it goes |
+At the top of the page sit ☰ on the left, the **updown** logo, and on the right the bell (signed in) and a search icon. The row scrolls with the page.
+
+### The tab bar
+
+A floating tab bar sits near the bottom of the screen:
+
+| Tab | What it opens |
 |-----|---------------|
-| **Feed** | The trade feed, with a **Stocks** tab beside it |
-| **Explore** | Home |
-| **Trade** | SPY's options page |
-| **Portfolio** | Your Portfolio page. Shows your avatar when signed in |
+| **Home** | Your balance, **Deposit**, and the **Trade · Feed · Leaderboard** tabs |
+| **Trade** | The Bitcoin · 5 min market. It stays lit on any market page |
+| **Portfolio** | Your profile and positions. It shows your avatar once you're signed in |
 
-The ☰ drawer has a search box, **Login** when signed out, and sections **Trade** (Options, Interval, Explore, Portfolio, Tournament, Feed), **Profile** (Profile, theme, Log out), and **More** (Contact us, Docs, Discord, X).
+### Home
+
+From top to bottom:
+
+1. **Your balance** (signed in only): your ELO tier, such as "Bronze 3", which opens the ELO board; your portfolio value, which opens your Portfolio; "$X cash to trade"; and a green **Deposit** button.
+2. **Trade · Feed · Leaderboard** tabs, opening on **Trade**:
+   - **Trade** lists markets under the chips **Watchlist · Trending · Stocks · Crypto · Pre-IPO**. Each row shows its last 4 settled 15-minute results as ▲ / ▼, and opens the 15-minute market.
+   - **Feed** is the live trade feed. If a trade-credit offer is waiting for you, a blue banner above it describes the offer. Tap ✕ to hide it. See [Trade credit](/portfolio/trade-credit).
+   - **Leaderboard** matches the side panel's [Leaderboard tab](#leaderboard).
+
+### The ☰ menu
+
+Tap ☰ to open the menu:
+
+| Section | Items |
+|---------|-------|
+| Top | A **Search markets…** field, and **Login** when you're signed out |
+| **TRADE** | **Trade** (Bitcoin · 5 min), **Leaderboard** (the full ELO board), **Feed** |
+| **PROFILE** (signed in) | **Profile**, **Rewards**, **Settings**, **Team**, **Back to my account** (while using another account), **Light mode** / **Dark mode**, **Log out** |
+| **MORE** | **Contact us**, **Docs**, **Terms of Service**, **Privacy Policy**, **Your privacy choices**, and Discord and X icons |
+
+<Note>
+**API keys** are only in the desktop avatar menu.
+</Note>
+
+---
 
 ## The side panel (wide screens)
 
-On screens 1280 px and wider, a left panel with three tabs follows you across the app:
+On screens 1280 px and wider, a panel runs down the left of the page. Drag its right edge to make it 300 to 420 px wide. Double-click the edge, or focus it and press **Enter**, to reset the width.
 
-- **Stocks** — a stock list with chips **Watchlist / Trending / Most volume / Winners / Losers**. Star a row to add it to your watchlist, which is stored in your browser. Rows open the stock's options page.
-- **Leaderboard** — rolling boards for **24H / 7D / 30D / ALL** and the **Tournament**, with a **Full board →** link.
-- **Feed** — the live trade feed.
+It has four tabs: **Watchlist · Trade · Leaderboard · Feed**. On a market page it opens on **Feed**. On other pages it opens on the last tab you used, or **Trade** the first time.
+
+### Trade
+
+Pick a chip: **Trending · Stocks · Crypto · Pre-IPO**. **Trending** is the default, and your pick is remembered.
+
+| Chip | What it lists |
+|------|---------------|
+| **Trending** | Stocks, pre-IPO companies, and crypto together, biggest move either way first |
+| **Stocks** | Stocks with interval markets, most volume first. Stocks that aren't trading yet fold under **No liquidity yet** |
+| **Crypto** | Coins with interval markets |
+| **Pre-IPO** | OpenAI and Anthropic. The chip shows only while pre-IPO markets are listed |
+
+Each row shows a ☆, the logo, the ticker and name, the price, and the move with ▲ / ▼. Stocks show the move since the last close; crypto and pre-IPO show the move over 24 hours. Click a row to open that asset's 15-minute market. To open a 5- or 60-minute market directly, use [search](#search).
+
+### Watchlist
+
+Click the ☆ beside any row to star it. Starred assets appear in the **Watchlist** tab, under **Stocks**, **Pre-IPO**, and **Crypto**, biggest move first. On a phone they appear under the **Watchlist** chip on **Home** → **Trade**. With nothing starred, the tab reads "Click the ☆ next to a stock or coin to add it here."
+
+- **Signed in:** your stars are saved to your account and follow you to other devices.
+- **Signed out:** stars stay in that browser, and are added to your account the next time you sign in there.
+- **Using someone else's account:** stars stay on your device.
+
+### Leaderboard
+
+From top to bottom:
+
+1. A **Tournament** section while a Trading Tournament runs, and for three days after. It shows a status chip ("Starts in…", "Live · … left", or "Final"), the top six, your own line, and **Go to tournament page →**. Click the header to collapse it. See [Tournament](/platform/tournament).
+2. **PNL** / **ELO** chips, and a **24H · 7D · 30D · ALL** range. **ALL** is the default. On **ELO**, a range ranks by the change in rating over that range.
+3. The top 20. If you rank outside the top 20, your own row is pinned above #1 and tagged "You".
+
+On **ELO**, **Full board →** opens the full ELO board. See [Leaderboards and ELO](/platform/leaderboards-and-elo).
+
+### Feed
+
+Pick **Global**, **Following** (signed in), or **This market** (on a market page). A **Top traders · 7D P&L** carousel at the top of **Global** shows the six best traders by realized P&L over 7 days, each with a follow button. See [Profiles and social](/platform/profiles-and-social).
+
+---
 
 ## Search
 
-Press **Ctrl/⌘ + K** or click the search pill. The placeholder reads "Search stocks, crypto and options…". Results are grouped into:
+<Steps>
+  <Step title="Open search">
+    Click **Search markets…** in the top bar, or press **Ctrl K** or **⌘K**. On a phone, tap the search icon or the menu's **Search markets…** field. The box reads "Search stocks, pre-IPO and crypto…".
+  </Step>
+  <Step title="Type a ticker or name">
+    Results are listed under **MARKETS**, one row per asset, such as "Bitcoin (BTC)" with "Crypto · Up or Down" beneath it. An exact ticker match comes first. Up to 50 markets are listed.
+  </Step>
+  <Step title="Open a market">
+    Click a row, or press **Enter**, to open its 15-minute market. To open another interval, click its **5 min**, **15 min**, or **60 min** chip on the right.
+  </Step>
+</Steps>
 
-- **Options** — one row per stock, "Apple · Options", opening its options page.
-- **Interval markets** — one row per subject, "Stocks · Up or Down", with cadence chips **5 min / 15 min / 60 min**. The row opens the 15-minute market.
+Search covers only the stock, pre-IPO, and crypto interval markets listed right now. With nothing typed, it lists them all: stocks, then pre-IPO, then crypto. Use **↑** / **↓** to move and **Esc** to close. When nothing fits, it reads "Nothing matches “…”".
 
-Search covers only what updown trades. Nothing matching reads "Nothing matches “…”".
+To see every market laid out at once, see [Browsing markets](/interval/browsing-markets).
 
-## Home
-
-Top to bottom:
-
-1. On phones, your balance with "$X cash to trade" and a **Deposit** button.
-2. **Patterns** — a ticker of markets on a streak, such as "Up 6 in a row".
-3. The rotating **featured panel**, alternating between options and interval markets every 9 seconds.
-4. Four **Up next** clocks: "5 min · Next window in", "15 min", "60 min", and "Options 0DTE · Expire in".
-5. The **Options** card row with **See all**.
-6. The **Stocks** and **Crypto** interval sections, each with **See all** to its category page.
-7. A right rail with **Your positions** (or, signed out, **How it works** and **Sign in to trade**), **Options** movers, **Trending**, **Most volatile**, and **New**.
+---
 
 ## The status bar
 
-On desktop, a bottom bar shows an **Online** / **Offline** dot for the app's connection, plus **Contact us**, **Docs**, and the Discord and X links. On phones the same links live in the ☰ drawer under **More**.
+On screens 768 px and wider, a thin bar runs along the bottom. From left to right:
+
+| Item | What it does |
+|------|--------------|
+| **Online** / **Offline** | Whether the app can reach updown. It checks again every 60 seconds |
+| Price tape | Live prices for every asset with markets: crypto, then pre-IPO companies, then stocks by volume. Click one to open its 15-minute market. Hover over it to pause it |
+| **Contact us** | The contact page. See [Support](/help/support) |
+| **Docs** | These docs |
+| **Terms** / **Privacy** | The Terms of Service and the Privacy Policy |
+| **Your privacy choices** | Reopens the cookie banner |
+| Discord and X icons | The updown Discord server and X account |
+
+Phones have no status bar. The same links are in ☰ → **MORE**.
+
+---
+
+## Banners and notices
+
+Banners appear above the top bar, in this order. None of them stay pinned; they scroll away with the page.
+
+| Banner | When it shows | What it says |
+|--------|---------------|--------------|
+| Maintenance | While trading is paused | For example, "Trading is paused for maintenance. Resuming in 1h 30m. Join our Discord for additional updates". See [Service status](/help/support#service-status) |
+| Tournament deadline | The last 6 hours of a Trading Tournament | A purple strip, such as "Tournament ends in 2h 14m · you're #1, defend it". It opens the tournament page |
+| Trade-credit offer | Signed out, while a promotion runs | A blue line with the offer and a **Sign up** button. Click ✕ to hide it |
+| Team | While you're using someone else's account | "You're using \{owner\}'s account · View only. Back to my account" (or "Can trade") |
+
+You may also see:
+
+- **The cookie banner** along the bottom of the screen, until you choose **Decline** or **Accept**. See [Cookies and privacy choices](/help/legal-and-eligibility#cookies-and-privacy-choices).
+- **"Creator Rewards are here"**, a one-time popup for signed-in accounts that can earn creator rewards: "Earn points for being social — posting takes, liking, following and getting followed. Every 500 pts turns into $5.00 of trade credit."
+- **One-time prompts:** **Allow trading** (see [Account and profile](/account-and-profile)), the updated-Terms prompt (see [Legal and eligibility](/help/legal-and-eligibility#accepting-updated-terms)), and the marketing-emails question. None of them appear while you're using someone else's account.
+
+<Tip>
+The theme switch is in the avatar menu on desktop and in ☰ → **PROFILE** on a phone. It shows only when you're signed in.
+</Tip>
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Sign in, deposit, and place your first trade.
+  </Card>
+  <Card title="Browsing markets" icon="table-cells" href="/interval/browsing-markets">
+    Every stock, crypto, and pre-IPO market at each interval.
+  </Card>
+  <Card title="Multiplier" icon="bolt" href="/interval/multiplier">
+    A bigger payout on a bigger move, on stock and crypto interval markets.
+  </Card>
+  <Card title="Support" icon="life-ring" href="/help/support">
+    Contact the team, and what to do if something goes wrong.
+  </Card>
+</CardGroup>

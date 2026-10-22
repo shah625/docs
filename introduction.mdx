@@ -1,68 +1,52 @@
 ---
 title: "Introduction"
-description: "Same-day options on the biggest stocks, and short-term Up or Down markets on stocks and crypto. Pick a direction, tap to buy, and know your max loss before you're in."
+description: "Trade short-term directional movement on stocks, crypto, and more. Pick Up or Down for the window, tap to buy, and know your max loss before you're in."
 ---
 
-updown is where you **trade movement on everything**. There are two ways to do it, and both share one wallet, one ticket style, and one rule: you know your max loss before you're in.
+updown is where you trade short-term price moves. It has one product: **interval markets**. Each market asks one question: will the price finish this 5-, 15-, or 60-minute **window** **Up** or **Down**? You can trade stocks, crypto, and **Pre-IPO** companies (OpenAI and Anthropic). Every winning contract pays $1.00.
 
-- **Options** — same-day and next-day **calls and puts on the biggest US stocks and ETFs**. Pick "Above $X" or "Below $X", pay the premium, and get paid by how far the stock finishes past your strike at the 4:00 PM ET close.
-- **Interval markets** — **Up or Down** on whether a stock or crypto price closes a 5-, 15-, or 60-minute window above where it opened. Every winning contract pays $1.00.
+Two tools sit inside interval markets:
+
+- **Multiplier**: a 1× to 10× slider in the ticket on stock and crypto interval markets. Above 1×, your order pays more the further the price closes your way, up to a cap. A small move pays less, possibly nothing.
+- **Bundle**: several interval buys placed at once. Each pick is its own trade.
+
+Everyone opens on the **Bitcoin · 5 min** market, and the phone's **Trade** tab goes there too. To find another market, use **Search markets…** (**Ctrl K** / **⌘K**).
 
 <Warning>
-updown is **real-money trading**. Cash is USDG in your own wallet, and losses are real. The premium you pay for an option, or the price you pay for interval contracts, is the most you can lose.
+updown is **real-money trading**. Your cash is USDG, and losses are real. What you pay for contracts, or the stake on a multiplier order, is the most you can lose.
 </Warning>
 
-## Two products at a glance
+## At a glance
 
-| | Options | Interval markets |
-|---|---|---|
-| **What you buy** | A call ("Above $X") or a put ("Below $X") on a stock or ETF | Up or Down on the next window |
-| **Expiry** | Today's or the next session's 4:00 PM ET close | Every 5, 15, or 60 minutes |
-| **Payout** | Grows with the move past your strike, paid in USDG | $1.00 per winning contract |
-| **Max loss** | The premium | The price you paid |
-| **Where** | Nav **Options** (phone tab **Trade**) | Nav **Interval** |
+| | |
+|---|---|
+| **What you trade** | Up or Down on a stock, crypto, or Pre-IPO price over 5, 15, or 60 minutes |
+| **What a contract pays** | $1.00 if your side wins, $0 if it loses. Prices run from 1¢ to 99¢. |
+| **How a window settles** | On a 60-second value at the close: an average for stocks and crypto, a median for Pre-IPO. Up wins at or above the price to beat, so an unchanged close settles Up. |
+| **Your money** | USDG in your own wallet on Robinhood Chain |
+| **Most you can lose** | What you paid, or the stake on a multiplier order |
+| **Hours** | Crypto and Pre-IPO: 24/7. Stocks: Sunday 8:00 PM to Friday 4:00 PM ET, and eight of them stay open through the weekend. |
 
-<CardGroup cols={2}>
-  <Card title="Quickstart" icon="rocket" href="/quickstart">
-    Sign in, deposit, and place a first option and a first interval trade.
-  </Card>
-  <Card title="How options work" icon="chart-line" href="/options/how-options-work">
-    Calls, puts, strikes, expiries, and how settlement pays.
-  </Card>
-  <Card title="How windows work" icon="clock" href="/interval/how-windows-work">
-    Windows, the level to beat, Up and Down, and the $1 payout.
-  </Card>
-  <Card title="Deposit & withdraw" icon="wallet" href="/portfolio/deposit-withdraw">
-    USDG on Robinhood Chain, USDC on Polygon, or card and bank.
-  </Card>
-  <Card title="Navigating updown" icon="compass" href="/platform/navigating-updown">
-    Home, the nav, search, and the side panel.
-  </Card>
-  <Card title="Tournament" icon="trophy" href="/platform/tournament">
-    A two-week competition with a $1,000 prize pool.
-  </Card>
-</CardGroup>
-
-## What you can do
+## From sign-in to settlement
 
 <Steps>
   <Step title="Sign in">
-    Click **Login** and sign in with your **email** or **Google** account. Your account and a username are created automatically. No form, no browser extension, no seed phrase.
+    Click **Login** and sign in with your **email** or your **Google** account. Your account, wallet, username, and icon are created automatically.
   </Step>
   <Step title="Allow trading once">
-    A one-time **Allow trading** approval lets your trades go through with no signing prompt each time.
+    A "Welcome to updown" popup asks for a one-time **Allow trading** approval. After it, trades go through with no signing.
   </Step>
   <Step title="Deposit">
-    Click **Cash** in the top bar. Send **USDG on Robinhood Chain** or **USDC on Polygon**, or pay by **card or bank**.
+    Click **Cash** in the top bar to open **Deposit with**. Pay by card or Cash App on the **Cash** tab, or send USDG, USDC, or USDT on the **Crypto** tab.
   </Step>
-  <Step title="Buy an option">
-    Open **Options**, pick a stock, choose **Up** or **Down**, and buy a call or put with defined risk.
+  <Step title="Pick a side">
+    On **Bitcoin · 5 min**, pick **Up** or **Down**, enter an amount, and tap **Buy Up · $X**. Your order fills at the live quote, and **Trade executed** confirms it.
   </Step>
-  <Step title="Or pick a window">
-    Open **Interval**, tap **Up** or **Down** on a card, and tap an amount. It fills instantly at the live quote.
+  <Step title="Add a take (optional)">
+    Say why you made the trade. Your take appears on the feed with it.
   </Step>
   <Step title="Watch it settle">
-    Winners are paid to your wallet automatically. There is no claim step.
+    Seconds after the close, the window shows "Up Won" or "Down Won". Winnings land in your cash on their own.
   </Step>
 </Steps>
 
@@ -70,15 +54,41 @@ updown is **real-money trading**. Cash is USDG in your own wallet, and losses ar
 
 | Term | Meaning |
 |------|---------|
-| **Call / Put** | A call ("Above $X", "Up") pays the amount the stock finishes above the strike, per contract. A put ("Below $X", "Down") pays the amount it finishes below. |
-| **Premium** | The price you pay for an option. It is your maximum loss. |
-| **Strike** | The price your option is measured against. Six strikes are offered per expiry, at 1%, 2%, and 3% above and below the current price. |
-| **Window** | One round of an interval market. It opens on a fixed grid, stamps the opening price, and closes 5, 15, or 60 minutes later. |
-| **To beat** | The price when the window opened. Up wins if the close is at or above it; Down needs a close strictly below. An unchanged close settles Up. |
-| **Contract** | The unit you trade. An interval contract is priced 1¢–99¢ and pays $1.00 if its side wins. An option contract is one stock token, can be fractional, and pays by distance. |
-| **Cash / Portfolio** | **Cash** is the USDG in your wallet. **Portfolio** is cash plus the live value of your open positions. |
-| **USDG** | The dollar token your cash is held in, on Robinhood Chain. Deposits in other assets convert to it automatically. |
+| **Window** | One round of a market. It opens on a fixed clock grid (:00, :05, :10… for 5 min) and closes 5, 15, or 60 minutes later. |
+| **To beat** | The price the window must beat: the previous window's final 60-second value, not an instant price. Up wins if the close is at or above it, both rounded to 4 decimal places (DOGE: 7). Down needs a close strictly below. See [How windows work](/interval/how-windows-work). |
+| **Now** | The current price, colored against To beat. On stocks and crypto it's a rolling 60-second average. |
+| **Time left** | The countdown to the close. It turns amber once less than half the window is left, and red in the last fifth. |
+| **Contract** | The unit you trade, priced 1¢ to 99¢. It pays $1.00 if its side wins. Contracts can be fractional, in steps of 0.01. |
+| **Multiplier** | The 1× to 10× slider on stock and crypto interval markets. What you put in is your **stake**, and it's the most you can lose. See [Multiplier](/interval/multiplier). |
+| **Bundle** | Up to 20 interval buys placed in one go, one pick per market. See [Bundles](/interval/bundles). |
+| **Trade credit** | A promo balance that's spent before your cash. You keep the profit it makes, but the credit itself can't be withdrawn. See [Trade credit](/portfolio/trade-credit). |
+| **USDG** | The dollar token your cash is held in, on Robinhood Chain. |
+
+More terms are in the [Glossary](/help/glossary).
 
 <Note>
-Options carry no fee. Interval markets carry a small taker fee that is built into the price you see. See [Buying options](/options/buying-options) and [Placing interval orders](/interval/placing-orders).
+Orders that trade right away pay a small taker fee, built into what you spend and what "To win" shows. Limit orders that wait and are filled later pay no fee. Nothing is charged at settlement. A multiplier order has no separate fee line; the payouts on the ticket already reflect the price. See [Placing orders](/interval/placing-orders).
 </Note>
+
+Around the markets, you can follow traders and copy their trades from the feed, earn an [ELO rating](/platform/leaderboards-and-elo), and compete in the [Trading Tournament](/platform/tournament).
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Sign in, deposit, and make your first trade.
+  </Card>
+  <Card title="How windows work" icon="clock" href="/interval/how-windows-work">
+    The price to beat, the tie rule, settlement, and market hours.
+  </Card>
+  <Card title="Multiplier" icon="sliders" href="/interval/multiplier">
+    A bigger payout on a bigger move, and what it costs on a small one.
+  </Card>
+  <Card title="Deposit and withdraw" icon="wallet" href="/portfolio/deposit-withdraw">
+    Card, Cash App, or stablecoins in. USDG on Robinhood Chain out.
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/help/faq">
+    Quick answers about trading, money, and your account.
+  </Card>
+  <Card title="For developers" icon="code" href="/api/introduction">
+    Trade from your own program with the Trade API.
+  </Card>
+</CardGroup>

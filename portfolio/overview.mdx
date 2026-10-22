@@ -1,50 +1,119 @@
 ---
-title: "Portfolio"
-description: "Your cash, positions, stats, and value chart. The Portfolio page is also your profile."
+title: "Portfolio overview"
+description: "What Cash, Credit, Portfolio, and the value card mean, what holds your funds, and how money moves when you trade."
 ---
 
-Click **Portfolio** in the top bar, or your avatar → **Profile**. The page is your balance sheet and your public profile in one.
+The **Portfolio** page is your balance sheet and your profile in one. On desktop, click **Portfolio** in the top bar. On a phone, tap the **Portfolio** tab.
 
-## Cash and Portfolio in the top bar
+Signed out, the page reads "Sign in to view your profile" / "Your cash, positions and history live here." with a **Sign in** button.
 
-Two figures are always visible when you are signed in:
+Your balance is **USDG** on **Robinhood Chain**, held in your wallet. Every figure on this page reads from that one balance.
 
-- **Cash** — the USDG in your wallet. Tooltip "Cash = available to trade · click to deposit". Click it to open the deposit dialog.
-- **Portfolio** — cash plus the live value of your open positions. Tooltip "Portfolio = cash + open positions". Click it to open this page.
+## The top bar
 
-Both refresh every 30 seconds.
+On desktop, the top bar shows your money on every page:
+
+| Figure | What it is |
+|--------|-----------|
+| **Cash** | Money free to trade: your balance less what your open positions and waiting limit orders hold. Tooltip "Cash = available to trade · click to deposit". Click it to open the deposit menu. |
+| **Credit** | Your spendable [trade credit](/portfolio/trade-credit), in blue. It shows only while you have some. Click it to open Portfolio. |
+| **Portfolio** | Your cash plus your open positions at their current value. Tooltip "Portfolio = cash + open positions". Click it to open Portfolio. |
+
+The top bar refreshes every 30 seconds.
+
+On a phone, the **Home** tab opens with a balance block. The big figure is your portfolio value. "$X cash to trade" is the same as **Cash**, and **Deposit** opens the deposit menu. Tap the big figure to open Portfolio.
 
 ## The page, top to bottom
 
-1. **Header** — your icon, name, X link, and "@username"; stats **Volume**, **Realized P&L**, and **Rank** (your Tournament position, or "—"); **Following** and **Followers** counts; **Edit profile**, the wallet icon, and the sign-out icon; and a meta line with your trade count, "Joined Sep 2026", and your email (visible only to you).
-2. **Value card** — your total value, a change line such as "+$12.40 (+3.1%) 7d", range pills **1D / 1W / 1M / 1Y / ALL** (default 1W), then **Available cash** with "$X in positions" beneath, and the **Withdraw** and **Deposit** buttons. Hover the chart for a point-in-time value. With too little data it reads "Not enough history to chart yet".
-3. **Your positions** — a segmented control **Open** (count) / **Orders** (count). See [Positions and history](/portfolio/positions-and-history).
-4. **Your top take**, if you have posted one.
-5. **Activity** — the trade history table.
+1. **Header**: your ELO panel, avatar, "@name", and X link; the stats **Volume** and **Realized P&L**; a pencil icon ("Edit profile") and a sign-out icon ("Sign out"); and a footer with your followers, who you follow, "⇄ N trades", your email (only you see it), and "📅 Joined Mon YYYY". See [Leaderboards and ELO](/platform/leaderboards-and-elo).
+2. **Value card**: your profit and loss over time and your balance. See [The value card](#the-value-card).
+3. **Your positions**: the **Open** tab lists every open position and multiplier order. See [Positions and history](/portfolio/positions-and-history).
+4. **Creator reward** card: your points and the **Claim** button. See [Creator reward card](#creator-reward-card).
+5. **Activity**: your trade history. See [Positions and history](/portfolio/positions-and-history#activity).
 
-## The balance model
+On desktop, the value card and **Your positions** sit in the left column, with the Creator reward card and **Activity** on the right. On screens 1536 px and wider, a sticky right rail adds a **Deposit** / **Withdraw** panel and **Follow top traders**. On narrower screens, **Follow top traders** closes the page.
+
+On a phone, the order is the header, the value card, the Creator reward card, then two tabs, **Positions** and **Activity**, then **Follow top traders**.
+
+## The value card
+
+| Element | What it shows |
+|---------|--------------|
+| **Hero** (for example "+$12.40") | Your profit and loss over the selected range, signed and coloured. It follows the cursor when you hover the chart. |
+| "Profit & loss · 7d" | The range in words: 24h, 7d, 30d, 1y, or all time. |
+| **1D / 1W / 1M / 1Y / ALL** | The range. The default is **1W**. |
+| **Chart** | Your cumulative profit and loss over the range. Hover it to read the value at a date and time. |
+| **Portfolio value** | Your total, with "$X cash · $Y in positions" beneath it. |
+| **Withdraw** / **Deposit** | Open the [withdraw dialog](/portfolio/deposit-withdraw#withdraw) and the [deposit menu](/portfolio/deposit-withdraw#open-the-deposit-menu). |
+| Trade-credit line | "$A trade credit · $B in positions · not withdrawable — the profit is". A is your spendable credit and B is credit in open positions. It's hidden when both are $0. |
+
+How to read the chart:
+
+- It starts at **$0 at the start of the range**. The dashed $0 line marks where the range began.
+- It adds up your realized results from interval sales and settlements. Its last point also counts your open positions at their current value.
+- The line is green when the range is up and red when it's down.
+- Deposits and withdrawals never move it.
+- A range never starts before your account was created.
+- With no trades, it reads "No trades yet".
+- It refreshes every 30 seconds.
+
+## Creator reward card
+
+Only you see this card. It shows:
+
+- the label "Creator reward" and a **See how to earn** button;
+- your points, and "500 pts = $5.00 of trade credit";
+- a **Claim** button, which reads "Claim at 500 pts" until you have enough;
+- a progress bar, and the line "N pts to go · credit is used before your cash, and you keep the profit".
+
+Claimed points become trade credit. See [Creator rewards](/platform/creator-rewards) and [Trade credit](/portfolio/trade-credit).
+
+## What each figure means
 
 | Figure | Where | What it is |
 |--------|-------|-----------|
-| **Cash** | Top bar | USDG in your wallet |
-| **Portfolio** | Top bar | Cash + open interval positions + open options, both at the current bid |
-| **Available cash** | Value card | Cash minus the cost reserved by open interval positions, including windows that have closed but not yet settled |
-| **$X in positions** | Value card | Open interval positions at the midpoint (at cost while settling) + open options at the bid (at cost when unquoted) |
-| **Total** | Value card headline | Available cash + in positions |
-| **Buying power** | Interval market page | Available cash |
-| **Wallet** | Options order panel | Cash |
-| **Volume** | Header | Interval: $1 per contract over every buy and sell. Options: contracts × the stock price at purchase, counted again on a sale. |
-| **Realized P&L** | Header | Interval and options combined |
+| **Cash** | Top bar; "$X cash to trade" on a phone | Your USDG balance less what's held for open positions, waiting limit buys, and recent sales at a loss. Trade credit is never in it. See [What holds your funds](#what-holds-your-funds). |
+| **Buying power** | **Live Positions** on a market page | The same as **Cash**. "+ $Y credit" appears beside it while you have trade credit. |
+| **Portfolio** | Top bar | The same total as **Portfolio value**. |
+| **Portfolio value** | Value card | "cash" plus "in positions". |
+| "$X cash" | Value card | Your USDG balance less the cost of contracts you hold in interval windows, including windows that have closed but not yet settled. Cash held for a waiting limit buy still counts here, so this figure can be higher than **Cash**. |
+| "$Y in positions" | Value card | Your interval contracts at the midpoint of the current bid and ask (at cost while a window settles), plus your multiplier orders at their current value (the stake when there's none). |
+| **Credit** | Top bar; the trade-credit line | Your spendable trade credit. It counts in neither **Cash** nor **Portfolio**. |
+| **Volume** | Header | $1 per interval contract on every buy and every sale. |
+| **Realized P&L** | Header | Your interval sales and settlements, as the cash result. A loss funded by trade credit counts only the cash you lost. |
 
-### How each product moves your cash
+Multiplier orders don't count toward **Volume** or **Realized P&L**.
 
-- **Interval buys move no money when placed.** The cost is reserved from your available cash. When the window settles, a loss is collected from your wallet and a win is paid in, as one net transfer. Selling back mid-window settles the realized difference immediately.
-- **Option buys take the premium from your wallet immediately** and reserve nothing. Sales and settlement payouts arrive in the wallet.
+## What holds your funds
+
+These count against **Cash**, **Buying power**, and what you can withdraw:
+
+1. the cash cost of contracts you hold in an interval window, from the buy until that window settles;
+2. waiting limit buys, and orders still being placed;
+3. a sale at a loss, until the loss is collected (within about a minute).
+
+These don't hold funds:
+
+- a multiplier order's stake, because it leaves your cash when you place the order;
+- trade credit, because it's never in your balance.
 
 <Warning>
-Cash reserved by open interval windows cannot be spent on new interval trades or withdrawn until those windows settle. The top-bar **Cash** figure shows your full wallet, so it can be higher than **Available cash**.
+Funds held by open positions can't be withdrawn until those positions settle. A withdrawal that dips into them is refused, and the message tells you how much is committed.
 </Warning>
+
+## How money moves
+
+- **Interval buys** move no money when you buy. The cost is held from your **Cash** until the window settles.
+- **Settlement** is one net transfer per window, after the close. A win is paid into your balance. A loss is taken from it.
+- **Selling before the close** moves nothing at the moment of the sale. What the sale realized is paid or collected within about a minute. Until then the confirmation card reads "+$X realized · settling…".
+- **Multiplier orders** take the stake from your **Cash** when you place them, and pay out into **Cash** at settlement. They use cash only, never trade credit. **Portfolio value** counts open multiplier orders at their live value. See [Multiplier](/interval/multiplier).
+- **Trade credit** is spent before your cash on immediate interval buys. See [Trade credit](/portfolio/trade-credit).
+- **Deposits and withdrawals** change your **Cash**, but never the profit and loss chart. They don't appear in **Activity**. A notification confirms each withdrawal. See [Notifications](/platform/notifications).
+
+<Note>
+Positions refresh every 10 seconds. The top bar and the chart refresh every 30 seconds.
+</Note>
 
 ## Your public profile
 
-Anyone can see your page at `/u/your-username`, minus your email and your options positions, and subject to your **Visibility** settings for Wallet, Positions, and Activity. See [Account & profile](/account-and-profile#your-profile) and [Profiles & social](/platform/profiles-and-social).
+Other people see your page at `/u/your-username`. It shows your header, value card, positions, and Activity, subject to the **Visibility** switches in **Edit profile**. It never shows your email, a wallet address, your deposits or withdrawals, or your waiting orders. See [Account and profile](/account-and-profile) and [Profiles and social](/platform/profiles-and-social).

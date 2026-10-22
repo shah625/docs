@@ -1,0 +1,106 @@
+---
+title: "Pre-IPO markets"
+description: "Up or Down on OpenAI and Anthropic: what the price means, cadences and hours, how the open and close are set, and how Pre-IPO markets differ from stocks and crypto."
+---
+
+A **Pre-IPO market** is an interval market on a private company that has no exchange quote. updown runs them on **OpenAI** and **Anthropic**. You trade Up or Down on a window exactly as on a stock or crypto market, and a winning contract pays $1.00.
+
+<Warning>
+You don't own any shares. The Terms describe these markets as: "Cash-settled contracts that reference a third-party market's implied valuation of a private company. You do not own, and cannot receive, any shares or other interest in the company." See [Legal and eligibility](/help/legal-and-eligibility).
+</Warning>
+
+## What the price means
+
+As the Market Rules put it, "OpenAI is a private company with no exchange quote". So the price comes from a third-party pre-IPO market whose price tracks the company's implied valuation.
+
+- updown shows that market's **contract price**, in dollars with 2 decimal places, for example "$1,687.40" for OpenAI. It isn't a share price.
+- **$1 of price is about $1 billion of implied valuation.** The full rules give the scale: "1,690 ≈ a $1.69 trillion valuation". So $1,687.40 is a valuation of about $1.69 trillion.
+- The market page and cards show the contract price only, never a valuation such as "$1.69T".
+- **Up** wins if that price closes the window at or above its price to beat. It's the same $1-per-contract question as on every interval market.
+
+## Markets and cadences
+
+| Market | Shown as | Cadences |
+|--------|----------|----------|
+| **OpenAI** | "OpenAI" | 5 min · 15 min · 60 min |
+| **Anthropic** | "Anthropic" | 5 min · 15 min · 60 min |
+
+Cards and page headers show the company name alone, with no ticker.
+
+## Trading a Pre-IPO window
+
+<Steps>
+  <Step title="Open a Pre-IPO market">
+    Pick **Pre-IPO** in the category dropdown on **Browse markets**, open the Pre-IPO page at `/pre-ipo`, or use the **Pre-IPO** section of the side panel's **Trade** tab. Search finds them too ("Search stocks, pre-IPO and crypto…"). See [Browsing markets](/interval/browsing-markets).
+  </Step>
+  <Step title="Pick a company and a cadence">
+    Choose **OpenAI** or **Anthropic**, at **5 min**, **15 min**, or **60 min**.
+  </Step>
+  <Step title="Read To beat and Now">
+    Both are contract prices, like "$1,687.40". **To beat** shows "—" for about 15 seconds after each window opens. Up and Down prices appear once it's set.
+  </Step>
+  <Step title="Buy Up or Down">
+    The ticket is the same as on every interval market. See [Placing orders](/interval/placing-orders).
+  </Step>
+</Steps>
+
+<Note>
+The Multiplier isn't offered on Pre-IPO markets. The ticket shows regular Up and Down only.
+</Note>
+
+## Rules
+
+### Hours
+
+Pre-IPO markets trade **24/7**. They never show "Market closed".
+
+New positions pause if the reference market's price goes stale, if trading on the reference market thins out or dislocates, or if that market is halted or delisted. Open positions still settle.
+
+### Open and close
+
+Each boundary value (a window's close, which is also the next window's **To beat**) is the **median** of the reference market's price over the 60 seconds ending at the boundary. The Market Rules explain: "The official and final value is the median of those samples, never a single trade, rounded to the nearest 4 decimal places."
+
+- The price is sampled every 5 seconds. At least half the samples must be present.
+- The value is stored once, so a window's price to beat equals the previous window's close.
+- It's set about **15 seconds** after the boundary.
+- If too few samples land, the reference market's 1-minute close at the boundary is used after 45 seconds.
+- If the reference market's price drifts too far from its oracle price, the value waits, up to 30 minutes, for them to agree.
+
+### Tie rule and decimals
+
+- The tie rule is the same as on every interval market: an unchanged close settles **Up**, compared at 4 decimal places. See [Up and Down](/interval/how-windows-work#up-and-down).
+- Prices show 2 decimal places on cards, in the header (**To beat**, **Now**, **Final**), on the Market Rules **Target Price**, and on the settled chart.
+- The move under **Now** shows 4 places when it's under $10 ("+$0.3000").
+
+### The chart
+
+- The live line is the reference market's raw price, drawn once a second. It isn't the 60-second average that stock charts show.
+- A Line ⇄ Candles toggle is available.
+- On a settled window's chart, the last minute is shaded: the 60 seconds the closing median covers.
+
+### Settlement
+
+The result is decided about 15 seconds after the close, or up to 45 seconds on the fallback. Payouts then go out like on every interval market. See [Settlement](/interval/how-windows-work#settlement).
+
+## How Pre-IPO markets differ
+
+| | Pre-IPO | Stocks and crypto |
+|---|---------|-------------------|
+| **Price** | A third-party pre-IPO market's contract price, which tracks implied valuation | The stock's or coin's price |
+| **Open and close** | The median of 60 seconds of samples, set about 15 seconds after the boundary | A 60-second average, set about 1 second after |
+| **Live line** | The raw reference price | Stocks: the rolling 60-second average. Crypto: the 60-second time-weighted average. |
+| **Hours** | 24/7 | Crypto 24/7. Stocks Sunday 8:00 PM → Friday 4:00 PM ET, with 8 stocks open through the weekend. |
+| **Header tag** | A blue "Pre-IPO" tag, beside the title (beside **LIVE** on phones) | Stocks show a session pill |
+| **Multiplier** | Not offered | Offered on stock and crypto interval markets |
+| **Ticket** | The same as every market | The same |
+
+The Market Rules in the **Rules** tab describe the reference market for each company. The disclaimer that you don't own any of the company sits under **View full rules**.
+
+<CardGroup cols={2}>
+  <Card title="How windows work" icon="clock" href="/interval/how-windows-work">
+    Windows, the tie rule, settlement, and market hours.
+  </Card>
+  <Card title="Browsing markets" icon="magnifying-glass" href="/interval/browsing-markets">
+    Find Pre-IPO markets with the category filter.
+  </Card>
+</CardGroup>

@@ -1,91 +1,174 @@
 ---
-title: "Deposit & withdraw"
-description: "Fund your account with USDG on Robinhood Chain, USDC on Polygon, or a card or bank, and withdraw USDG any time."
+title: "Deposit and withdraw"
+description: "Add money with stablecoins, card, Cash App, or other crypto, and withdraw USDG on Robinhood Chain."
 ---
 
-Your cash is **USDG** in your own wallet on **Robinhood Chain**. You can deposit USDG directly, send USDC on Polygon and have it routed in automatically, or pay by card or bank. Withdrawals send USDG to any Robinhood Chain address. Gas is sponsored everywhere.
+Your cash is **USDG** on **Robinhood Chain**, held in your wallet. You can deposit in three ways:
 
-Click **Cash** in the top bar to deposit (on a phone, **Deposit** on Home). The **Withdraw** and **Deposit** buttons also sit on your Portfolio value card.
+- send USDG on Robinhood Chain directly;
+- send USDC or USDT from another network, and updown moves it over automatically;
+- pay by card, Cash App, or other crypto through our payment partner, which delivers USDG to your wallet.
 
-<Warning>
-Send only the asset shown, on the network shown. Other tokens or networks may result in permanent loss, and there is no in-app recovery. If it happens, contact [support](/help/support) with the transaction hash.
-</Warning>
+Withdrawals send USDG to any Robinhood Chain address.
+
+## Open the deposit menu
+
+Each of these opens the same **Deposit with** menu:
+
+- **Cash** in the top bar (desktop);
+- **Deposit** in the balance block on a phone's **Home** tab;
+- **Deposit** on your Portfolio value card;
+- the **Deposit** panel on the Portfolio page, on screens 1536 px and wider;
+- **Deposit now** on a trade-credit offer.
+
+The menu has two tabs, **Cash** and **Crypto**. It opens on **Cash** each time.
+
+| Tab | Row | Sub-label | What it opens |
+|-----|-----|-----------|---------------|
+| Cash | **Deposit with card** | "Debit or credit · $50,000 limit" | Our payment partner's card checkout |
+| Cash | **Pay with Cash App** | "Deposit via Cash App · $10 min" | Our payment partner's Cash App flow |
+| Crypto | **Send stablecoins** | "USDG, USDC, or USDT" | updown's own deposit address and QR code, with no conversion |
+| Crypto | **Transfer any crypto** | "Any token · $10 min" | Our payment partner, which converts any token |
+| Crypto | **Connect wallet** | "Deposit from your wallet" | Our payment partner |
+| Crypto | **Pay with exchange** | "Transfer from an exchange" | Our payment partner |
+| Crypto | **Connect exchange** | Connect an exchange account, about 2 minutes | Our payment partner |
+| Both | **Deposit tracker** | "Follow a deposit on its way" | Our payment partner's tracker for a deposit in progress |
 
 <Tabs>
-  <Tab title="Deposit with crypto">
+  <Tab title="Send stablecoins">
     <Steps>
-      <Step title="Choose Crypto">
-        In the **Deposit with** dialog, click **Crypto** ("Transfer USDC from a crypto wallet"). The first time, complete the **Allow trading** approval and click **Continue**. See [Account & profile](/account-and-profile#allow-trading).
+      <Step title="Open Send stablecoins">
+        In **Deposit with**, open the **Crypto** tab and click **Send stablecoins**. The "Deposit with crypto" dialog opens.
+      </Step>
+      <Step title="Allow trading (first time only)">
+        Until you've given the one-time approval, the dialog shows the "Enable trading" panel: "One approval. After that, trades go through with no signing." Click **Allow trading**. It reads "Enabling trading" / "A few seconds. You can close this, it keeps going." When it reads "Trading enabled", click **Continue**. See [Account and profile](/account-and-profile).
       </Step>
       <Step title="Pick a network">
-        The dropdown offers **Robinhood Chain** (default) and **Polygon**. Arbitrum, Base, Solana, BNB Chain, and Ethereum are listed as **Soon**.
+        The network menu starts on **Robinhood Chain**. Pick the network you're sending from:
+
+        | Network | Asset | Minimum | How it's credited |
+        |---------|-------|---------|-------------------|
+        | **Robinhood Chain** | USDG | $0.50 | Directly. USDG in your wallet is your balance. |
+        | **Arbitrum** | USDC | $2.00 | Moved into your Robinhood Chain balance automatically |
+        | **Base** | USDC | $2.00 | Moved automatically |
+        | **Ethereum** | USDC or USDT | $20.00 | Moved automatically |
+        | **Polygon** | USDC (native USDC only) | $2.00 | Moved automatically |
+
+        **Solana** and **BNB Chain** are greyed out and marked **Soon**. You can't pick them.
       </Step>
       <Step title="Send">
-        The dialog reads "Send USDG on the Robinhood Chain network to this address." or "Send USDC on the Polygon network to this address.", with a QR code and the address to copy. The same address works on both chains.
+        The dialog says what to send. For example: "Send **USDC or USDT** on the Ethereum network to this address." / "Deposit at least **$20.00** to add to your cash balance." / "We route Ethereum USDC / USDT into your Robinhood Chain balance automatically."
 
-        | Network | Asset | Minimum |
-        |---------|-------|---------|
-        | Robinhood Chain | USDG | $0.50 |
-        | Polygon | USDC | $2 |
-
-        Polygon deposits are routed into your Robinhood Chain balance automatically. The dialog says so: "We route Polygon USDC into your Robinhood Chain balance automatically."
+        Scan the QR code, or copy the address ("Address copied"). The address is the same on every live network.
       </Step>
       <Step title="Watch it arrive">
-        USDG on Robinhood Chain lands in your wallet and counts at once. A Polygon deposit shows "Detected $X USDC — adding to your balance…", then "Adding your deposit to your balance…", and finishes with the toast **"Deposit added to your balance"**. You can close the dialog and come back.
-      </Step>
-    </Steps>
+        **USDG on Robinhood Chain** has nothing to move. Your balance updates within seconds in the dialog, and within 30 seconds in the top bar. There's no toast.
 
-    <Note>
-    Sent less than the minimum on Polygon? The dialog reads "We received $X — send $Y more to reach the $2 minimum." Your funds are safe in the meantime. If routing fails: "Deposit failed to convert — funds were not lost. Try again."
-    </Note>
-  </Tab>
+        **On another network**, a toast reads "Detected $10.00 USDC — adding to your balance…". The dialog then shows "Adding your deposit to your balance…", and finishes with the toast "Deposit added to your balance".
 
-  <Tab title="Card or bank">
-    Click **Card or bank** ("Debit, credit, Apple Pay or US bank"). A Stripe checkout opens. Identity checks, if any, are Stripe's.
-
-    The purchase buys USDC that is routed into your balance automatically. While it arrives, the dialog reads "Waiting for your USDC" and then "Adding to your balance…". The minimum is **$2**.
-
-    > Card and Apple Pay purchases usually land within a few minutes. Bank transfers can take a few days. You can close this — we'll add it to your balance when it arrives.
-  </Tab>
-
-  <Tab title="Withdraw">
-    Withdrawals send **USDG on Robinhood Chain** to any address you choose. The dialog describes it as "Gas-free, usually instant."
-
-    <Steps>
-      <Step title="Open the Withdraw dialog">
-        Click **Withdraw** on your Portfolio value card. It shows your **Available** balance.
-      </Step>
-      <Step title="Enter the recipient">
-        Paste the destination in **Recipient address (Robinhood Chain)**. It must be a valid 0x address.
-      </Step>
-      <Step title="Enter the amount">
-        Type an amount in **Amount (USDG)** or click **MAX**. The minimum is **$2**. The dialog shows **You receive** as "≈ $X USDG".
-      </Step>
-      <Step title="Confirm">
-        Click **Withdraw**. The success screen reads **"Withdrawal confirmed"** with a **View transaction →** link to the Robinhood Chain explorer, and offers **Withdraw again** or **Done**.
+        You can close the dialog. While it's open, updown checks the network you picked about every 20 seconds. It also checks Arbitrum, Base, Ethereum, and Polygon when you open updown or come back to it. That check's toast names the network, for example "Detected $10.00 USDC on Base — adding to your balance…".
       </Step>
     </Steps>
 
     <Warning>
-    "Withdrawals are irreversible — double-check the address."
+    Send only the listed asset on a live network. The address is the same everywhere, but only the listed asset on each network is credited. Don't send on Solana or BNB Chain. If you've sent the wrong asset or used the wrong network, contact [support](/help/support) with the transaction hash.
     </Warning>
 
     <Note>
-    Cash reserved by open interval windows cannot be withdrawn until those windows settle. The dialog's **Available** and **MAX** show your full wallet, so a withdrawal that dips into reserved cash is refused with "Amount $X exceeds your available $Y ($Z is committed to open positions)." Options reserve nothing, because the premium has already left your wallet.
+    Sent less than a network's minimum? The dialog reads, for example, "We received $5.00 — send $15.00 more to reach the $20 minimum." The funds wait in your wallet on that network. They're moved over once a top-up lifts them past the minimum.
     </Note>
+  </Tab>
+
+  <Tab title="Card and Cash App">
+    On the **Cash** tab, click **Deposit with card** or **Pay with Cash App**. Our payment partner's window opens. A "Deposit" panel shows "Loading…" while it starts.
+
+    Follow its checkout. Our payment partner converts your payment and delivers USDG on Robinhood Chain straight to your wallet, so it lands as cash. When it does, a toast reads "Deposit added to your balance". These methods don't need the **Allow trading** step.
+
+    Our payment partner's own terms, fees, and identity checks apply. Its window shows its fees before you pay. Use **Deposit tracker** to follow a deposit on its way.
+
+    | Message | What to do |
+    |---------|-----------|
+    | "Couldn't open the deposit window." | Click **Try again**. |
+    | "Couldn't load your deposit address." | Click **Try again**. |
+    | "Card and Cash App deposits aren't available right now. You can still send stablecoins from a crypto wallet." | Use **Send stablecoins** on the **Crypto** tab. |
+  </Tab>
+
+  <Tab title="Other crypto and exchanges">
+    The other **Crypto** rows all run through our payment partner:
+
+    - **Transfer any crypto** converts any token. The minimum is $10.
+    - **Connect wallet** deposits from a wallet you connect.
+    - **Pay with exchange** and **Connect exchange** transfer from an exchange account.
+
+    As with card and Cash App, our payment partner delivers USDG on Robinhood Chain to your wallet, and you see the toast "Deposit added to your balance". No **Allow trading** step is needed. Its own terms, fees, and identity checks apply.
   </Tab>
 </Tabs>
 
-## Supported assets
+## The funding panel on wide screens
 
-| Direction | Asset | Network | Minimum | Fee |
-|-----------|-------|---------|---------|-----|
-| Deposit | USDG | Robinhood Chain | $0.50 | None |
-| Deposit | USDC | Polygon, routed automatically | $2 | A small bridge cut on the way in |
-| Deposit | Card, Apple Pay, or US bank | via Stripe, routed automatically | $2 | A small bridge cut on the way in |
-| Held as | USDG | Robinhood Chain | — | — |
-| Withdraw | USDG | Robinhood Chain | $2 | None, gas sponsored |
+On screens 1536 px and wider, the Portfolio page has a sticky **Deposit** / **Withdraw** panel:
+
+| Element | What it does |
+|---------|-------------|
+| **Amount** | A dollar amount, with quick chips **$20 / $50 / $100 / $250**. The **Withdraw** tab adds **MAX**. |
+| **Pay with** | **Card or Cash App** ("Debit or credit card, Cash App or an exchange"; the default) or **Crypto** ("USDC or USDG from a wallet"). |
+| "Deposit $X" | **Card or Cash App** opens our payment partner's card screen with the amount filled in: "Checkout opens with this amount; it lands as cash within minutes." **Crypto** opens "Deposit with crypto": "You'll get a QR and address to send to; it's credited when it arrives." |
+| **Withdraw** tab | Opens the withdraw dialog with the amount filled in: "You'll confirm the network and address on the next step." An amount over your cash reads "That's more than your $X cash balance." |
+
+## Fees and minimums
+
+USDG on Robinhood Chain has no fee. Deposits on other networks lose a small amount when they're moved over, and the gas for the move is sponsored. Card, Cash App, and the other partner methods show our payment partner's fees before you pay. Withdrawals have no fee.
+
+| Direction | Method | Minimum or limit | Fee |
+|-----------|--------|------------------|-----|
+| Deposit | USDG on Robinhood Chain | $0.50 | None |
+| Deposit | USDC on Arbitrum, Base, or Polygon | $2 | A small amount when it's moved over |
+| Deposit | USDC or USDT on Ethereum | $20 | A small amount when it's moved over |
+| Deposit | Card | "$50,000 limit" | Our payment partner's, shown before you pay |
+| Deposit | Cash App | $10 | Our payment partner's, shown before you pay |
+| Deposit | Any token | $10 | Our payment partner's, shown before you pay |
+| Withdraw | USDG on Robinhood Chain | $2 | None, gas sponsored |
+
+## Withdraw
+
+Withdrawals send **USDG on Robinhood Chain** to any address you choose. The dialog describes them as "Gas-free, usually instant."
+
+<Steps>
+  <Step title="Open the withdraw dialog">
+    Click **Withdraw** on your Portfolio value card. On screens 1536 px and wider, you can also use the funding panel's **Withdraw** tab. There's no withdraw button in the top bar.
+  </Step>
+  <Step title="Enter the recipient">
+    Paste the destination in **Recipient address (Robinhood Chain)**. An address that isn't valid shows "Invalid address".
+  </Step>
+  <Step title="Enter the amount">
+    Type an amount in **Amount (USDG)**, or click **MAX**. The minimum is **$2**. The dialog shows **You receive** as "≈ $X.XX USDG". Errors read "Exceeds your balance" or "Minimum $2".
+  </Step>
+  <Step title="Confirm">
+    Click **Withdraw**. It reads "Withdrawing…", then "Withdrawal confirmed" and "≈ $X.XX in USDG is on its way to 0x12…abcd." **View transaction →** opens the transfer on the Robinhood Chain explorer. Click **Withdraw again** or **Done**.
+  </Step>
+</Steps>
+
+<Warning>
+"Gas is sponsored. Withdrawals are irreversible — double-check the address."
+</Warning>
+
+Withdrawals use the same one-time **Allow trading** approval as trades.
+
+A notification confirms each withdrawal: "Withdrew $X.XX" / "USDG on Robinhood Chain on its way to 0x12…abcd". Withdrawals and deposits don't appear in **Activity**, so this notice is your record. See [Notifications](/platform/notifications).
+
+<Note>
+Funds held by open positions can't be withdrawn until they settle. **MAX** fills in your whole balance, so a withdrawal that dips into held funds is refused with "Amount $X exceeds your available $Y ($Z is committed to open positions)." With nothing held, an amount over your balance reads "Amount $X exceeds your balance of $Y." See [What holds your funds](/portfolio/overview#what-holds-your-funds).
+</Note>
 
 <Info>
-If your account holds a balance from before the move to Robinhood Chain, the Withdraw dialog shows a link to withdraw it as USDC on Polygon. Restricted accounts keep the ability to withdraw. See [Support](/help/support#restricted-accounts).
+If your account still holds $2 or more from before the move to Robinhood Chain, the dialog shows a link: "You also have $X from before the upgrade — withdraw it as USDC on Polygon". The dialog then reads "Send native USDC to any Polygon address. Gas-free, usually instant." and asks for a **Recipient address (Polygon)** and an **Amount (USDC)**. "Back to your Robinhood Chain balance" returns you to the usual dialog.
 </Info>
+
+## When transfers are unavailable
+
+- **Platform pause.** When updown pauses all money movement, deposits and withdrawals are refused and the dialogs show the pause message. It adds "Resumes in …" when a resume time is set.
+- **Gas top-up.** You may see "Transfers are briefly paused while we top up gas sponsorship — please try again in a few minutes. Your funds are safe."
+- **Restricted accounts** can still withdraw their balance. See [Support](/help/support).
+- **Team access.** If you're using someone else's account, **Deposit** and **Withdraw** open a dialog that offers only **Back to my account**. See [Team access](/platform/team-access).
+
+The Terms cover deposits and withdrawals in full. See [Legal and eligibility](/help/legal-and-eligibility).

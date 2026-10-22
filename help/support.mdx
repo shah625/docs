@@ -1,55 +1,113 @@
 ---
 title: "Support"
-description: "How to reach the updown team, and what happens with restricted accounts and mis-sent deposits."
+description: "How to reach the updown team, and what to do about a restricted account, a mis-sent deposit, a trade error, or a trading pause."
 ---
 
-## Contact channels
+## Contact us
+
+Click **Contact us** in the status bar at the bottom of the screen on desktop, or tap ☰ → **More** → **Contact us** on a phone. The page reads "Questions, feedback, or partnership inquiries — we'd love to hear from you." Pick a channel:
 
 | Channel | Where |
 |---------|-------|
-| **In-app form** | **Contact us** in the bottom bar on desktop, or ☰ → **More** → **Contact us** on a phone |
 | **Email** | [hello@updown.fast](mailto:hello@updown.fast) |
-| **X** | [@updown_markets](https://x.com/updown_markets) |
-| **Discord** | [Join the server](https://discord.gg/d9gfrYWSAu) |
+| **X** | [@tradeupdown](https://x.com/tradeupdown) |
+| **Discord** | [Join our server](https://discord.gg/d9gfrYWSAu) |
 
-## Sending a message from the app
-
-<Steps>
-  <Step title="Open the form">
-    Open **Contact us**. The page is headed **Contact Us**, lists the channels above, and ends with a **Send a Message** form.
-  </Step>
-  <Step title="Check your details">
-    **Username** is filled from your account and cannot be edited. **Email** is prefilled and can be changed.
-  </Step>
-  <Step title="Write your message">
-    Type up to **5,000 characters** in **Message**. A counter shows your usage.
-  </Step>
-  <Step title="Send">
-    Click **Send Message**. The button reads "Sending…" and then "Message Sent!".
-  </Step>
-</Steps>
-
-<Note>
-The form requires a signed-in account. If you cannot sign in, use email or Discord instead.
-</Note>
+The Discord and X icons at the end of the status bar, and in ☰ → **More**, open the same places.
 
 ## What to include
 
-- The **transaction hash** for any deposit or withdrawal question. Deposits and withdrawals are on Robinhood Chain or Polygon and can be checked on their block explorers.
-- The **stock and expiry** for an options question, or the **market and window time** for an interval question. Every settled interval window has its own page, reachable from the **Past** dropdown or your activity.
+- The **transaction hash** for a deposit or withdrawal question. Deposits arrive on Robinhood Chain, Arbitrum, Base, Ethereum, or Polygon, and withdrawals go out on Robinhood Chain. You can check each on its network's block explorer.
+- The **market and window time** for an interval question. Every settled window has its own page. Open it from the **Past** dropdown on the market page, or from your activity.
 
-## Mis-sent deposits
-
-Only **USDG on Robinhood Chain** and **USDC on Polygon** are supported. Other tokens or networks may result in permanent loss. There is no automated recovery. Contact support with the transaction hash as soon as possible.
+---
 
 ## Restricted accounts
 
-If updown flags an account for suspicious activity, an **Account flagged** notice appears:
+updown restricts an account linked to activity that breaks the [Terms of Service](https://www.updown.fast/terms). You then see an **Account flagged** notice.
 
-> This account has been flagged for suspicious activity and is restricted from trading, deposits, and rewards. Your balance is not affected — you can still withdraw at any time. If you believe this is a mistake, contact us on Discord or by email and we'll take a look.
+- A restricted account can't trade, deposit, or earn rewards.
+- Your balance isn't affected. You can still withdraw at any time.
+- Anything else you try is refused with a reminder that you can still withdraw.
+- The notice comes back on every page until you tick **Don't show this again** and click **Got it**.
 
-Withdrawals keep working for restricted accounts.
+If you think it's a mistake, contact us on [Discord](https://discord.gg/d9gfrYWSAu) or at [hello@updown.fast](mailto:hello@updown.fast), and we'll take a look.
+
+---
+
+## Mis-sent deposits
+
+Your deposit address is the same on every network, but only these are credited:
+
+| Network | Asset |
+|---------|-------|
+| **Robinhood Chain** | USDG |
+| **Arbitrum**, **Base**, **Polygon** | USDC |
+| **Ethereum** | USDC or USDT |
+
+Other tokens are credited only when you send them through **Transfer any crypto** in **Deposit with**, which runs through our payment partner.
+
+A supported deposit below its network's minimum waits. It's added to your balance once you top it up past the minimum. See [Deposit and withdraw](/portfolio/deposit-withdraw).
+
+These aren't credited, and there's no automated recovery:
+
+- an unsupported token, including bridged USDC.e on Polygon;
+- a network marked "Soon", such as BNB Chain, even though the same address works there;
+- a wrong address.
+
+<Warning>
+As the Terms put it: "Check every withdrawal address carefully: blockchain transfers cannot be reversed, and we cannot recover funds sent to a wrong address." If something went to the wrong place, email [hello@updown.fast](mailto:hello@updown.fast) with the transaction hash as soon as you can.
+</Warning>
+
+---
+
+## Trade errors and disputes
+
+Email [hello@updown.fast](mailto:hello@updown.fast) for both.
+
+- **A suspected pricing error:** report it "where possible within 60 minutes of the trade and before the market settles". See [Terms section 9](https://www.updown.fast/terms#errors).
+- **A formal dispute:** put "Dispute" in the subject line. See [Terms section 23](https://www.updown.fast/terms#disputes).
+
+## Availability
+
+The Terms of Service require you to be 18 or older and not located in a Restricted Jurisdiction (listed in the [Terms](https://www.updown.fast/terms#restricted)). See [Legal and eligibility](/help/legal-and-eligibility).
+
+## Cookie choices
+
+To change your cookie choice, click **Your privacy choices** in the status bar, or tap ☰ → **More** → **Your privacy choices** on a phone. The cookie banner opens again. Click **Decline** or **Accept**. See [Cookies and privacy choices](/help/legal-and-eligibility#cookies-and-privacy-choices).
+
+---
 
 ## Service status
 
-On desktop, the bottom bar shows an **Online** / **Offline** dot that reflects whether the app can reach its servers. During maintenance, a banner across the app reads "We're upgrading the platform — trading and transfers are paused for a few minutes." There is no separate status page.
+On desktop, the status bar shows an **Online** / **Offline** dot for whether the app can reach updown. There's no separate status page.
+
+When updown pauses trading, a banner appears at the top of every page:
+
+> Trading is paused for maintenance. Resuming in 1h 30m. Join our Discord for additional updates
+
+- The message can differ, and "Resuming in…" shows only when a resume time is set.
+- The banner is usually amber, or blue for information. It scrolls away with the page.
+- Every ticket shows the message too, such as "Trading is paused for maintenance. Resumes in 1h 30m."
+- The pause lifts on its own at the resume time, and the banner disappears.
+- A pause can stop new positions only, all trading, or all money movement: deposits, withdrawals, and reward claims. Settlement keeps running either way.
+- Every banner links to our Discord, where updates are posted.
+
+During a short platform upgrade, tickets may instead read "We're upgrading the platform — trading and transfers are paused for a few minutes." with no banner.
+
+updown can also pause a single interval in one category, with no banner. Its markets drop out of the lists. If you open one from a link, the ticket is covered by a **Trading paused** note. You can still sell, and positions you hold settle as usual.
+
+<CardGroup cols={2}>
+  <Card title="Legal and eligibility" icon="scale-balanced" href="/help/legal-and-eligibility">
+    The Terms, the Privacy Policy, who can use updown, and deleting your account.
+  </Card>
+  <Card title="Account and profile" icon="user" href="/account-and-profile">
+    Signing in, Settings, and Allow trading.
+  </Card>
+  <Card title="Deposit and withdraw" icon="wallet" href="/portfolio/deposit-withdraw">
+    Every way to add and remove money.
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/help/faq">
+    Quick answers to common questions.
+  </Card>
+</CardGroup>

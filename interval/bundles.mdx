@@ -1,0 +1,94 @@
+---
+title: "Bundles"
+description: "Pick Up or Down on up to 20 interval markets and place them all in one order."
+---
+
+**Bundle** lets you pick a side on several interval markets and place them all with one button. Each pick is its own buy. It fills, wins, or loses on its own, and there's no combined payout. Bundle was called "Multi-buy".
+
+## Where to find it
+
+The **Bundle** toggle sits at the top of [Browse markets](/interval/browsing-markets) and of the **Stocks**, **Crypto**, and **Pre-IPO** pages. It isn't on market pages. Your slip is shared across those pages.
+
+## Placing a bundle
+
+<Steps>
+  <Step title="Turn it on">
+    Tap **Bundle**. It turns white and shows your pick count. The slip reads "Tap any outcome to add it to your order." and "Pick as many markets as you like — each one is its own buy."
+  </Step>
+  <Step title="Pick sides">
+    Tap **Up** or **Down** on each market you want. A picked button fills with its colour. Tap it again to remove it, or tap the other side to swap. A market that can't be picked right now is dimmed.
+  </Step>
+  <Step title="Set the amounts">
+    Choose **$ per market**: **$2**, **$5**, or **$10**, or type an amount. The default is $5. A chip sets every pick and the next one you add. You can also change any single pick's amount.
+  </Step>
+  <Step title="Review">
+    Check **Total cost** and **Pays if every pick wins**. On a smaller screen, the docked bar reads "N picks · $X". Tap **Review** to open the slip.
+  </Step>
+  <Step title="Place">
+    Tap **Place N orders · $X**. Then add one take for the whole bundle, and tap **Share picks** if you like.
+  </Step>
+</Steps>
+
+## The slip
+
+On wide screens the slip is a column on the right of the page. On smaller screens it opens as a sheet from the docked bar.
+
+| Part | What it shows |
+|------|--------------|
+| **Header** | "Bundle" with the count, and **Clear all** |
+| **$ per market** | Chips **$2**, **$5**, **$10**, and a **$** box |
+| **Each pick** | The market's image and name, the side and price with the interval ("▲ Up 51¢ · 15 min"), an amount box, "to win $X" in green, and a countdown. **✕** removes it. |
+| **Total cost** | What the whole bundle spends |
+| **Pays if every pick wins** | The total payout if every pick is right |
+| **Cash** | Your cash. It turns amber when it's short. |
+| **Trade credit · used first** | Shows while you hold trade credit. Credit is spent before your cash. |
+| **Button** | "Place N orders · $X" or "Place 1 order · $X". It reads "Place order" and stays disabled while nothing can be placed, and "Placing…" while it goes through. Signed out, it reads **Sign in to trade**. |
+
+A pick that can't be placed shows why in place of its "to win" figure:
+
+- "Market is closed right now"
+- "Pricing…"
+- "No open window right now"
+- "Enter an amount"
+
+If a side can't take your full amount right now, the slip tells you how much will be spent.
+
+## After you place
+
+- The slip shows "N orders placed" and a receipt for each filled pick, such as "Bought $5.00 Up @ 51¢ · pays $9.80". With trade credit, it adds "$X credit used · you keep the profit".
+- If only part of a pick filled, its receipt says how much of your amount filled at the live quote. That's all that was on offer within your price.
+- Filled picks leave the slip. Refused picks stay with their reason in red, so tapping **Place** again retries only those.
+- **Share picks** (or **Share trade** for a single pick) opens a share card.
+
+When every pick has settled, you get one notice for the whole bundle, such as "Bundle settled · BTC, ETH, SOL +1". See [Notifications](/platform/notifications).
+
+## Rules and limits
+
+| Rule | Detail |
+|------|--------|
+| **Picks per order** | Up to 20. Past that: "An order holds up to 20 markets — place this one first." |
+| **Picks per market** | One |
+| **Each pick** | A separate buy, with the same fee and price protection as any buy that trades right away. See [Placing orders](/interval/placing-orders). |
+| **Window** | A pick fills only in the window it was priced in |
+| **Cost check** | If the total is more than your cash plus trade credit, nothing is placed: "This order costs more than your cash — lower the amounts or deposit." With trade credit it reads "…your cash and credit…". |
+| **Trade credit** | Spent before your cash. See [Trade credit](/portfolio/trade-credit). |
+| **The slip** | Turning **Bundle** off clears it, and so does reloading the page. Your **$ per market** amount is remembered. |
+
+Before your first order, a Terms or **Allow trading** popup may open instead. See [Account and profile](/account-and-profile).
+
+## Copy a bundle from the feed
+
+On a tablet or desktop, click someone's bundle on the feed. The trade dialog opens on one pick, with the whole bundle beside it. Tap **Copy bundle** to fill your Bundle slip with every pick that's still trading, on each market's current window. It replaces what was in your slip and takes you to **Browse markets** to review and place it. You can't copy your own bundle, and copying a bundle earns its poster no [creator reward](/platform/creator-rewards). See [Profiles and social](/platform/profiles-and-social).
+
+## Messages
+
+| When | Message |
+|------|---------|
+| The total is more than you have | "Insufficient balance: this order needs $12.00, you have $8.00." (adds " (cash + credit)" when credit counts) |
+| A pick's market isn't running | "This market is paused right now — it isn't taking new orders. Try again shortly or pick another market." |
+| A pick's window rolled over | "The window just closed — review the new price." / "A new window opened — review the new price." |
+| A pick didn't fill | "No fill" / "Trade failed", or the reason from [Placing orders](/interval/placing-orders) |
+| The same market twice | "One leg per market." |
+| Your account is busy | "An order is already in progress on your account. Please wait a moment and try again." / "We're busy right now — try again in a few seconds." |
+| The connection dropped mid-order | "We couldn't confirm this order. Check your positions before placing it again." |
+| Trading is paused | The pause message, or "Trading is paused right now." |

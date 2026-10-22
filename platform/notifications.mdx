@@ -1,0 +1,112 @@
+---
+title: "Notifications"
+description: "The bell: where it is, every kind of notice it shows, and how read and unread work."
+---
+
+The bell collects what happens around your account: settled trades, new followers, likes and copies, money movements, and Team changes. It shows while you're signed in.
+
+## Open the bell
+
+- **Desktop:** the bell sits in the top bar, just left of **Cash**.
+- **Phones:** at the top right, next to search.
+
+A red count on the bell shows how many notices are unread, up to "99+". It refreshes every 15 seconds, and whenever you come back to the tab.
+
+Click the bell to open **Notifications**. It lists your newest 50 notices, with the footer "Newest 50 notices".
+
+| Part | What it shows |
+|------|---------------|
+| **Icon** | The person's avatar on a social notice, otherwise a bell. |
+| **Title** | For example "**Sam** liked your trade" or "Bitcoin (BTC) · 15 min settled Up". |
+| **Body** | The detail line, such as "You won $4.20". |
+| **Age** | "now", "2m", "3h", "1d". |
+| **Red dot** | The notice is unread. |
+
+Click a row to go where it points: a market, a settled window's page, a profile, your Portfolio, or Team. Some notices have no link.
+
+With nothing to show, the list reads "Nothing yet. A follow, a copied trade, a like or a settled trade lands here."
+
+## Read and unread
+
+Opening the bell marks every notice read once the list loads. The red count clears, and the dots stay until you open the bell again. There's no way to dismiss a single notice, and no "mark all read" button.
+
+A teammate using your account through [Team](/platform/team-access) sees your bell, but never marks your notices read.
+
+## Trade results
+
+**A settled window.** You get one notice per window you traded, once its payout has been sent. That's usually within a minute or two of the close. The title names the market and the result, such as "Bitcoin (BTC) · 15 min settled Up". It opens that window's settled page.
+
+The body is your cash result for the window:
+
+| Body | Meaning |
+|------|---------|
+| "You won $4.20" | You made $4.20. |
+| "You lost $5.00" | You lost $5.00 of cash. |
+| "You lost $5.00 + $2.00 credit" | You lost $5.00 of cash and $2.00 of trade credit. |
+| "You lost $10.00 in trade credit" | Trade credit paid for the whole loss. No cash was lost. |
+| "Push · $1.00 credit returned" | No cash was won or lost, and the trade credit came back to your credit balance. |
+| "You sold before the close" | You sold out before the window closed. |
+| "Broke even" | You got back what you put in. |
+
+**A Bundle.** You get one notice for the whole Bundle once every pick's window has settled, such as "Bundle settled · BTC, ETH, SOL +1" / "You won $12.40 · 3 of 4 picks won". If that takes more than an hour, or the Bundle has one market, you get a notice per window instead. It opens your Portfolio. See [Bundles](/interval/bundles).
+
+**A multiplier order.** You get a notice when the order finishes. It opens the window's page.
+
+- Titles: "Multiplier won $4.10", "Multiplier paid $2.00", "Multiplier lost $5.00", "Multiplier refunded: $5.00", or "Multiplier sold for $6.20 (+$1.20)".
+- Body: "BTC-15M Up ×2.30 · stake $5.00 · paid $9.10". A refund ends "· no close price, stake returned".
+
+See [Multiplier](/interval/multiplier).
+
+## Follows, likes, and copies
+
+| Title | When | Opens |
+|-------|------|-------|
+| "Sam started following you" | Someone follows you. Following again doesn't repeat it, and an unfollow removes it. | Their profile |
+| "Sam liked your trade" | Someone likes one of your trades. The body names the market ("Bitcoin (BTC) · 15 min"). An unlike removes it. | The market |
+| "Sam copied your trade" | Someone buys the same trade from a post where you wrote a take. The body names the market. | The market |
+
+Liking your own trade sends you nothing. See [Profiles and social](/platform/profiles-and-social).
+
+## Account and money
+
+These notices have no link.
+
+| Title | When | Body |
+|-------|------|------|
+| "Withdrew $25.00" | You withdraw. | "USDG on Robinhood Chain on its way to", then a shortened form of the address you sent to. |
+| "$X trade credit added" | You get trade credit, when a promotion is offered. | The reason: "Thanks for joining.", "We matched your first deposit.", "Your first trade lost, so we covered it.", or "A credit from the updown team.". Each ends "It's used before your cash, and you keep the profit." |
+| "$X trade credit added" | You turn creator-reward points into trade credit. | "You turned 500 pts into trade credit. It's used before your cash, and you keep the profit." |
+| "API key created" | A new API key is made on your account. | The key's name, then "a live key ending …abcd (read + trade). Not you? Revoke it now." A key made by a teammate names them first. |
+
+Withdrawals don't appear in your Activity table, so the "Withdrew" notice is your record of each one. See [Deposit and withdraw](/portfolio/deposit-withdraw) and [Trade credit](/portfolio/trade-credit).
+
+## Team
+
+Team notices open the Team page.
+
+| Title | Who gets it | Body (example) |
+|-------|-------------|----------------|
+| "Account invite" | The person invited | "Sam invited you to use their account (view only)." or "… (can trade)." |
+| "Invite accepted" / "Invite declined" | The owner | "Alex can now use your account." |
+| "Access changed" | The member | "Sam changed your access to can trade." |
+| "Access removed" | The member | "You can no longer use Sam's account." |
+| "Member left" | The owner | "Alex left your account." |
+| "Orders cancelled" | The owner | "Alex can't trade your account any more, so we cancelled the 2 orders resting on it. Place them again if they were yours." |
+
+"Check your orders" asks you to look over the orders on your account. Find them on the market page under **Live Positions** → **Open orders**. See [Team access](/platform/team-access).
+
+## What isn't notified
+
+- Deposits arriving. Watch for the "Deposit added to your balance" toast, or your **Cash** figure.
+- Order fills, including a waiting limit order that fills.
+
+Notices appear only in the bell. updown doesn't send them by email or as browser notifications, and the website has no notification settings.
+
+<CardGroup cols={2}>
+  <Card title="Profiles and social" icon="users" href="/platform/profiles-and-social">
+    The feed, takes, likes, and follows.
+  </Card>
+  <Card title="Team access" icon="user-plus" href="/platform/team-access">
+    Invites, roles, and switching accounts.
+  </Card>
+</CardGroup>

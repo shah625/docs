@@ -1,67 +1,168 @@
 ---
-title: "Account & profile"
-description: "Signing in, the one-time trading approval, your identity, your wallet, and what other people can see."
+title: "Account and profile"
+description: "Signing in, the one-time Allow trading approval, the Settings dialog, your wallet, the avatar menu, and deleting your account."
 ---
 
 ## Sign in
 
-updown uses [Privy](https://privy.io) for authentication. Click **Login** and sign in with your **email address** or a **Google account**. These are the only two methods. The Privy popup opens in place, so you stay on the page you were on.
+Click **Login** in the top bar. On a phone, open the ☰ menu and tap **Login**. The sign-in popup opens in place, so you stay on the page you were on. On the website you can sign in with your **email** (you'll get a code) or your **Google** account; Apple sign-in is offered on iPhone.
 
-Your account is created automatically on first sign-in, with:
+The popup's footer reads "By logging in I agree to the Terms & Privacy Policy". If you tap **Up** or **Down** while signed out, the same popup opens first.
 
-- a generated **username** made of a color, an adjective, and a shape, such as "BlueAngrySquare"
-- a generated **icon**: a shape on a colored disc
-- an embedded **wallet** on Robinhood Chain that holds your cash
+Your account is created automatically, with no form to fill in. It comes with:
+
+- a **wallet** on Robinhood Chain that holds your cash
+- a generated **username** made of a color, an adjective, and a shape, each capitalized, such as "BlueAngrySquare"
+- a matching **icon**: a shape on a tinted disc
 
 <Info>
-Sign up with your regular, permanent email address. Temporary addresses and dot-alias variants of an address are refused.
+Gmail dot-alias addresses are refused with "Please sign up with your regular email address (no dot-alias variants)." A page then reads "We couldn't set up your account", with **Sign out and try another account**.
 </Info>
+
+<Note>
+If your account is older than the current Terms, a "We’ve updated our Terms" prompt asks you to **Agree**. Until you do, you can't open new positions, but you can still close positions and withdraw. See [Legal and eligibility](/help/legal-and-eligibility).
+</Note>
 
 ---
 
 ## Allow trading
 
-Before your first deposit, you complete a one-time approval. It appears inside the deposit dialog until it is granted:
+Trading needs a one-time approval called **Allow trading**. It lets updown sign the transactions for what you ask: paying for the positions you buy and their fees, receiving payouts and sale proceeds, settling positions, and processing the withdrawals you request.
+
+Until you allow it, the approval appears in three places:
+
+| Where | What you see |
+|-------|--------------|
+| Right after you sign up | A popup titled "Welcome to updown" |
+| When you try to buy, including placing a bundle | A popup titled "One step before your first trade", instead of the buy dialog |
+| **Deposit with** → **Crypto** → **Send stablecoins** | The panel, in place of your deposit address |
+
+Card, Cash App, and exchange deposits don't ask for it.
+
+Each one shows the same panel:
 
 > **Enable trading** — One approval. After that, trades go through with no signing.
-> Your keys stay yours · Only the trades you place · Revoke anytime
+>
+> Your balance stays in your wallet · Used only for your trades and withdrawals · No signing on every trade
 
-Click **Allow trading**. The panel reads "Enabling trading — A few seconds. You can close this, it keeps going." When it finishes, it reads "Trading enabled — Deposit to trade." Click **Continue**.
+<Steps>
+  <Step title="Click Allow trading">
+    In the sign-up and order popups, a box may also ask "Email me about new markets, promotions and product updates." Set it before you click.
+  </Step>
+  <Step title="Wait a few seconds">
+    The panel reads "Enabling trading — A few seconds. You can close this, it keeps going."
+  </Step>
+  <Step title="Click Continue">
+    "Trading enabled" appears with a note: "Deposit to trade." in the deposit dialog, "You're all set — trades go through with no signing." after sign-up, or "You're all set — place your order again." after a buy.
+  </Step>
+</Steps>
 
-The approval lets updown move funds for the trades you place, settle your windows and options, and route deposits into your balance, without a signature for every action. Your keys stay in your Privy embedded wallet.
+If it fails, the panel reads "Couldn't enable trading. Please try again." Closing the "Welcome to updown" popup hides it for the rest of your browser session. Closing the order popup also closes the buy behind it. Allowing trading there doesn't send your order; place it again.
 
 ---
 
 ## Your profile
 
-Your **Portfolio** page is also your profile. Open it from **Portfolio** in the top bar or from your avatar menu → **Profile**. Click **Edit profile** to change:
+Your **Portfolio** page is also your profile. Open it from the **Portfolio** figure in the top bar, from your avatar menu → **Profile**, or from the phone's **Portfolio** tab. Other people see it at `/u/your-username`, even when they're signed out.
+
+The header shows your [ELO](/platform/leaderboards-and-elo) panel, your **Volume**, and your **Realized P&L**. Your profile never shows anyone your email, your wallet address, or your deposits and withdrawals. See [Profiles and social](/platform/profiles-and-social).
+
+---
+
+## Edit your profile
+
+One dialog holds your profile and your settings. It has two ways in:
+
+- the pencil on your Portfolio page (tooltip "Edit profile"), which opens it titled **Edit profile**
+- your avatar menu → **Settings** (on a phone, ☰ → **Settings**), which opens it titled **Settings**
 
 | Field | Details |
 |-------|---------|
-| **Username** | 3–24 letters, numbers, or underscores. Must be unique. The dialog shows "Checking…", "That username is taken.", or "Available". |
-| **Email** | Read-only. It is your login identity. |
-| **X account** | Optional. Paste a handle or profile URL, and an X icon next to your name links to it. |
-| **Icon** | **Shuffle**, choose one of 26 colors or **Custom**, set the **Background** disc color, pick one of 16 shapes, and drag the knob to rotate it. |
-| **Visibility** | What other people see on your profile: **Wallet** (balance, portfolio value, and chart), **Positions** (open positions), and **Activity** (trade history). Each is **Public** or **Hidden**. Hidden sections are still visible to you. |
+| **Username** | 3–24 letters, numbers, or underscores, unique regardless of case. The hint reads "Checking…", then "That username is taken." or "Available". |
+| **Email** | Read-only: the address you sign in with. |
+| **X account** | Optional. Paste a handle or profile URL, and an X icon next to your name links to your account. |
+| **Icon** | **Shuffle** rolls the color, shape, turn, and disc together. Drag the knob around the preview to turn the shape; it snaps near each quarter turn. Pick one of 26 colors or **Custom**, a **Background** disc color (**Black** resets it), and one of 16 shapes. A color too close to the disc shows "Too close to the disc's color — pick more contrast." |
+| **Apparel** | **Add hat**, **Add glasses**, and **Add necklace**. Each is drawn for you ("Drawing…"), and **Remove** takes it off. Picking a new shape resets the turn and removes apparel. |
+| **Visibility** | "What other people see on your profile. Hidden sections are still visible to you." **Wallet** ("Balance, portfolio value and chart"), **Positions** (your open positions), and **Activity** ("Trade history"). Each is **Public** or **Hidden**. |
+| **Emails** | **Marketing emails** ("New markets, promotions and product updates"). This switch saves at once. |
+| **Log out** | "Sign out of updown on this device." |
+| **Delete account** | "Permanently remove your account and profile." See [Delete your account](#delete-your-account). |
 
-Click **Save**. The toast "Profile updated" confirms it.
+Click **Save**. The toast "Profile updated" confirms it. Everything except the **Marketing emails** switch, apparel included, is kept only when you click **Save**.
 
-Your public profile lives at `/u/your-username`. Your email and wallet addresses are never shown to others. See [Profiles & social](/platform/profiles-and-social).
+If you're using someone else's account through Team, the dialog reads "You're using Alex's account. Only the account owner can do that." with **Back to my account**. See [Team access](/platform/team-access).
+
+### Emails and cookies
+
+- **Marketing emails:** the switch shows "You'll get updown emails" or "You won't get marketing emails". A one-time "Stay in the loop" popup may ask the same question; **Confirm** saves your choice either way. You can change it anytime in **Settings**.
+- **Cookies:** the cookie banner offers **Decline** and **Accept**. To change your choice later, click **Your privacy choices** in the bottom bar. On a phone, it's under ☰ → **More**. See [Legal and eligibility](/help/legal-and-eligibility).
 
 ---
 
 ## Your wallet
 
-Your cash is **USDG** in your own wallet on **Robinhood Chain**. You can see it in three places:
+Your cash is the **USDG** in your wallet on **Robinhood Chain**. updown doesn't hold it in its own accounts. You see it in these places:
 
-- **Cash** in the top bar. Click it to deposit.
-- **Available cash** on the Portfolio value card, with "$X in positions" beneath it.
-- **Wallet** in the options order panel.
+| Where | What it shows |
+|-------|---------------|
+| **Cash** (top bar) | What you can trade with now. Click it to open **Deposit with**. |
+| **Credit** (top bar) | Your unused trade credit, only while you hold some. It's spent before your cash. |
+| **Portfolio** (top bar) | Your cash plus your open positions at their current value |
+| Portfolio value card | "Portfolio value", with "$X cash · $Y in positions" |
+| Phone **Home** | "$X cash to trade", with **Deposit** |
 
-The wallet icon on your Portfolio page (tooltip "Wallet addresses") opens a dialog listing your wallet addresses. See [Deposit & withdraw](/portfolio/deposit-withdraw) for the funding flow and [Portfolio](/portfolio/overview) for how each figure is calculated.
+Your deposit address is in **Deposit with** → **Crypto** → **Send stablecoins**, once you've allowed trading. Withdrawals go out as USDG on Robinhood Chain. See [Deposit and withdraw](/portfolio/deposit-withdraw) for the funding flow and [Portfolio](/portfolio/overview) for how each figure is calculated.
 
 ---
 
-## User menu and theme
+## Avatar menu and theme
 
-Your avatar in the top right opens a menu with **Profile**, **Light mode** / **Dark mode**, and **Log out**. Dark is the default theme. You can also sign out with the sign-out icon on your Portfolio page.
+Your avatar in the top right opens this menu:
+
+| Item | What it does |
+|------|--------------|
+| Your name | A label. While you're using someone else's account, it reads "Using Alex's account" with your role ("View only" or "Can trade"). |
+| **Profile** | Opens your Portfolio page. |
+| **Rewards** | Opens the Creator Rewards popup. See [Creator rewards](/platform/creator-rewards). |
+| **Settings** | Opens the Settings dialog. |
+| **API keys** | Opens your API keys page, where you create keys that let a program trade as your account. A key can never withdraw, transfer, or change your account. See the [API introduction](/api/introduction). |
+| **Team** | Opens your Team page, where you let other people use your account. See [Team access](/platform/team-access). |
+| **Back to my account** / **Use Alex's account** | Switches between your account and accounts you've been let into. |
+| **Light mode** / **Dark mode** | Switches the theme. Dark is the default. |
+| **Log out** | Signs you out. |
+
+On a phone, the ☰ menu's **Profile** section has **Profile**, **Rewards**, **Settings**, **Team**, the theme switch, and **Log out**. It has no **API keys** link, and you switch accounts on the Team page.
+
+You can also log out from **Settings**, or with the sign-out icon on your Portfolio page (tooltip "Sign out").
+
+---
+
+## Delete your account
+
+<Warning>
+Withdraw your cash first. Money left in your wallet can't be recovered once the account is gone.
+</Warning>
+
+<Steps>
+  <Step title="Open Delete account">
+    In **Settings**, click **Delete account**. A dialog titled "Delete your account?" opens.
+  </Step>
+  <Step title="Confirm">
+    Read the body: "Your login, profile, username, takes and follows are removed for good. Withdraw your cash first — money left in your wallet can't be recovered once the account is gone. If anything is still in your wallet or open, we'll file a request instead and tell you what to do." Tick "I understand my account will be permanently deleted and this can't be undone."
+  </Step>
+  <Step title="Click Delete account">
+    The button reads "Deleting…" while it works.
+  </Step>
+</Steps>
+
+Your account is deleted right away when your wallet holds less than $0.01 on every network, nothing is open or settling, and no payout is on its way. The toast reads "Your account was deleted", and you're signed out.
+
+Otherwise, a request is filed. The toast reads "Deletion requested", and the section shows "Deletion requested" with the date, the reason, and **Try again**:
+
+- "Your wallet still holds money. Withdraw it first — once the account is deleted it can't be recovered."
+- "You still have open positions or a payout on its way. Once they settle and you withdraw, try again."
+- "We couldn't confirm your wallet is empty right now. Try again in a few minutes."
+
+The section also reads "Withdraw your cash and let open positions settle, then try again to delete it right away — or we'll finish it within 30 days."
+
+Deleting your account removes your login and wallet. Your profile is anonymized and hidden, and your takes, likes, and follows are removed. Signing in again with the same email creates a new account.

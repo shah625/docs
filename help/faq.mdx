@@ -3,146 +3,449 @@ title: "FAQ"
 description: "Frequently asked questions about updown."
 ---
 
-## Options
+## Getting started
 
 <AccordionGroup>
-  <Accordion title="When do options expire and settle?">
-    At the 4:00 PM ET close (1:00 PM on half-days), today or the next session. Two expiries are offered at a time. The payout lands in your wallet within minutes after the close.
+  <Accordion title="Where do I start when I open updown?">
+    You land on the Bitcoin · 5 min Up or Down market. To find another market, use **Search markets…** (Ctrl K / ⌘K) or, on wide screens, the side panel's **Trade** tab. On a phone, the **Home** tab shows your balance, **Deposit**, and the market lists. See [Navigating updown](/platform/navigating-updown).
   </Accordion>
 
-  <Accordion title="What price do options settle at?">
-    The average on-chain token price over the last 5 minutes before the close, checked against the real stock's price. If no price can be established within 6 hours, the premium is refunded.
-  </Accordion>
-
-  <Accordion title="Can I sell an option before expiry?">
-    Yes, at the current bid, until 15 minutes before its expiry. Tap **Sell $X** in the stock page's Positions table. See [Positions & settlement](/options/positions-and-settlement).
-  </Accordion>
-
-  <Accordion title="Can I write or sell options to open?">
-    Not yet. The **Neutral** outlook and selling to open are labelled "Coming soon".
-  </Accordion>
-
-  <Accordion title="What's the most I can spend on one options order?">
-    $100 of premium per buy. The most you can lose on it is that premium.
-  </Accordion>
-
-  <Accordion title="Why can't I buy options for this stock on my phone?">
-    Phone buying is available on the nine featured stocks: AAPL, NVDA, TSLA, GOOGL, META, PLTR, COIN, SPCX, and SPY. Other stocks can be bought from a desktop or tablet.
-  </Accordion>
-
-  <Accordion title="Why does the options price differ from the stock's exchange price?">
-    Options are priced and settled against the stock's token on Robinhood Chain, which trades in on-chain pools around the clock. Its price can differ from the exchange quote, and tokens tagged "thin" are priced by shallow pools.
-  </Accordion>
-</AccordionGroup>
-
-## Interval markets
-
-<AccordionGroup>
-  <Accordion title="What am I trading on?">
-    Whether a stock or crypto price closes a 5-, 15-, or 60-minute window above where it opened. You buy **Up** or **Down** contracts, and each winning contract pays $1.00. See [How windows work](/interval/how-windows-work).
-  </Accordion>
-
-  <Accordion title="What happens if the price finishes exactly where it started?">
-    It settles **Up**. As the ticket puts it: "If the price is unchanged (compared to 4 decimal places), it settles as Up. Down needs a real move." See [How windows work](/interval/how-windows-work#up-and-down).
-  </Accordion>
-
-  <Accordion title="Why was my order rejected with &quot;Price moved to …&quot;?">
-    The quote changed between what you saw and the fill. updown refuses fills more than about 30% plus 3¢ worse than the price shown. Try again at the new price.
-  </Accordion>
-
-  <Accordion title="Can I place a limit order?">
-    Not yet. The Limit form is visible in the ticket, but its button is disabled until limit orders launch.
-  </Accordion>
-
-  <Accordion title="Can I sell before the window closes?">
-    Yes. Tap **Sell** on your row in **Live Positions**, or use **Market → Sell** in the ticket. The realized difference is settled immediately.
-  </Accordion>
-
-  <Accordion title="When do stocks trade?">
-    Stock interval markets run 24/5, from Sunday 8:00 PM to Friday 8:00 PM ET. Eight stocks also stay open over the weekend on a 24/7 perpetual price; PLTR and SPY close. Crypto trades 24/7. See [market hours](/interval/how-windows-work#market-hours).
-  </Accordion>
-
-  <Accordion title="What is Multi-buy?">
-    A way to place up to 20 interval buys in one order. Each pick is its own independent buy, not a parlay. See [Multi-buy](/interval/multi-buy).
-  </Accordion>
-
-  <Accordion title="I picked the right direction with the Multiplier. Why did I lose money?">
-    A multiplier order pays more the further the price closes past the price to beat, so a small move pays back less than you put in. The order only profits past its break-even price, which the market's **To beat** shows in purple while you set up the order. See [Multiplier](/interval/multiplier#why-small-moves-pay-less).
-  </Accordion>
-
-  <Accordion title="Can I sell a multiplier order early?">
-    Yes, until a window's last minute. Tap **Sell ~$X** on its row in **Live Positions**. The sale price is below the order's live value. See [Selling early](/interval/multiplier#selling-early).
-  </Accordion>
-</AccordionGroup>
-
-## Fees, balances, and settlement
-
-<AccordionGroup>
-  <Accordion title="What does a trade cost?">
-    Options carry no fee. Interval trades carry a small taker fee on every buy and sell, built into the price you see, with no separate line.
-  </Accordion>
-
-  <Accordion title="When do I get paid?">
-    Automatically. Interval windows are settled by a job that runs every minute. Options are settled after the close by a job that runs every 5 minutes. Your activity shows **Won** or **Lost** and your cash updates. There is nothing to claim.
-  </Accordion>
-
-  <Accordion title="What is the difference between Cash, Available cash, and Portfolio?">
-    **Cash** is the USDG in your wallet. **Available cash** is Cash minus what your open interval windows reserve. **Portfolio** adds the live value of your open positions. See [Portfolio](/portfolio/overview#the-balance-model).
-  </Accordion>
-
-  <Accordion title="Why does my interval position show a different value on the market page and on Portfolio?">
-    The market page marks at the current bid. Portfolio marks at the midpoint. The two converge when you sell or the window settles.
-  </Accordion>
-
-  <Accordion title="Do options count for the Tournament?">
-    Yes. The Tournament ranks your realized P&L across both options and interval markets. See [Tournament](/platform/tournament).
-  </Accordion>
-</AccordionGroup>
-
-## Deposits and withdrawals
-
-<AccordionGroup>
-  <Accordion title="Which networks can I deposit from?">
-    USDG on Robinhood Chain (minimum $0.50), or USDC on Polygon (minimum $2), which is routed into your balance automatically. Other chains are listed as "Soon". See [Deposit & withdraw](/portfolio/deposit-withdraw).
-  </Accordion>
-
-  <Accordion title="Can I pay by card?">
-    Yes. Choose **Card or bank** in the deposit dialog to pay with a debit or credit card, Apple Pay, or a US bank account. Card purchases usually land within a few minutes; bank transfers can take a few days.
-  </Accordion>
-
-  <Accordion title="I sent the wrong token or network.">
-    Only USDG on Robinhood Chain and USDC on Polygon are supported. Other tokens or networks may result in permanent loss, and there is no in-app recovery. Contact [support](/help/support) with the transaction hash.
-  </Accordion>
-
-  <Accordion title="How do I withdraw, and is there a fee?">
-    Click **Withdraw** on your Portfolio page, paste a Robinhood Chain address, and enter at least $2. You receive USDG, gas is sponsored, and it usually arrives instantly. Cash reserved by open interval windows can't be withdrawn until they settle.
+  <Accordion title="Where do I see all markets?">
+    Open **Browse markets** from any **Browse markets** button, or go to `updown.fast/trade`. Filter by category (Stocks, Crypto, Pre-IPO) and by interval. It opens on 15 min. See [Browsing markets](/interval/browsing-markets).
   </Accordion>
 
   <Accordion title="Do I need a crypto wallet to sign up?">
-    No. Sign in with your email or Google account and an embedded wallet is created for you. You never install a browser extension or manage a seed phrase.
+    No. Click **Login** (on a phone, ☰ → **Login**) and sign in with your email or Google account. Your account and a wallet are created for you. Your cash is held in that wallet as USDG on Robinhood Chain.
+  </Accordion>
+
+  <Accordion title="Can I still trade options?">
+    No. Options are no longer offered. For a bigger payout on a bigger move, try the [Multiplier](/interval/multiplier) on stock and crypto interval markets.
   </Accordion>
 </AccordionGroup>
 
-## Account, profile, and eligibility
+## How windows work
 
 <AccordionGroup>
-  <Accordion title="Who can see my profile?">
-    Anyone, at `/u/your-username`. Hide **Wallet**, **Positions**, or **Activity** in **Edit profile → Visibility**. Your email, wallet addresses, withdrawals, and options positions are never shown. See [Profiles & social](/platform/profiles-and-social).
+  <Accordion title="What am I trading on?">
+    Whether a stock, crypto, or Pre-IPO price closes a 5-, 15-, or 60-minute window at or above its price to beat. You buy **Up** or **Down** contracts, priced 1¢–99¢. Each winning contract pays $1.00. See [How windows work](/interval/how-windows-work).
   </Accordion>
 
+  <Accordion title="What happens if the price finishes exactly where it started?">
+    It settles **Up**. The close and the price to beat are both compared at 4 decimal places (7 for DOGE), so Down needs a close strictly below the price to beat. As the ⓘ note beside **To beat** puts it: "If the price is unchanged (compared to 4 decimal places), it settles as Up. Down needs a real move." This rule applies to windows since 1 October 2026.
+  </Accordion>
+
+  <Accordion title="Why is the final price different from the last price I saw?">
+    A window's final value covers the last 60 seconds, not a single trade:
+
+    - **Stocks:** the simple average of 60 one-second prices.
+    - **Crypto:** a 60-second time-weighted average.
+    - **Pre-IPO:** the median of 60 seconds of samples.
+
+    The same value becomes the next window's **To beat**.
+  </Accordion>
+
+  <Accordion title="Why does To beat show &quot;—&quot; when a window opens?">
+    **To beat** is the previous window's final value. It's set a second or so after the boundary (about 15 seconds on Pre-IPO markets). Prices show, and orders open, once it's set.
+  </Accordion>
+
+  <Accordion title="What does the chart show?">
+    On stocks, each point of the line is the rolling 60-second average ending at that moment, so the line ends close to the value the window settles on. On crypto, the line is the 60-second time-weighted average, second by second. On Pre-IPO markets, it's the reference market's price, once a second. **LIVE** shows the last minute; **MKT** shows the whole window so far.
+  </Accordion>
+
+  <Accordion title="When can I trade stock markets?">
+    Stock markets trade from Sunday 8:00 PM to Friday 4:00 PM ET, around the clock, including the overnight session. AAPL, NVDA, SPCX, TSLA, GOOGL, META, HOOD, and COIN also trade through the weekend. From Friday 4:00 PM to Sunday 8:00 PM ET they price off a 24/7 market that tracks where traders expect the stock to reopen. PLTR and SPY close for the weekend. Crypto and Pre-IPO markets trade 24/7.
+  </Accordion>
+
+  <Accordion title="Why can't I find a market?">
+    Stock markets are listed only during their trading hours. Off hours, a stock's market page shows **Market closed** with a **Back to markets** button. updown can also pause a group of markets for a while. Paused markets leave every list, and a direct link shows the ticket under **Trading paused**. Open positions in a paused market still settle as usual.
+  </Accordion>
+
+  <Accordion title="Are there markets longer than 60 minutes?">
+    No. Every market runs 5, 15, or 60 minutes.
+  </Accordion>
+
+  <Accordion title="What is a Pre-IPO market? Do I own shares?">
+    It's a cash-settled interval market on a private company's implied valuation, priced from a third-party pre-IPO market. You don't own, and can't receive, any shares. $1 of price is $1 billion of implied valuation, so 1,690 ≈ a $1.69 trillion valuation. Pre-IPO markets trade 24/7. New positions can pause if trading on the reference market thins out or dislocates; open positions still settle. See [Pre-IPO markets](/interval/pre-ipo).
+  </Accordion>
+
+  <Accordion title="How fast are winnings paid?">
+    Automatically, shortly after the window closes. The result shows on the market page within seconds, and payouts usually land within a minute or two. A notice in the bell tells you how the window settled. There is nothing to claim.
+  </Accordion>
+</AccordionGroup>
+
+## Placing orders
+
+<AccordionGroup>
+  <Accordion title="Can I place a limit order?">
+    Yes. In the ticket, open **Market ▾** → **Limit**, then enter whole **Contracts** and a **Limit price** (1–99¢). The order waits until another trader's order meets your price, you cancel it, or the window closes. At the close it's cancelled automatically, and any part that already filled settles as usual. A limit order that waits and is filled later pays no fee. See [Placing orders](/interval/placing-orders).
+  </Accordion>
+
+  <Accordion title="Why didn't my limit order fill?">
+    It fills only when another trader's order trades at your price. **Submit as resting order only** is ticked by default. While it's ticked, a price that would trade at once is refused: "That price would trade right away — untick "resting order only" or choose a price that rests." Untick it to let part of the order trade right away; that part pays the taker fee, and the rest waits. You don't get a notification when a waiting order fills.
+  </Accordion>
+
+  <Accordion title="Where are my open limit orders?">
+    On that market's page, under **Live Positions** → **Open orders**, for the current window. Tap **Cancel** to cancel one. There's no confirmation step, and the cash it held comes back at once. Open limit orders aren't listed in Portfolio.
+  </Accordion>
+
+  <Accordion title="What is 1-tap?">
+    A switch, ⚡ **1-tap**, on the ticket's **Buy** tab. It turns the amount boxes (**$1**, **$5**, **$10**, **$25**) into instant buys: tap one and the order goes in. It's off by default, and your choice isn't remembered between visits.
+  </Accordion>
+
+  <Accordion title="Can I sell before the window closes?">
+    Yes. Tap **Sell** on your row in **Live Positions**. It sells that side's whole position at the current bid, in one tap. The ticket's **Sell** tab also offers **Limit**, to offer whole contracts at your price. The realized difference is paid or collected within about a minute.
+  </Accordion>
+
+  <Accordion title="Why do Up and Down add up to more than $1?">
+    Each button shows the price to buy that side, and the two buy prices add up to more than $1 by the spread. **Chance** on the ticket is the midpoint between the price to buy a side and the price to sell it. The spread can widen when prices move fast and in a window's last 30 seconds.
+  </Accordion>
+
+  <Accordion title="Why was my order refused with &quot;Your order could not be filled&quot;?">
+    That's price protection. A buy won't fill far above the price you saw, and a sell won't fill far below it. If nothing could fill within that range, nothing is bought or sold. Check the new price and try again.
+  </Accordion>
+
+  <Accordion title="Why was my order only partly filled?">
+    Either not enough was on offer within your price protection, or your amount was more than your **Buying power** and trade credit together. You pay only for what filled, and the confirmation shows how much of your amount filled.
+  </Accordion>
+
+  <Accordion title="What does &quot;Order not yet confirmed — it may still go through&quot; mean?">
+    The site stopped waiting for an answer after 15 seconds, but the order may still go through. Check **Live Positions** (or **Open orders**, for a limit order) before you place another.
+  </Accordion>
+
+  <Accordion title="Is there a minimum order?">
+    There's no dollar minimum. Contracts come in steps of 0.01, so the smallest fill is 0.01 contract.
+  </Accordion>
+
+  <Accordion title="Why does my position show a different value on the market page and on Portfolio?">
+    **Live Positions** values it at what selling now would bring: the current bid, after the selling fee. Portfolio values it at the midpoint of the current bid and ask, and at its cost while the window settles. The two meet when you sell or the window settles.
+  </Accordion>
+</AccordionGroup>
+
+## Multiplier
+
+<AccordionGroup>
+  <Accordion title="What is the Multiplier?">
+    A slider on the interval ticket, from 1× to 10×, on stock and crypto interval markets. At 1× your order is a regular Up or Down contract. Above 1× it becomes a multiplier order: it pays more the further the price closes your way, up to a cap, and less on a small move. It settles on the same result as the regular contract. A market that doesn't offer it shows the regular ticket only. See [Multiplier](/interval/multiplier).
+  </Accordion>
+
+  <Accordion title="Can I lose more than I put in?">
+    No. The most you can lose is your stake.
+  </Accordion>
+
+  <Accordion title="I called the direction right. Why did I lose money?">
+    A multiplier order pays by how far the price closes past the price to beat. Higher settings pay less on a small move, and at 10× a close just past the price to beat pays nothing. Before you buy, check the purple **To beat**: while the slider is above 1×, it shows your order's break-even.
+  </Accordion>
+
+  <Accordion title="What do &quot;+$N&quot; and &quot;Win up to&quot; mean?">
+    "+$N · If above $X" (or "If below $X") shows the close at which your profit equals the setting times your stake. For example, $5 at 10× shows "+$50.00". **Win up to** is the most the order can pay, reached at the cap. It includes your stake.
+  </Accordion>
+
+  <Accordion title="Why can't I use the Multiplier right now?">
+    It closes in each window's last minute, and at some hours. A window that overlaps a paused time takes no multiplier orders. All times ET:
+
+    - **Crypto:** weekdays, around the 8:30 AM and 10:00 AM US data releases.
+    - **Stocks:** weekdays 9:00–10:00 AM (the open), 3:30–4:30 PM (the close), and around the 8:30 AM data release; the 4 AM and 8 PM session starts; weekends (Friday 4 PM to Sunday 8 PM); and market holidays.
+
+    Regular Up / Down stays open: slide back to 1× to trade.
+  </Accordion>
+
+  <Accordion title="What are the limits?">
+    $1 to $25 per order, $50 per window, and $100 at risk per day (US Eastern time). The ticket and its messages tell you when you reach one. Multiplier orders use cash only and need **Allow trading**. The stake leaves your cash when you place the order.
+  </Accordion>
+
+  <Accordion title="Can I sell a multiplier order early?">
+    Yes, until the window's last minute. Tap **Sell \~$X** on its row in **Live Positions**. The sell-back price is below the order's live value. The money goes to your cash straight away.
+  </Accordion>
+
+  <Accordion title="When do I get paid?">
+    Automatically, shortly after the window's result is in. If the window has no result within 6 hours of the close, your stake is refunded.
+  </Accordion>
+
+  <Accordion title="Is there a fee on a multiplier order?">
+    There's no separate fee line; the payouts on the ticket already reflect the price.
+  </Accordion>
+
+  <Accordion title="Do multiplier orders count toward the Trading Tournament, the PNL board, Volume, or rewards?">
+    No. They don't count toward the Trading Tournament, the **PNL** leaderboard, your **Volume** or **Realized P&L** stats, or creator rewards. They do count in your Portfolio value.
+  </Accordion>
+</AccordionGroup>
+
+## Bundles
+
+<AccordionGroup>
+  <Accordion title="How do I buy several markets at once?">
+    Use **Bundle**. Turn it on in the header of **Browse markets** or the Stocks, Crypto, or Pre-IPO page, then tap Up or Down on each market you want. Set **$ per market** ($2, $5, or $10; $5 by default) or each pick's own amount, then tap **Place N orders · $X**. A Bundle holds up to 20 markets, one pick per market. Each pick is its own buy and wins or loses on its own. See [Bundles](/interval/bundles).
+  </Accordion>
+
+  <Accordion title="What happened to Multi-buy?">
+    It's now called **Bundle**. It works the same way.
+  </Accordion>
+
+  <Accordion title="Why didn't my whole Bundle fill?">
+    Each pick is placed on its own. Some picks can be refused while others fill, for example because the window rolled, the market paused, or the price moved too far. Refused picks stay in the slip with their reason, so placing again retries only them. If the picks add up to more than your cash plus trade credit, nothing is placed.
+  </Accordion>
+</AccordionGroup>
+
+## Money
+
+<AccordionGroup>
+  <Accordion title="What's the difference between Cash, Credit, and Portfolio?">
+    These are the top-bar figures:
+
+    - **Cash** is money free to trade: your USDG balance less what your open positions and resting limit buys commit.
+    - **Credit** is your unused trade credit. It shows only while you have some.
+    - **Portfolio** is your cash plus your open positions at their current value.
+
+    On the Portfolio page, **Portfolio value** shows the same split as "$X cash · $Y in positions". On a market page, **Buying power** in **Live Positions** is the same as Cash, with your trade credit beside it. Trade credit counts in neither Cash nor Portfolio. See [Portfolio overview](/portfolio/overview).
+  </Accordion>
+
+  <Accordion title="What does a trade cost?">
+    Orders that trade right away pay a small taker fee, built into what you spend and what **To win** shows. Limit orders that wait and are filled later pay no fee. Nothing is charged at settlement. On a multiplier order, there's no separate fee line; the payouts on the ticket already reflect the price.
+  </Accordion>
+
+  <Accordion title="Which networks can I deposit on?">
+    Open **Deposit with** → **Crypto** → **Send stablecoins**, then pick a network:
+
+    | Network | Send | Minimum |
+    |---------|------|---------|
+    | **Robinhood Chain** (default) | USDG | $0.50 |
+    | **Arbitrum**, **Base** | USDC | $2.00 |
+    | **Polygon** | USDC (native USDC only) | $2.00 |
+    | **Ethereum** | USDC or USDT | $20.00 |
+
+    Deposits on networks other than Robinhood Chain are moved into your Robinhood Chain USDG automatically. The address is the same on every network. Solana and BNB Chain show as "Soon" and can't be used yet. You need **Allow trading** before the address shows. See [Deposit and withdraw](/portfolio/deposit-withdraw).
+  </Accordion>
+
+  <Accordion title="Can I deposit with a card or Cash App?">
+    Yes. Open **Deposit with** (click **Cash** in the top bar, or **Deposit**) → **Cash**, then **Deposit with card** (debit or credit, up to $50,000) or **Pay with Cash App** ($10 minimum). Our payment partner handles the payment and shows its fees and any minimum before you pay. The money lands as cash in your balance. On the **Crypto** tab, our payment partner also takes other crypto, from a wallet or from an exchange.
+  </Accordion>
+
+  <Accordion title="Are there deposit or withdrawal fees?">
+    USDG on Robinhood Chain has no fee. Deposits on other networks lose a small amount when they're moved over, and card or Cash App deposits show the payment partner's fees before you pay. Withdrawals are free: gas is sponsored.
+  </Accordion>
+
+  <Accordion title="I sent less than the minimum.">
+    The deposit waits in your wallet on that network. It's moved over once a top-up brings it past the minimum, and the deposit dialog tells you how much more to send.
+  </Accordion>
+
+  <Accordion title="I sent the wrong token or used the wrong network.">
+    Only the tokens and networks above are credited. Anything else isn't credited, and there's no automated recovery. That includes unsupported tokens, bridged USDC.e on Polygon, a network marked "Soon" (such as BNB Chain), and a wrong address. Contact [support](/help/support) with the transaction hash.
+  </Accordion>
+
+  <Accordion title="How do I withdraw?">
+    Click **Withdraw** on the Portfolio value card, paste a Robinhood Chain address, and enter at least $2. You receive USDG on Robinhood Chain. Gas is sponsored, and it usually arrives at once. Withdrawals can't be reversed, so double-check the address. Withdrawals use the same one-time **Allow trading** permission as trades. If you still hold $2 or more from before the move to Robinhood Chain, the dialog also offers to withdraw it as USDC on Polygon.
+  </Accordion>
+
+  <Accordion title="Why can't I withdraw my whole balance?">
+    Cash committed to open positions, resting limit buys, or a sale at a loss that hasn't been collected yet unlocks when those settle. If you ask for more than your free cash, the dialog tells you how much is committed to open positions.
+  </Accordion>
+
+  <Accordion title="Why don't my deposits or withdrawals show in Activity?">
+    Activity lists trades only. Each withdrawal sends you a notice in the bell ("Withdrew $X").
+  </Accordion>
+
+  <Accordion title="Why does my P&L chart start at $0?">
+    The Portfolio value card's chart shows cumulative profit and loss from the start of the selected range. Deposits and withdrawals never move it.
+  </Accordion>
+</AccordionGroup>
+
+## Trade credit
+
+<AccordionGroup>
+  <Accordion title="What is trade credit? Can I withdraw it?">
+    It's a promotional balance, shown in blue as **Credit**. It's spent before your cash on immediate interval buys, including each pick of a Bundle. It can't be withdrawn or transferred and has no cash value, but the profit it makes is yours. Unused credit is forfeited if your account is suspended or closed. See [Trade credit](/portfolio/trade-credit).
+  </Accordion>
+
+  <Accordion title="How do I get trade credit?">
+    From a promotion, when one is running: a sign-up bonus, a first-deposit match, or a covered first trade. Each account gets at most one of these, ever. Promotions need no claim: the credit arrives on its own, with a notice in the bell. Claimed [creator rewards](/platform/creator-rewards) are paid as trade credit too, and the updown team sometimes sends credit.
+  </Accordion>
+
+  <Accordion title="What happens to my credit when I win, lose, or sell?">
+    Credit is counted per window, across both sides:
+
+    | When | What happens |
+    |------|--------------|
+    | Win at the close | You get the profit: the payout less the whole stake. The credit used is spent. |
+    | Loss at the close | The credit is lost. Only the cash part of your stake is taken. |
+    | The payout equals the stake | The credit comes back to your balance. |
+    | Sold early at a profit | Your cash stake comes back with the profit. The credit used is spent. |
+    | Sold early at a loss or break-even | The proceeds refill your credit first, up to what it put in, then your cash. |
+
+    Your P&L shows your cash result, so a loss funded by credit shows only the cash you lost.
+  </Accordion>
+
+  <Accordion title="Can I use trade credit on the Multiplier or on limit orders?">
+    No. Multiplier orders and resting limit orders use cash only, and so do orders placed through the Trade API.
+  </Accordion>
+</AccordionGroup>
+
+## Rewards and rankings
+
+<AccordionGroup>
+  <Accordion title="How do I earn creator rewards?">
+    Make at least one buy first. What you did before that counts once you have. Then you earn points for:
+
+    - posting a take on an interval trade of $1.00 or more (10 pts, the first 5 a day; +5 pts with a GIF);
+    - trades you post a take on (50 pts per $100, at prices from 10¢ to 90¢);
+    - liking other people's takes (1 pt, the first 20 a day);
+    - likes on your takes from people who have traded (2 pts);
+    - followers who have traded (10 pts);
+    - your first 10 follows of people who have traded (5 pts);
+    - copies of your trades, once the copier's buy goes through (5 pts).
+
+    See [Creator rewards](/platform/creator-rewards).
+  </Accordion>
+
+  <Accordion title="What are points worth? When can I claim?">
+    1 pt = 1¢, and 500 pts = $5.00 of trade credit. You claim in whole 500-pt blocks, up to 10,000 pts per claim, from the **Rewards** popup (the top-bar rewards bar, or avatar menu → **Rewards**) or the Creator reward card on your Portfolio page.
+  </Accordion>
+
+  <Accordion title="Can I withdraw reward credit?">
+    No. It's trade credit: it's used before your cash and you keep the profit, but it can't be withdrawn.
+  </Accordion>
+
+  <Accordion title="Why am I not earning points?">
+    Usually one of these: you haven't made a buy yet; the take was on a trade under $1.00; you've reached a limit for the day; or the like, follow, or follower came from someone who hasn't traded. Some accounts aren't eligible and see "This account doesn't earn rewards."
+  </Accordion>
+
+  <Accordion title="Can others see my rewards?">
+    No. Your points and claims are shown only to you.
+  </Accordion>
+
+  <Accordion title="What is ELO, and why did I start at 100?">
+    ELO is a rating of how well you beat the prices you pay. Everyone starts at 100 (Bronze 3). Settled or sold interval trades move it, scored against the price you paid: a long-shot win earns much more than winning a favourite. Your first trades move it the most. P&L, volume, and the takes you post add bounded credit. See [Leaderboards and ELO](/platform/leaderboards-and-elo).
+  </Accordion>
+
+  <Accordion title="Who can see my ELO breakdown?">
+    Only you, by hovering or tapping the rating on your own profile. Your rating, tier, and win–loss record are public.
+  </Accordion>
+
+  <Accordion title="How are the leaderboards ranked?">
+    The side panel's **Leaderboard** tab (on a phone, **Home** → **Leaderboard**) has two boards, each over **24H**, **7D**, **30D**, or **ALL**:
+
+    - **PNL** ranks P&L on interval markets, realized plus open positions at their current value.
+    - **ELO** ranks the rating on **ALL**, and the rating gained over a shorter range. **Full board →** opens the full ELO board.
+
+    Both show the top 20. Your own row is pinned above #1 when you're ranked outside the top 20.
+  </Accordion>
+
+  <Accordion title="How is the Trading Tournament ranked?">
+    By ROI: your net P&L on interval markets divided by the total you spent on the buys behind it. You need $50 spent on buys in total (the page calls it "total volume") to be ranked, and so to win a prize. Ties break on the bigger P&L, then traded volume. The top three share a $1,000 prize pool: $600, $300, and $100. The current tournament runs from Thursday, Oct 22, 12:00 AM to Wednesday, Oct 28, 11:59 PM ET. See [Tournament](/platform/tournament).
+  </Accordion>
+
+  <Accordion title="Do open positions count in the Trading Tournament?">
+    Yes, while it runs, valued at the current price and updated every couple of minutes. The final board counts only windows that close inside the tournament, early sales included.
+  </Accordion>
+
+  <Accordion title="How do I find the Trading Tournament?">
+    Open the side panel's **Leaderboard** tab (on a phone, **Home** → **Leaderboard**). The **Tournament** section sits at the top. Tap **Go to tournament page →** for the full board and the **Rules & Prizes**.
+  </Accordion>
+
+  <Accordion title="When are tournament prizes paid?">
+    "Prizes are paid out after the tournament ends."
+  </Accordion>
+</AccordionGroup>
+
+## Social and notifications
+
+<AccordionGroup>
   <Accordion title="What is a take?">
-    A note of up to 280 characters, or a GIF, you can post with any trade. It appears on the feed and on your profile. Long-shot trades get a "🔥 Hot take" badge.
+    A note of up to 280 characters, a GIF, or both, posted right after a trade fills. It shows on the feed and in your Activity. A take on an interval buy under 20¢ gets a 🔥 **Hot take** badge. A Bundle shares one take. See [Profiles and social](/platform/profiles-and-social).
   </Accordion>
 
-  <Accordion title="Is updown available in my country?">
-    Trading is not available in every region. If you are in a restricted region, a globe icon appears in the top bar with the tooltip "Trading is unavailable in your region". If you are unsure about your eligibility, contact [support](/help/support).
+  <Accordion title="Can I edit or delete a take?">
+    No. A posted take stays with its trade. Deleting your account removes your takes.
+  </Accordion>
+
+  <Accordion title="How do I copy someone's trade?">
+    On desktop, click the trade in the feed. On a phone, tap **Copy** on a post with a take, or **Copy trade** in a replay. You buy the same market and side in the window that's open now, at the current price.
+  </Accordion>
+
+  <Accordion title="How do I share a trade?">
+    After a buy fills, tap **Share trade** on the confirmation (or **Share picks** after a Bundle). Choose **Copy image** (**Share** on a phone), **Save**, **Post**, or **Copy link**. Turn off **Show amounts** to hide the dollar figures. Sales and multiplier orders have no share card.
+  </Accordion>
+
+  <Accordion title="Who can see my profile?">
+    Anyone, at `/u/your-username`. In **Edit profile** → **Visibility**, you can set three sections to **Hidden**: your balance and chart, your positions, and your activity. Your **Volume**, **Realized P&L**, and trade count stay public, and you always see your own sections. A profile never shows other people your email, your wallet addresses, your deposits and withdrawals, or your open orders.
+  </Accordion>
+
+  <Accordion title="Why don't I see the Following tab?">
+    Sign in. **Following** shows trades by people you follow, from among the latest trades on the feed.
+  </Accordion>
+
+  <Accordion title="Where are my notifications?">
+    In the bell at the top right (on a phone, in the top row next to search). It shows your newest 50 notices, and opening it marks them read. You're notified when a window, Bundle, or multiplier order settles; when someone follows you, likes your trade, or copies it; for withdrawals and trade credit; and for Team changes. Deposits and order fills aren't notified. There are no email or browser push notifications. See [Notifications](/platform/notifications).
+  </Accordion>
+
+  <Accordion title="Does my watchlist sync between devices?">
+    Yes, when you're signed in. Stars are saved to your account. Star an asset with ☆ in the side panel's lists; your stars show in the **Watchlist** tab.
+  </Accordion>
+
+  <Accordion title="How do I switch between light and dark mode?">
+    On desktop: avatar menu → **Light mode** / **Dark mode**. On a phone: ☰ → the **Profile** section. Dark is the default. The switch shows once you're signed in.
+  </Accordion>
+
+  <Accordion title="Can someone else use my account?">
+    Yes, through **Team** (avatar menu → **Team**, or ☰ → **Team** on a phone). Invite up to 5 other updown accounts by username, as **View only** or **Can trade**. Members switch into your account from their own login. They can never withdraw, deposit, or change your profile or settings. A **Can trade** member's orders are kept within 15¢ of the market price. Removing a **Can trade** member cancels the orders resting on your account. Some accounts can't use Team. See [Team access](/platform/team-access).
+  </Accordion>
+</AccordionGroup>
+
+## Account and eligibility
+
+<AccordionGroup>
+  <Accordion title="Who can use updown? Can I use it in my country?">
+    The Terms of Service require you to be 18 or older, and at least the age of majority where you live, and not located in a Restricted Jurisdiction. See [Eligibility](https://www.updown.fast/terms#eligibility) and [Restricted jurisdictions](https://www.updown.fast/terms#restricted) in the Terms, and [Legal and eligibility](/help/legal-and-eligibility).
+  </Accordion>
+
+  <Accordion title="Why am I asked to accept updated Terms?">
+    Accounts created before the Terms of Service existed accept them once, in a popup headed "We’ve updated our Terms". Until you press **Agree**, you can browse, close positions, and withdraw, but new trades are refused. New accounts accept at sign-up.
+  </Accordion>
+
+  <Accordion title="What does Allow trading do?">
+    It's a one-time approval, in a panel headed "Enable trading". It lets updown sign the transactions for your trades, their settlement and payouts, and the withdrawals you request, so you don't sign each trade. Your balance stays in your wallet. You're asked for it before your first trade, and before the stablecoin deposit address shows.
+  </Accordion>
+
+  <Accordion title="How do I turn off marketing emails?">
+    Avatar menu → **Settings** → **Marketing emails**. The switch saves at once.
+  </Accordion>
+
+  <Accordion title="How do I delete my account?">
+    Withdraw your cash first. Then open avatar menu → **Settings** → **Delete account**, tick "I understand my account will be permanently deleted and this can't be undone.", and press **Delete account**. If money is left in your wallet, or anything is still open or settling, a deletion request is filed instead. Withdraw and let your positions settle, then press **Try again**, or the deletion is finished within 30 days. See [Account and profile](/account-and-profile).
+  </Accordion>
+
+  <Accordion title="How do I change my cookie choice?">
+    Use **Your privacy choices**, in the bottom bar on desktop or under ☰ → **More** on a phone. It reopens the cookie banner, where you pick **Decline** or **Accept**. A choice lasts one year.
   </Accordion>
 
   <Accordion title="My account says &quot;Account flagged&quot;. What now?">
-    Trading, deposits, and rewards are restricted, but "Your balance is not affected — you can still withdraw at any time." If you believe it is a mistake, contact support. See [Support](/help/support#restricted-accounts).
+    The account is restricted from trading, deposits, and rewards, because its email has been linked to activity that breaks our Terms. "Your balance is not affected — you can still withdraw at any time." If you believe it's a mistake, contact us on Discord or at [hello@updown.fast](mailto:hello@updown.fast). See [Support](/help/support).
   </Accordion>
 
   <Accordion title="How do I contact support?">
-    Click **Contact us** in the bottom bar (or ☰ → **More** on a phone) to send a message from the app, or use email, X, or Discord. See [Support](/help/support).
+    Open **Contact us** in the bottom bar (or ☰ → **More** on a phone). It lists three channels: email [hello@updown.fast](mailto:hello@updown.fast), X [@tradeupdown](https://x.com/tradeupdown), and [Discord](https://discord.gg/d9gfrYWSAu). See [Support](/help/support).
+  </Accordion>
+
+  <Accordion title="Is there a status page?">
+    No. When trading is paused, a banner at the top of every page says so, with the expected resume time when there is one and a link to our Discord.
+  </Accordion>
+</AccordionGroup>
+
+## For developers
+
+<AccordionGroup>
+  <Accordion title="Is there an API?">
+    Yes. The updown Trade API lets your program read markets and trade as your account. Create a key on desktop from the avatar menu → **API keys**. See the [Trade API docs](/api/introduction).
+  </Accordion>
+
+  <Accordion title="Can an API key withdraw my money?">
+    No. "A key can never withdraw, transfer or change your account."
+  </Accordion>
+
+  <Accordion title="Can I practice with a test key?">
+    Not yet. Test keys can't trade yet (practice mode not available). Create a **Live** key to trade.
+  </Accordion>
+
+  <Accordion title="Can I use the Multiplier through the API?">
+    No. The API places limit orders on interval windows only.
   </Accordion>
 </AccordionGroup>

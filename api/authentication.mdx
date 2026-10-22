@@ -5,9 +5,26 @@ description: "API keys: what they can do, test and live keys, limits, and how to
 
 Market data needs no key. An API key is for acting as **your account**: [placing and cancelling orders](/api/orders), reading your orders, fills, positions and balance, and [`GET /account`](/api-reference/get-account).
 
-<Note>
-API keys are in early access. To request one, [contact support](/help/support).
-</Note>
+## Create a key
+
+Any signed-in account can create keys. On a desktop, open the avatar menu and choose **API keys**.
+
+<Steps>
+  <Step title="Start a key">
+    Click **New key**. An account can hold up to 5 active keys.
+  </Step>
+  <Step title="Pick the environment and permissions">
+    The form starts on **Test (practice)** with **Read** only, which can't trade. To trade, pick **Live (real money)** and both **Read** and **Trade**. A key with **Trade** alone can place orders but can't list or look them up.
+  </Step>
+  <Step title="Set limits (optional)">
+    Narrow the key with the fields in [Limits on a key](#limits-on-a-key), then click **Create key**.
+  </Step>
+  <Step title="Copy the secret">
+    "Copy it now — it won’t be shown again." Store it like a password.
+  </Step>
+</Steps>
+
+You get a notification titled **API key created** for every new key on your account. Revoke a key from the same page: **Revoke**, then **Revoke now**.
 
 ## What a key can and can't do
 
@@ -52,7 +69,7 @@ curl https://api.updown.fast/trade-api/v1/account \
 {
   "account": {
     "key_id": "0123456789abcdef",
-    "key_name": "my bot",
+    "key_name": "my program",
     "environment": "live",
     "scopes": ["read"],
     "limits": {},
@@ -76,7 +93,7 @@ When you create a key you can narrow it further. Every limit is optional.
 | **IP allowlist** | The key works only from these addresses (up to 10). |
 | **Expiry** | The key stops working after a number of days (1–365). |
 
-A **trade** key starts at **$20 per order** and **$500 per day** unless you set other limits. An account can have up to **5 active keys**. `GET /account` shows a key's limits and, as `daily_used_usd`, how much of the day's limit is used: fills of the last 24 hours plus what rests right now, never a cancelled order. A market maker should set the daily limit well above its working capital; the limit is a brake on a leaked key, not a measure of activity.
+A **trade** key starts at **$20 per order** and **$500 per day** unless you set other limits. An account can have up to **5 active keys**. `GET /account` shows a key's limits and, as `daily_used_usd`, how much of the day's limit is used: fills of the last 24 hours plus what rests right now, never a cancelled order. If you trade actively, set the daily limit well above your working capital; the limit is a brake on a leaked key, not a measure of activity.
 
 ## When a key is refused
 

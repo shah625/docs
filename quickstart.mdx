@@ -1,65 +1,100 @@
 ---
 title: "Quickstart"
-description: "From a fresh browser to your first option and your first interval trade."
+description: "From a fresh browser to your first settled interval trade."
 ---
 
 <Warning>
-Trading on updown uses **real money**. What you spend on a contract is at risk.
+Trading on updown uses **real money**. You can lose everything you spend on a position. You must be 18 or older and eligible under the Terms. See [Legal and eligibility](/help/legal-and-eligibility).
 </Warning>
 
 <Steps>
   <Step title="Sign in">
-    Click **Login** in the top right (on a phone, open the ☰ menu and tap **Login**). Sign in with your **email** or **Google** account. updown uses [Privy](https://privy.io), so there is no browser extension or seed phrase. Your account is created automatically with a generated username such as "BlueAngrySquare". You stay on the page you were on.
+    Click **Login** in the top bar. On a phone, open the ☰ menu and tap **Login**. Sign in with your **email** (you'll get a code) or your **Google** account. The popup opens in place, and its footer reads "By logging in I agree to the Terms & Privacy Policy".
+
+    Your account is created automatically, with a generated username such as "BlueAngrySquare" and a matching icon. You can change both later in [Settings](/account-and-profile#edit-your-profile).
   </Step>
 
-  <Step title="Open the deposit dialog">
-    Click **Cash** in the top bar (on a phone, tap **Deposit** on Home). The **Deposit with** dialog offers **Crypto** or **Card or bank**.
+  <Step title="Allow trading">
+    Right after you sign up, a "Welcome to updown" popup shows the **Enable trading** panel: "One approval. After that, trades go through with no signing." It may also show a box for marketing emails: "Email me about new markets, promotions and product updates."
 
-    The first time, you'll see the **Enable trading** panel. Click **Allow trading**, wait for "Trading enabled", and click **Continue**. This one-time approval lets your trades go through without a signature each time.
+    Click **Allow trading**. The panel reads "Enabling trading" for a few seconds, then "Trading enabled". Click **Continue**.
+
+    <Tip>
+    If you close the popup, your first buy asks again, in a popup titled "One step before your first trade". Allow trading there, then place your order again. See [Allow trading](/account-and-profile#allow-trading).
+    </Tip>
   </Step>
 
   <Step title="Deposit">
-    Choose **Crypto** and pick a network: **Robinhood Chain** (send **USDG**, at least $0.50) or **Polygon** (send **USDC**, at least $2, routed into your balance automatically). Scan the QR code or copy the address, then send from your wallet or exchange. The toast "Deposit added to your balance" confirms it.
+    Click **Cash** in the top bar. On a phone, tap **Deposit** on **Home**. The **Deposit with** dialog has two tabs:
 
-    Or choose **Card or bank** to pay with a debit or credit card, Apple Pay, or a US bank account. Card purchases usually land within a few minutes.
+    - **Cash**: **Deposit with card** ("Debit or credit · $50,000 limit") or **Pay with Cash App** ("Deposit via Cash App · $10 min"). Both open our payment partner's checkout, which shows its fees before you pay.
+    - **Crypto**: **Send stablecoins** ("USDG, USDC, or USDT") shows your own deposit address. The other rows (**Transfer any crypto**, **Connect wallet**, **Pay with exchange**, and **Connect exchange**) go through our payment partner.
+
+    With **Send stablecoins**, pick a network, then scan the QR code or copy the address. The address is the same on every network.
+
+    | Network | Send | Minimum |
+    |---|---|---|
+    | **Robinhood Chain** (default) | USDG | $0.50 |
+    | **Arbitrum** | USDC | $2.00 |
+    | **Base** | USDC | $2.00 |
+    | **Polygon** | USDC (native only) | $2.00 |
+    | **Ethereum** | USDC or USDT | $20.00 |
+
+    USDG on Robinhood Chain is cash as soon as it arrives, usually within seconds, with no fee. Deposits on the other networks are moved into your Robinhood Chain balance automatically, minus a small amount. A toast reads "Detected $10.00 USDC — adding to your balance…" and then "Deposit added to your balance".
 
     <Warning>
-    Send only the asset shown, on the network shown. Other tokens or networks may result in permanent loss.
+    Send only the assets listed for the network you picked. On Arbitrum, Base, Polygon, or Ethereum, a deposit below the minimum waits on that network until a top-up lifts it past the minimum.
     </Warning>
   </Step>
 
-  <Step title="Buy your first option">
-    Click **Options** in the top bar. You land on SPY; pick any stock from search or the side panel. Under **Quick trade**, choose **Up**, pick one of the three cards (for example "Above $770"), and click **Add to order**. In the order panel, set the **Amount** and click **Buy $X**. "Bought for $X" confirms it.
+  <Step title="Make your first trade">
+    You're already on the **Bitcoin · 5 min** market. At the top of the chart, **To beat** is the price this window must beat, **Now** is the live price, and **Time left** counts down to the close.
 
-    On a phone, tap the **Trade** tab, then **▲ Up** in the docked bar. Pick a row, tap **$1**, **$5**, or **$10**, and tap **▲ Buy above $X · $Y**.
-  </Step>
+    In the ticket (the right column on desktop), pick **▲ Up** or **▼ Down**. Each button shows its price, such as "Up 51¢". Type an amount, or tap **+$1**, **+$5**, **+$10**, or **+$100**. The readout shows "Chance" and "To win": what you collect if your side wins. Tap **Buy Up · $5**.
 
-  <Step title="Buy your first interval contracts">
-    Click **Interval** in the top bar. Tap **Up 51¢** (or **Down 49¢**) on any card. A trade dialog opens with the live window chart. Tap **$5**. A **Trade executed** card confirms, for example "Bought $5.00 Up @ 51¢ · Pays $9.80 if Up wins".
+    On a phone, tap **▲ Buy Up** or **▼ Buy Down** in the bar docked above the tabs. The same ticket opens as a sheet.
+
+    Your order fills at the live quote. The ticket turns into a **Trade executed** card, for example "Bought $5.00 Up @ 52¢" and "Pays $9.48 if Up wins".
+
+    <Tip>
+    Turn on **⚡ 1-tap** for **$1**, **$5**, **$10**, and **$25** boxes that buy as soon as you tap one.
+    </Tip>
+
+    <Note>
+    If you hold trade credit, it's spent before your cash. The card then reads, for example, "$3.00 credit + $2.00 cash · you keep the profit". See [Trade credit](/portfolio/trade-credit).
+    </Note>
   </Step>
 
   <Step title="Add a take (optional)">
-    After any trade, the confirmation offers **Add your take**. Type up to 280 characters or pick a **GIF**, then **Post**, or **Skip**. Takes appear on the public feed with your trade.
+    The **Trade executed** card offers **Add your take** ("Shown on the feed with this trade"). Type up to 280 characters in "Why this trade?" or pick a **GIF**, then tap **Post**. Or tap **Skip**. A take can't be edited once it's posted.
+
+    **Share trade** opens a share card for your trade.
   </Step>
 
   <Step title="Watch it settle">
-    Open **Portfolio**. Options settle after the 4:00 PM ET close and pay to your wallet within minutes. Interval windows settle when they end, usually within a minute. There is nothing to claim.
+    When the window closes, the page holds it on screen: "Settling…", then "Up Won" or "Down Won". Winnings land in your cash on their own, usually within a minute or two. The bell shows a notice such as "You won $4.20".
+
+    Tap **Go to Live** to trade the next window.
   </Step>
 </Steps>
+
+<Tip>
+On stock and crypto interval markets, the ticket also has a **Multiplier** slider. Above 1×, your order pays more the further the price closes your way, up to a cap, and less on a small move. Read [Multiplier](/interval/multiplier) before you try it.
+</Tip>
 
 ## Where to go next
 
 <CardGroup cols={2}>
-  <Card title="How options work" icon="chart-line" href="/options/how-options-work">
-    Calls, puts, strikes, expiries, and settlement.
-  </Card>
   <Card title="How windows work" icon="clock" href="/interval/how-windows-work">
-    The level to beat, the tie rule, and the $1 payout.
+    The price to beat, the tie rule, and the $1 payout.
   </Card>
-  <Card title="Deposit & withdraw" icon="wallet" href="/portfolio/deposit-withdraw">
-    Networks, minimums, cards, and withdrawing USDG.
+  <Card title="Placing orders" icon="cart-shopping" href="/interval/placing-orders">
+    Market and limit orders, selling, and fees.
   </Card>
-  <Card title="Account & profile" icon="user" href="/account-and-profile">
-    Your username, icon, X handle, and privacy settings.
+  <Card title="Deposit and withdraw" icon="wallet" href="/portfolio/deposit-withdraw">
+    Every deposit route, and withdrawing USDG.
+  </Card>
+  <Card title="Account and profile" icon="user" href="/account-and-profile">
+    Your username, icon, settings, and privacy.
   </Card>
 </CardGroup>

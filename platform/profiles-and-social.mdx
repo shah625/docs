@@ -1,44 +1,302 @@
 ---
-title: "Profiles & social"
-description: "Public profiles, following, the trade feed, takes, and avatar pins on charts."
+title: "Profiles and social"
+description: "The live trade feed, buying from the feed, replays, takes, likes, share cards, chart pins, and profiles and follows."
 ---
 
-Every trade on updown is public by default, and every trader has a public profile. This page covers the social layer built on top of that.
+Every interval trade on updown lands on a live feed, and every trader has a public profile. You can read the feed and profiles signed out. Liking, following, posting takes, and buying need you to sign in.
 
-## Public profiles
+## Where the feed is
 
-Click any avatar or username anywhere in the app to open that trader's profile at `/u/username`. It shows their icon, name, X link if set, the stats **Volume**, **Realized P&L**, and **Rank**, their **Following** and **Followers** counts, their open **Positions**, their top take, and their activity.
+| Where | How to open it | Layout |
+|-------|----------------|--------|
+| Desktop, window 1280 px or wider | The left side panel → **Feed**. On a market page the panel opens on **Feed**. | Rows |
+| A market page, window under 1280 px | **Live feed** in the header (phones: **Feed**), marked with a red pulsing dot. It slides in from the left. Close it with ✕, Escape, or a click outside. | Rows |
+| Phones | The **Home** tab → **Feed**. The page opens on **Trade**, so tap **Feed**. The ☰ drawer also links **Feed**. | Post cards |
 
-- **Follow** with the button in the header. Hover it to **Unfollow**. Followers and following lists open from the counts.
-- Sections a trader has hidden read "Wallet hidden", "Positions hidden", or "Activity hidden" with "@name keeps this private."
-- A profile never shows the trader's email, wallet addresses, withdrawals, or options positions.
+A desktop browser that opens `/feed` directly shows the post cards too.
 
-Control your own visibility in **Edit profile → Visibility**. See [Account & profile](/account-and-profile#your-profile).
+## Whose trades
 
-## The feed
+Pick a tab above the list:
 
-The feed is the live list of everyone's trades. Open it from the side panel's **Feed** tab on wide screens, or the **Feed** tab on a phone, where it has filters **All / Options / Interval**.
+| Tab | Shows |
+|-----|-------|
+| **Global** | Everyone's trades. The default. |
+| **Following** | Trades by people you follow. Signed in only. It's drawn from the latest Global list (about 60 posts), so someone who traded a while ago may not appear. |
+| **This market** | On a market page only. Every interval of that asset (for example BTC 5, 15, and 60 min), plus the current window's full list of trades. |
 
-Each row shows the trader's icon and name, how long ago, and a trade card such as "SPY above $770" with an **Option** tag and "Bought $4.92 ▲ Up $4.57", or an interval buy with its side and price. Rows with a take show a **Take** badge, or **🔥 Hot take** when the trade was a long shot (an interval contract bought under 20¢). A heart under each take shows its likes. The feed updates every 5 seconds.
+When only one tab applies, the tabs are hidden.
+
+A gold **Top traders** card, "Top traders · 7D P&L", sits above the **Global** list. It shows the six traders with the highest realized P&L over the past 7 days, two at a time, and only traders in profit. It moves on every 5 seconds and pauses while you hover or touch it. On phones, swipe it. Each trader has a rank badge, their P&L, and a **Follow** button. Your own entry reads "You". The card is hidden when nobody qualifies.
+
+If you follow nobody, **Following** reads "You're not following anyone yet" and suggests four top-rated traders to follow.
+
+## What's on the feed
+
+- Every interval trade by every trader, buys and sells. An order that filled in several pieces shows as one trade, at its total and its average price.
+- A multiplier order shows as soon as it's placed. A shimmering ×, like "▼ Down 2.3×", after the side marks a multiplier order. The amount shown is the stake. See [Multiplier](/interval/multiplier).
+- A Bundle shows as one post. See [Bundles on the feed](#bundles-on-the-feed).
+- Pre-IPO trades show only where [Pre-IPO markets](/interval/pre-ipo) are available.
+
+The feed refreshes every 5 seconds. Your own trade jumps to the top as soon as it fills. An empty feed reads "No trades yet" / "Every fill on every market lands here." An empty **This market** tab reads "Be the first: buy Up or Down on the right."
+
+In the rows layout, once you scroll down, the list holds still. New trades wait behind a pill such as "↑ 5 new trades". Click it, or scroll back to the top, to let them in.
+
+## Feed rows (side panel and Live feed)
+
+Each row has a thin rail down its left edge: green for Up, red for Down, purple for a Bundle.
+
+| Part | What it shows |
+|------|---------------|
+| **Avatar and name** | Open the trader's profile. Their ELO tier badge follows the name. |
+| **Badges** | **Buy**, **Sell**, or **Closed** (a buy whose window has its result). **Bundle** for a Bundle. **Take**, or **🔥 Hot** for a hot take; click it to expand the take. |
+| **Time** | While the window is open, a red dot and the time left ("1:17"), red in the window's final fifth. Then the age: "now", "34s", "2m", "3h", "1d". |
+| **Trade line** | Market art, the ticker ("HYPE"), the cadence ("5m", "15m", "60m"), ▲ / ▼ and the side, the multiplier tag if any, the amount ("$8.13"), and the price ("at 11¢"). |
+| **Result card** | Replaces the trade line once a buy's window has its result. The trade ("$5.00 at 53¢") on the left. On the right, the P&L if held to the close ("+$4.70" over "▲ 89%"), in green or red. |
+| **Take** | Up to 2 lines of text (click to expand), then the GIF (click to enlarge). |
+| **Heart** | The like count. See [Likes](#likes). |
+
+### Hover a trade
+
+With a mouse, rest on a row to open a card beside it. The card follows you from row to row, and closes when you scroll or press Escape.
+
+- **A settled buy** plays its [replay](#replays).
+- **A buy whose window is still open** shows "Live position":
+  - the trader and the market, such as "BTC · 15 min · Up";
+  - "P&L so far", with "Worth $X if sold now";
+  - **Cost**, **Pays**, and **Chance** (the side's current price, read as a percent);
+  - the window's times, the time left, and a progress bar;
+  - "Bought @ 53¢ · click the trade to buy it too".
+- **Anything else**, such as a sale or a window still settling, shows the trade with a label such as "Sold", "Settling…", "Called it ✓", or "Missed".
+
+### Click to buy
+
+Click anywhere on a row, except the name, the heart, or the take badge. It opens the buy dialog for that market, on the same side, in the current window. With the keyboard, press Enter or Space.
+
+- If the market can't be bought right now, the click opens its market page instead.
+- A Bundle row opens the [Bundle dialog](#bundles-on-the-feed).
+- On screens 768 px and wider, the dialog shows [the trader panel](#the-trader-panel) beside the ticket.
+
+<Warning>
+Buying from the feed is a new trade at the current price, in the current window. You don't get the trader's price or their window.
+</Warning>
+
+## Post cards (`/feed`)
+
+| Part | What it shows |
+|------|---------------|
+| **Header** | Avatar and name (open the profile), a **Take** or **🔥 Hot take** badge, **Bundle** for a Bundle, the **Copy** pill, and the age. |
+| **Heart** | Beside the card, with the like count. |
+| **Trade card** | Tinted in the side's colour: the market ("Bitcoin (BTC) · 15 min"), a live countdown, and "Bought $5.00 ▲ Up @ 51¢" (or "Sold …"). Tap it to open the market, or the replay once the trade has settled ("Watch the replay"). |
+| **Take** | Under the card: up to 3 lines of text, then the GIF. |
+
+A Bundle shows one card per market, each with its own **Copy**.
+
+### Copy
+
+**Copy** ("Buy the same trade") opens the buy dialog for the same market and side, in the current window. It appears only:
+
+- on a buy that has a take (text or a GIF), and
+- while the market is still trading (for a stock, inside its trading hours).
+
+When you buy from a trade that has a take, with **Copy** or by clicking its row, its author earns [creator rewards](/platform/creator-rewards). They also get a "copied your trade" notification once your buy fills.
+
+## Replays
+
+Tap a settled buy's card on `/feed` to open its replay. In the rows layout, the replay plays in the hover card.
+
+The dialog shows:
+
+- "Sam's trade · 3:15 PM – 3:30 PM" (or "Your trade …") and the market, such as "BTC · 15 min · Up";
+- "Paid out $10.00" on a right call, or "Cost $5.30" on a miss, with the P&L, such as "+$4.70 (+89%)";
+- the replay, about 5 seconds long. The window's price line draws itself against a "TO BEAT" pill, and the trader's avatar pops in where they bought ("Bought Up · 53¢"). It ends on "Final · Up won", with the P&L, **Cost**, and **Entry price**. Use **Play**, **Pause**, and **Replay**;
+- **Copy trade** (under the same rules as **Copy**) and **Go to market**.
+
+Result cards and replays show the P&L if held to the close, even when the trader sold early.
+
+A replay exists only for a regular interval buy whose window result is recorded. Sales and multiplier orders have none. Without one, the dialog reads "This window hasn't settled yet." or "No replay for this window yet. The settled window page still has its chart."
+
+## The trader panel
+
+When you open a buy from a feed row on a screen 768 px or wider, the dialog's left side shows **The trader**:
+
+| Part | What it shows |
+|------|---------------|
+| **The trade** | Name, a **Buy** / **Sell** badge, the side, the age, and a **LIVE** pill while the window runs. A big figure: "Live P&L", "Won", "Lost", or "Broke even". Then **Cost**, **Entry**, and **Bought** (a sale: **Received**, **Sold at**, and **Sold**). |
+| **Record** | **Won / Lost** · **Win rate** · **Net P&L** |
+| **Activity** | "Activity (N)": their trades on this market, with a switch such as "OPENAI 15m" / "All OPENAI" when both exist. Each row shows **Buy**, **Sell**, **Won**, **Lost**, or **Even**, the side, "$10.00 at 32¢", and the time. |
+
+If the trader keeps their activity hidden, the panel reads "Sam keeps their trading history private."
+
+## Bundles on the feed
+
+In the rows layout, a Bundle shows as a stack:
+
+- one line per side, "▲ Up" and "▼ Down", with up to 5 market logos, then "+N";
+- that side's P&L once every pick on it has a result, otherwise its cost ("$12.40");
+- a foot such as "8 markets · $7.95 @ ~54¢": the number of markets, the total spent, and the average entry.
+
+Hover a logo to see that pick's card. Click the row or a logo to open the Bundle dialog. It shows the buy dialog for one market and, on screens 768 px and wider, the Bundle panel beside it:
+
+| Part | What it shows |
+|------|---------------|
+| **Card** | The trader, "Bundle · 8 markets · 2m ago", a green **LIVE** pill while any pick runs, and the take. |
+| **Status** | "Final · 7 of 8 won", "Live · next settles in 1:23", or "Settling · 3 of 8 decided". |
+| **Big figure** | The total P&L, or "$X if every pick wins" before the end. |
+| **Cells** | **Cost** · **Avg entry** ("~54¢") · **Won** ("3 / 5") |
+| **List** | Every market, under "▲ Up (n)" and "▼ Down (n)", with its amount and price, then its P&L, a countdown, "Settling", or "Closed". Click a row to put that market in the ticket. A market that isn't trading is greyed out. |
+
+**Copy bundle** clears your Bundle slip, adds each pick that's still trading on its market's current window, and takes you to **Browse markets**. It doesn't appear on your own Bundle. Copying a Bundle earns its author nothing. See [Bundles](/interval/bundles).
+
+On a phone, a Bundle row opens only the buy dialog for one market. On `/feed`, each pick has its own card.
 
 ## Takes
 
-After any trade, the confirmation offers a take box: "Add your take — Shown on the feed with this trade", with the placeholder "Why this trade?".
+A take is a short note or a GIF that rides with your trade on the feed. After a trade fills, the confirmation shows "Add your take" / "Shown on the feed with this trade". You get the take box on the market page ticket and in the trade dialog, on a multiplier order's confirmation, and once for a whole Bundle.
 
 <Steps>
-  <Step title="Write or pick">
-    Type up to **280 characters**, or tap **GIF** to pick one.
+  <Step title="Write or pick a GIF">
+    Type in the box ("Why this trade?"), up to **280 characters**. The GIF picker is open from the start: search with "Search GIFs", or pick a suggestion. A take can be a GIF alone.
   </Step>
   <Step title="Post or skip">
-    Tap **Post**, or **Skip** to trade without a take.
+    Tap **Post** (or press Ctrl/⌘ + Enter). Tap **Skip** to go on without one. Escape closes the GIF picker, then skips.
   </Step>
 </Steps>
 
-Takes cannot be edited later. A multi-buy takes one take for the whole batch. Posting is limited to 20 per minute.
+After you post a take on a buy, the card reads "✓ Take posted — it's on your share card", with **Share trade** and **Done**.
 
-## Avatar pins on charts
+- Line breaks and extra spaces are folded into one line before the 280 characters are counted.
+- Takes can't be edited after you post them.
+- A Bundle gets one take for the whole batch.
+- Posting too quickly shows "Slow down — try again in a minute."
+- While you use someone else's account through [Team](/platform/team-access), the box reads "Takes are posted from your own account."
 
-Charts show who bought where:
+A **🔥 Hot take** is a take on a long shot: an interval buy under 20¢. Rows show it as **🔥 Hot**. Every other take gets the **Take** badge.
 
-- On an interval market page and the featured panel, the current window's chart carries each buyer's avatar at their entry. The tooltip reads their name, "$5.00 on Up", and their take.
-- On an options stock page, the last 24 hours of buys are pinned to the candles: calls above, puts below. The tooltip reads their name, "$4.92 on the call at $770", and their take.
+Your takes appear on the feed, in the tooltip of your [chart pin](#trader-pins-on-charts), in the replay and trader panels, and in your Activity table with "♥ N likes". Use the Activity table's **Takes** filter to list them. See [Positions and history](/portfolio/positions-and-history).
+
+<AccordionGroup>
+  <Accordion title="Take and GIF messages">
+
+| Message | Meaning |
+|---------|---------|
+| "Write something or pick a GIF first." | The take is empty. |
+| "Keep it under 280 characters." | The text is too long. |
+| "Slow down — try again in a minute." | You posted too many takes in a short time. |
+| "Your account can't post takes." | This account can't post takes. |
+| "Couldn't attach this to your trade." | The take couldn't be added to the trade. |
+| "Couldn't attach that GIF — pick another." | Pick a different GIF. |
+| "Couldn't post — try again." | Something went wrong. Post again. |
+| "Nothing for “cats”." | No GIFs match your search. |
+| "GIFs are busy — try again in a minute." | GIF search isn't working right now. |
+
+  </Accordion>
+</AccordionGroup>
+
+## Likes
+
+Any trade can be liked, with or without a take. Click the heart. It turns red, sprays a few hearts, and the count goes up. You can like a trade once. Click again to unlike it.
+
+The trader gets a notification when you like their trade, and unliking takes it back. Signed out, the heart opens sign-in.
+
+## Share your trade
+
+After an interval buy fills, tap **Share trade** on the "Trade executed" card. After a Bundle, tap **Share trade** (one fill) or **Share picks** (several). Share cards exist only for interval buys and Bundles. Sales, multiplier orders, feed posts, profiles, and leaderboards have none.
+
+The "Share your trade" dialog shows the card and these controls:
+
+| Control | What it does |
+|---------|--------------|
+| **Show amounts** | Off hides the dollar figures. The take always shows. |
+| **Copy image** (desktop) or **Share** (phones) | Copies the image, or opens your phone's share sheet. It reads "Preparing…" while the image is drawn. |
+| **Save** | Downloads the card as a PNG. |
+| **Post** | Copies the image, then opens a post on X with the card's sentence and link. Paste the image into the post. |
+| **Copy link** | Copies the link to the market. |
+
+The card is a 1080 px wide PNG, always dark. It shows:
+
+- a label such as "Up · 15-min window" and the **updown** wordmark;
+- the headline, such as "BTC ▲Up", over "To beat $84,504.96 · 6:45 PM" ("Ends 2:45 PM" when the level isn't known yet);
+- **Payout** and **Cost**, and the **Price**, such as "51¢";
+- the time you made the card, and "OPEN POSITION";
+- your take, your avatar and name, and "updown.fast".
+
+A Bundle card names the number of picks, then **Pays if every pick wins** and **Total cost**. One row per pick reads, for example, "BTC · Up · 15 min · by 3:30 PM" with "$5.00 → $9.80". After 6 picks it reads "+N more picks". A trade card links to the market; a Bundle card links to the markets list.
+
+If your browser can't copy images, you see "This browser can't copy images — use Save".
+
+## Trader pins on charts
+
+On an interval market page, the current window's trades appear on the chart as the traders' avatars, pinned at the moment and price they filled.
+
+- Each pin has a ring and a triangle in the side's colour: ▲ above the avatar for Up, ▼ below it for Down.
+- Your own pins are ringed in white.
+- Crowded pins stack.
+- Hover a pin to see the name, then "$5.00 on Up · 3:04:12 PM" (a sale: "Sold $4.90 of Up · …"). Your own pins add "Your trade". A take shows in quotes, or as "Posted a GIF".
+- Click or tap a pin to open the trader's profile.
+
+Pins refresh every 8 seconds and disappear once the window has ended.
+
+## Profiles
+
+Your profile is your Portfolio page, `/portfolio`. Everyone else's is at `/u/username`, and the name isn't case-sensitive. Click any name or avatar on updown to open a profile. Anyone can read a profile signed out.
+
+| | Your profile | Someone else's |
+|---|---|---|
+| **ELO panel** | Your tier badge, rating, and rung (such as "Bronze 2") with a **?** for help, and a bar such as "27 to Bronze 3" ("Top rank" at the top). Hover or tap the rating for your breakdown. | The same, without the breakdown. |
+| **Name** | Avatar, "@name", and an X icon if you linked an account. | The same. |
+| **Stats** | **Volume** · **Realized P&L** | The same. These are always public. |
+| **Buttons** | A pencil (**Edit profile**) and a sign-out icon. | **Follow** / **Following** (hover: **Unfollow**). |
+| **Footer** | Followers and following counts, the number of trades ("⇄ 133 trades"), your email, and when you joined ("📅 Joined Oct 2026"). | The same, but never the email. |
+
+The ELO panel sits in a left column on wide screens, and on its own card under the header on narrow ones. See [Leaderboards and ELO](/platform/leaderboards-and-elo). Multiplier orders don't count toward **Volume** or **Realized P&L**.
+
+Below the header:
+
+- **The value card:** the P&L for the range you pick (**1D 1W 1M 1Y ALL**, default **1W**), a P&L chart, and "Portfolio value" with "$X cash · $Y in positions". See [Portfolio overview](/portfolio/overview).
+- **Positions:** "Your positions" on your own page, or "Positions" (read-only) on someone else's. An empty one reads "@name holds nothing right now."
+- **Activity:** every trade and settlement. An empty one reads "@name hasn't traded yet." See [Positions and history](/portfolio/positions-and-history).
+- **Follow top traders:** the week's top traders by P&L, other than you and the person whose profile it is, each with **Follow**. **See all** opens the full ELO board. The card sits in a right rail on very wide screens, otherwise at the foot of the page.
+
+Your own page also has your Deposit and Withdraw buttons and the [Creator rewards](/platform/creator-rewards) card. On a phone, the value card comes first, then two tabs, **Positions** and **Activity**.
+
+Public profiles show multiplier positions and activity too, under the same visibility switches.
+
+A name that doesn't exist reads "No one by that name" / "Check the spelling and try again."
+
+### What other people see
+
+Three switches in **Edit profile** (or **Settings**) → **Visibility** decide what others see. Each is **Public** or **Hidden**:
+
+| Switch | Hides |
+|--------|-------|
+| **Wallet** | The value card: balance, portfolio value, and chart. |
+| **Positions** | Your open positions. |
+| **Activity** | Your Activity table, and your history in the trader panel. |
+
+A hidden section reads "Wallet hidden", "Positions hidden", or "Activity hidden", with "@name keeps this private." You always see your own sections. Your **Volume**, **Realized P&L**, and trade count stay public. See [Account and profile](/account-and-profile) for the dialog.
+
+A profile never shows other people your email, any wallet address, your deposits or withdrawals, or your open or resting orders.
+
+## Following
+
+Click **Follow** on a profile, on the **Top traders** card, or on a list of followers. Hover **Following** and click **Unfollow** to stop. Signed out, **Follow** opens sign-in.
+
+- The trader gets a notification when you follow them.
+- Their trades show in the feed's **Following** tab.
+- Click the followers or following count on a profile to open the lists. Each has a count, and each row links to the profile and has a **Follow** button. The lists show up to 200 people.
+
+<CardGroup cols={2}>
+  <Card title="Notifications" icon="bell" href="/platform/notifications">
+    Likes, follows, copies, and settled trades in the bell.
+  </Card>
+  <Card title="Team access" icon="users" href="/platform/team-access">
+    Let another account view or trade yours.
+  </Card>
+  <Card title="Leaderboards and ELO" icon="trophy" href="/platform/leaderboards-and-elo">
+    Ratings, tiers, and the rolling boards.
+  </Card>
+  <Card title="Creator rewards" icon="star" href="/platform/creator-rewards">
+    Earn points when people buy from your takes.
+  </Card>
+</CardGroup>

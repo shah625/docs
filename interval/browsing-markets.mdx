@@ -1,73 +1,105 @@
 ---
-title: "Browsing interval markets"
-description: "The Interval hub, the Stocks and Crypto pages, market cards, and the market page."
+title: "Browsing markets"
+description: "Where you land, the Browse markets page, the Stocks, Crypto, and Pre-IPO pages, and what each market card shows."
 ---
 
-Click **Interval** in the top bar to open the hub, headed **Browse markets**. Stocks and crypto also have their own pages, and Home features a rotating selection. For the mechanic behind every window, see [How windows work](/interval/how-windows-work).
+When you open updown, you land on **Bitcoin's 5-minute market**. On a phone, the **Trade** tab opens the same market. To see every market at once, use the **Browse markets** page or a category page. For how a window works, see [How windows work](/interval/how-windows-work).
 
-## The Interval hub
+## What's listed
 
-The hub lists every open market as a compact card, with a sub-line such as "All Categories · All Intervals · 45 markets".
+| Category | Markets | Intervals |
+|----------|---------|-----------|
+| **Stocks** | AAPL, NVDA, SPCX, TSLA, GOOGL, PLTR, META, HOOD, SPY, COIN | **5 min**, **15 min**, **60 min** |
+| **Crypto** | BTC, ETH, SOL, DOGE, HYPE, XRP | **5 min**, **15 min**, **60 min** |
+| **Pre-IPO** | OpenAI, Anthropic | **5 min**, **15 min**, **60 min**. See [Pre-IPO markets](/interval/pre-ipo). |
+
+The list can change without notice. A market shows only while it can be traded:
+
+- Stock markets leave every list outside their trading hours. PLTR and SPY leave from Friday 4:00 PM to Sunday 8:00 PM ET. See [How windows work](/interval/how-windows-work) for the hours.
+- At times a whole interval can be paused for a category. Its markets then leave the lists until it reopens.
+
+## Browse markets
+
+**Browse markets** lists every market as a compact card. It has no menu entry. Reach it in any of these ways:
+
+- Tap a **Browse markets** button, for example on your Portfolio when you have no open positions.
+- Tap **Back to markets** on a closed stock market's page.
+- Go to `updown.fast/trade`.
+
+The sub-line counts what's showing, for example "All Categories · 15 min · N markets".
 
 <Steps>
   <Step title="Filter">
-    Two dropdowns: **category** (**All Categories**, **Stocks**, **Crypto**, with counts) and **interval** (**All Intervals**, **5 min**, **15 min**, **60 min**). Filters are kept in the page URL, so you can bookmark a view.
+    Use the category dropdown (**All Categories**, **Stocks**, **Crypto**, **Pre-IPO**) and the interval dropdown (**All Intervals**, **5 min**, **15 min**, **60 min**). Each item shows its count. The page opens on **All Categories · 15 min**. Pick **Pre-IPO** to see the pre-IPO markets.
   </Step>
   <Step title="Trade from a card, or open it">
-    Tap a card's **Up 51¢** or **Down 49¢** button to open the trade dialog with that side selected, or tap the card body to open the market page.
+    Tap **▲ Up** or **▼ Down** on a card to open the trade dialog with that side picked. Tap anywhere else on the card to open [the market page](/interval/the-market-page).
   </Step>
   <Step title="Or place several at once">
-    Turn on **Multi-buy** to pick up to 20 outcomes and place them in one order. See [Multi-buy](/interval/multi-buy).
+    Turn on **Bundle** to pick a side on up to 20 markets and place them in one order. See [Bundles](/interval/bundles).
   </Step>
 </Steps>
 
-**Compact cards** show the image and title, **To beat** and **Now** with the move ("▲ $1.20"), the **Up** / **Down** price buttons, and a footer with the cadence and countdown.
+Your filters are kept in the page's URL, so you can bookmark a view. Under **All Intervals**, a market's intervals sit side by side. Under **All Categories**, the most volatile market comes first, and markets that haven't opened yet come last.
 
-Empty states read "No markets right now", "No stock markets right now — Stock markets list while their price feed is live.", or "New recurring markets roll out here as their metrics go live.", with a **Browse all markets** button.
+### The compact card
 
-## Stocks and Crypto pages
+| Part | What it shows |
+|------|--------------|
+| **Image and title** | The market, for example "Bitcoin (BTC)" |
+| **To beat** \| **Now** | The price to beat, then the current price in green (above) or red (below), with the move, such as "▲ 0.42". Before the window opens, **To beat** reads "—". |
+| **Up** / **Down** | "▲ Up 51¢" and "▼ Down 49¢", with live prices. On a phone they stack at the right edge as "▲ 51¢" / "▼ 49¢". A side with no price shows "—". |
+| **Footer** | The interval ("15 min") and a countdown. The countdown is white, turns amber under half the window, and red in the last fifth. Before kickoff it reads "Opens 2:30 PM". |
 
-Home's **Stocks** and **Crypto** sections each have a **See all** link to a category page. The page has:
+If nothing can be listed at any interval, the page reads "No markets right now" and "New recurring markets roll out here as their metrics go live."
 
-- An interval tab row **5 min / 15 min / 60 min** with counts. The default is **15 min**.
-- A **Multi-buy** toggle.
-- The **featured panel**.
-- A two-column grid of **live cards**.
+## The Stocks, Crypto, and Pre-IPO pages
+
+Each category has its own page: `updown.fast/stocks`, `updown.fast/crypto`, and `updown.fast/pre-ipo`. They have no menu entry, so open them by URL. Each page has:
+
+- An interval tab row, **5 min · 15 min · 60 min**, with counts. It offers only the intervals the category runs right now. The default is **15 min**.
+- A **Bundle** toggle beside the tabs.
+- The **featured panel**, showing the category's first live market, such as Apple for Stocks or Bitcoin for Crypto.
+- The rest of the category as **live cards**: one column on a phone, two from tablet width.
 
 ### The featured panel
 
 | Element | What it shows |
 |---------|--------------|
-| **Title** | The market and cadence, "Bitcoin (BTC) · 15 min" |
-| **Market / Pays out / Odds** | Each side with its payout multiple and price, "Up · 1.96x · 51¢" |
-| **Closes in** / **Opens in** | Countdown to the close |
-| **To beat** and **Now** | The opening price (with the close time) and the live price (with the move) |
-| **Chart** | The whole current window so far, with a **Target** pill at the level to beat and avatars of traders who bought, where they bought |
-
-On Home the panel rotates automatically every 9 seconds between options and interval markets, with dots to jump.
+| **Title** | The market and interval, "Bitcoin (BTC) · 15 min". Stocks add a session pill: **Market hours**, **Extended hours**, or **Overnight**. |
+| **Market / Pays out / Odds** | One row per side, with a probability bar, the payout multiple, and a price button: "▲ Up · 1.96x · 51¢". The price button opens the trade dialog. |
+| **Closes in** / **Opens in** | A countdown to the close, or to the open before kickoff |
+| **To beat** and **Now** | The price to beat (with the close time) and the current price (with the move, "+$0.42 (+0.07%)") |
+| **Chart** | The last 5 minutes, rolling, with a **Target** pill at the price to beat and the avatars of traders where they traded |
 
 <Note>
-The "Pays out" multiple is 1 divided by the price. It ignores the spread and fee you pay when you actually fill.
+The "Pays out" multiple is 1 divided by the price. It ignores the spread and the fee you pay when your order fills.
 </Note>
+
+The session pill appears on the featured panel and on the market page, not on the compact cards. Pre-IPO markets show no session pill.
 
 ### Live cards
 
-Each card shows the image and title, the cadence, the countdown, **To beat** (with the close time), **Now** (with the move), a row per side with its price button and a bar, a **Live** or **Upcoming** tag, and a **Last 6** strip of triangles showing recent window results. Hover a triangle for "2:00 PM window · $325.40 → $325.62 · Up". On Home, cards also carry **Also** links to the subject's other cadences.
+| Part | What it shows |
+|------|--------------|
+| **Header** | Image, title, the interval, and a countdown (or "Opens 2:30 PM") |
+| **To beat** | The price, with the close time ("2:30 PM close") |
+| **Now** | The current price in green or red, with the move |
+| **Sides** | An **▲ Up** row and a **▼ Down** row, each with a price button and a probability bar. Before kickoff: **Trading opens in** with a countdown. With no price yet: "Waiting for the first quote". |
+| **Footer** | **Live** (with a red dot) or **Upcoming**, and a **Last 6** strip of ▲ / ▼ results, oldest first |
 
-## The market page
+Hover a result triangle to see the window, for example "2:00 PM window · $325.40 → $325.62 · Up". A window that closed unchanged adds " (unchanged)". The price button opens the trade dialog. The rest of the card's top half opens the market page.
 
-| Section | What it shows |
-|---------|--------------|
-| **Header** | Image, title with the cadence menu ("Apple (AAPL) · 15 Minutes ▾ · Up or Down"), the window line, and the **LIVE** tag |
-| **To beat / Now / Time left** | The window's key numbers. See [How windows work](/interval/how-windows-work#reading-the-window-header) |
-| **Chart** | Buttons **Live / 5m / 15m / 1H / MKT**. **Live** is a two-minute tape and the default; **MKT** is the whole window so far. Buyer avatars are pinned where they bought |
-| **Past** | A dropdown of up to eight settled windows ("2:15 PM ET · Today"), plus chips for the last four. Each opens that window's result page |
-| **Live Positions** | Your contracts in the current window, with **Sell** buttons and your **Buying power** |
-| **Outcome row** | "Up or Down · BTC Price: $77,271.11 · 51%" with **Up 51¢ / Down 49¢** and the ⓘ tie note |
-| **Settlement rules** | The exact rules for this market |
-| **Similar markets** | Up to three related markets |
-| **Ticket** | The right rail on desktop; docked **Buy Up / Buy Down** pills on a phone. See [Placing interval orders](/interval/placing-orders) |
+If a category has nothing to list, its page says so, for example "No stock markets right now" and "Stock markets list while their price feed is live.", with a **Browse all markets** button.
 
-The cadence menu (tooltip "Change expiry") switches between **5 Minutes**, **15 Minutes**, and **60 Minutes** for the same subject.
+## Other ways to find a market
 
-Stock prices update every second and crypto prices on every trade. The hub's market list refreshes every minute, and stock cards leave the hub while their market is closed. See [market hours](/interval/how-windows-work#market-hours).
+- **Search:** press **Ctrl/⌘ + K** and type a name or ticker. Each result has **5 min**, **15 min**, and **60 min** chips.
+- **The side panel:** on wide screens, its **Trade** tab lists markets under **Trending**, **Stocks**, **Crypto**, and **Pre-IPO**. A row opens that market's 15-minute page.
+- **On a phone:** the **Home** tab opens on a **Trade** list with the same sections.
+
+See [Navigating updown](/platform/navigating-updown) for both.
+
+## Freshness
+
+Card prices update live. The market list refreshes every minute, so stock cards drop out and come back at the edges of their trading hours on their own.

@@ -1,91 +1,253 @@
 ---
-title: "Placing interval orders"
-description: "The interval ticket, tap-to-buy, the trade dialog, how fills work, selling back, and error strings."
+title: "Placing orders"
+description: "Buy and sell interval contracts: the ticket, the trade dialog, Market and 1-tap buys, limit orders, confirmations, selling back, Live Positions, and every message."
 ---
 
-Interval orders fill instantly at the live quote. On desktop the ticket sits in the right rail of the market page. On a phone, and from any card's price button, it opens as a **trade dialog** with the live window chart on top.
+You trade an interval market from its **ticket**. On a wide screen the ticket sits in the right rail of [the market page](/interval/the-market-page). Everywhere else, tapping a price opens the same ticket in a **trade dialog**. Each contract pays $1 if its side wins. See [How windows work](/interval/how-windows-work).
+
+## Before your first order
+
+- **Signed out:** the sign-in popup opens first. Once you sign in, the ticket appears in place.
+- **First trade:** if you haven't accepted the Terms or allowed trading yet, those popups open instead of the ticket. The trading one is titled "One step before your first trade". Tap **Allow trading**, then place your order again. See [Account and profile](/account-and-profile).
 
 ## The ticket
 
-At the top sit a **Buy / Sell** toggle and an order-type dropdown with **Quick Buy**, **Market**, and **Limit**.
+| Element | Label | Meaning |
+|---------|-------|---------|
+| **Tabs** | "Buy" / "Sell" | Buy contracts, or sell contracts you hold |
+| **ⓘ** | | How an unchanged window settles |
+| **Switch** | "⚡ 1-tap" | Amount boxes that buy at once (Buy and Market only) |
+| **Dropdown** | "Market ▾" | The order type: **Market** or **Limit** |
+| **Side buttons** | "▲ Up 51¢" / "▼ Down 49¢" | The price to buy each side now. The picked side is filled in its colour. |
+| **Amount** | "$" box, "Enter amount", then "Amount" or "Sell value", over "$123.45 cash" | Dollars to spend or to sell, and the cash you can spend |
+| **Chips** | "+$1" "+$5" "+$10" "+$100", "Clear" | Add to the amount, or reset it |
+| **Readout** | "Chance 51%", "To win $9.48" with "+$4.48" | The side's chance, and what you get back if it wins. Sell shows "You sell 9.80 contracts". |
+| **Button** | "Buy Up · $5" / "Sell Up · $5" / "Buy Up · limit" | Places the order |
+| **Footer** | "By trading, you agree to the Terms of Use." | Links to the Terms |
 
-### Quick Buy
+**Up** is picked when the ticket opens, unless you opened it from a **Down** button.
 
-Quick Buy is the default. Everything is a tap.
+## Buy at the live quote
 
-| Element | What it does |
-|---------|-------------|
-| **▲ Up 51¢** / **▼ Down 49¢** | Pick a side. The status line reads "Pick Up or Down" until you do. |
-| **$1 / $5 / $10** | Each box shows the amount and what it wins ("win $9.80"). Tap one to buy. The status line reads "Tap an amount to buy", then "Placing…". |
-| **$ Custom** | Type any amount and tap **Buy**. The "win $X" figure updates as you type. |
+<Steps>
+  <Step title="Pick a side">
+    Keep **Buy** and **Market** selected. Tap **▲ Up** or **▼ Down**.
+  </Step>
+  <Step title="Enter an amount">
+    Type dollars in the **$** box, or tap **+$1**, **+$5**, **+$10**, or **+$100** to build it up. There is no minimum.
+  </Step>
+  <Step title="Check the readout">
+    **Chance** is the midpoint between the price to buy and the price to sell that side. **To win** is what you get back if your side wins, and the green figure beside it is your profit.
+  </Step>
+  <Step title="Buy">
+    Tap **Buy Up · $5**. The button reads "Placing order…", or "Still confirming…" after 5 seconds. When it fills, the [**Trade executed**](#confirmation) card appears.
+  </Step>
+</Steps>
 
-The "win" figure is based on the prices actually available, so it is slightly less than the amount divided by the headline price whenever there is a spread.
+### 1-tap
 
-### Market
+Turn on **⚡ 1-tap** to buy with one tap. It's off each time you open the ticket.
 
-| Element | What it does |
-|---------|-------------|
-| Side pill (**Up 51¢** / **Down 49¢**) | Pick the side. |
-| **Dollars** | The amount to spend (default $50). |
-| **Odds** | The side's price read as a chance, "51% chance". |
-| **Max payout** | Dollars divided by price, for example $98.04 on $50 at 51¢. |
-| **Buy Up** / **Buy Down** | Places the order. In **Sell** mode the button reads **Sell Up** / **Sell Down**. |
+- Four boxes, **$1**, **$5**, **$10**, and **$25**, each show what they win ("win $9.48"). Tapping one buys at once.
+- Or type an amount in **Custom** and tap **Buy**.
+- The line under the boxes reads "Tap an amount to buy Up". While the order is out it reads "Placing order…", and after 5 seconds "Still confirming — this is taking longer than usual. Your position will update once it's confirmed."
 
-### Limit
+### What to know about the price
 
-The Limit form is visible but **not yet available**. Its button is disabled, and the Portfolio **Orders** tab stays empty for the same reason.
+- The **Up** and **Down** prices add up to more than $1. The gap is the spread. It can widen when prices move fast and in a window's last 30 seconds.
+- If no one is selling a side, its price shows "—". 1-tap reads "No one is selling Up right now — use Limit to bid for it".
+- If you enter more than you can spend (your cash plus any trade credit), the buy shrinks to what you can afford.
+- Immediate buys spend your [trade credit](/portfolio/trade-credit) before your cash.
+
+## Limit orders
+
+A limit order names your price. It waits at that price until another trader's order meets it, you cancel it, or the window closes.
+
+<Steps>
+  <Step title="Switch to Limit">
+    Open **Market ▾** and choose **Limit**. It works on the **Buy** and **Sell** tabs.
+  </Step>
+  <Step title="Set contracts and price">
+    Pick a side. Enter **Contracts** (whole numbers) and a **Limit price** in cents, from 1¢ to 99¢. On **Buy**, the readout shows **Cost** (the most the order can cost, fee included) and **To win** ($1 per contract).
+  </Step>
+  <Step title="Choose whether it can trade now">
+    **Submit as resting order only** is ticked by default, so the order only ever waits. If any part would trade right away, it's refused. Untick it to let whatever can trade at your price trade now. The rest waits.
+  </Step>
+  <Step title="Place it">
+    Tap **Buy Up · limit**. A green line confirms it: "Order placed · 10 resting at 45¢", or "Filled 5 at 52¢ · 5 resting" when part traded at once.
+  </Step>
+</Steps>
+
+While a buy waits, its cost (plus a small fee allowance) is held out of **Buying power**. A waiting sell holds the contracts it offers. Limit orders never use trade credit, and your own orders never fill against each other.
+
+Limit orders get no **Trade executed** card. When a waiting order fills later, the fill shows in Live Positions, your Portfolio activity, and the feed. No notification is sent.
+
+### See or cancel a limit order
+
+1. On that market's page, open **Live Positions** → **Open orders**. Each row reads like "Buy Up 10 @ 45¢", with " · 2 filled" once part has filled.
+2. Tap **Cancel**. The order leaves the list, and the cash it held returns to **Buying power** at once.
+
+Orders placed from a trade dialog show on the market's page too. Every order still waiting when the window closes is cancelled automatically, and its held cash returns. Any part that filled is a normal position and settles as usual.
+
+<Note>
+While a market is paused, **Limit** can't be picked. The website has no time-in-force choice: every limit order lasts until it fills, you cancel it, or the window closes. Developers who need other order types can use the [Trade API](/api/introduction).
+</Note>
 
 ## The trade dialog
 
-On a phone, the market page shows docked **Buy Up 51¢** / **Buy Down 49¢** pills. Tapping one, or tapping a price button on any card anywhere in the app, opens the trade dialog: the live window chart with its **Target** pill on top, a line such as "Apple (AAPL) 15 min · $331.67 target" with the countdown, and the same ticket as on desktop. An **Open market page** link goes to the full page. Signed out, the sign-in popup appears first.
-
-## Confirmation
-
-After a fill, a **Trade executed** card appears:
-
-- Buys read "Bought $5.00 **Up** @ 51¢" and "Pays $9.80 if Up wins".
-- Sells read "Sold $4.90 Up @ 49¢" and "+$0.40 realized", with "· settling…" while the payout confirms.
-- A partial fill adds "Filled $X of your $Y — book was thin here".
-
-The card stays open with the **take box** ("Add your take") until you **Post** or **Skip**. See [Profiles & social](/platform/profiles-and-social).
-
-## How fills work
-
-- **Taker fee.** A small fee applies on every buy and sell, never on settlement. It is built into the price you see; there is no fee line. It is largest near 50¢ and shrinks toward 1¢ and 99¢.
-- **Spread.** At least 2¢, widening near 50/50 as the window runs out of time. The **win** and **Max payout** figures already include it.
-- **Partial fills** happen when liquidity is thin. You are told what filled.
-- **Price protection.** The app caps a buy at the shown price × 1.3 + 3¢ and floors a sell at the shown price × 0.7 − 3¢. If the average fill would breach that, the order is refused: "Price moved to 55¢ (above your 40¢ limit) — order not filled." Try again at the new price.
-- **No minimum order** beyond a positive amount. Quick Buy starts at $1.
-
-## Selling back
-
-You can close all or part of a position at any time before the window closes. You fill at the current **bid**, and the realized profit or loss is paid or collected immediately.
+Tapping **Up** or **Down** on a card, a price on the interval tabs, the docked bar on a phone, or a trade on the feed opens the trade dialog.
 
 <Tabs>
-  <Tab title="From Live Positions">
-    On the market page, tap **Sell** on your side's row in the **Live Positions** panel. This sells that side's whole position in the window.
+  <Tab title="Desktop and tablet">
+    A live chart of the window, with its **Target** pill and trade pins. Under it, the market name ("Bitcoin (BTC) 5 min") over "$107,234.12 to beat" and a countdown. Then the ticket, with **Buy** pinned in a footer.
   </Tab>
-  <Tab title="From the ticket">
-    Switch the order type to **Market** and the toggle to **Sell**, pick the side, enter **Dollars**, and tap **Sell Up** or **Sell Down**. The amount closes dollars divided by price contracts.
+  <Tab title="Phone">
+    A bottom sheet with no chart. Its header reads "BTC Up or Down 5 min", with the side ahead (**Up**, **Down**, or **Tied**) and a clock pill that drains as the window runs. Under it, **To beat** and **Current price**. Then the ticket, with **Buy** pinned to the bottom.
   </Tab>
 </Tabs>
 
-You cannot sell more than you hold. Once the window has closed, the position settles automatically.
+**Open market page ↗** at the top goes to the full page and closes the dialog. Press Esc, tap ✕, or click outside to close it. Opened from the feed on a wider screen, the dialog also shows the trader you'd be copying. See [Profiles and social](/platform/profiles-and-social).
 
-## Errors you may see
+If the stock's market is closed, the dialog reads "Market closed" with the stock's hours, "Crypto markets stay open 24/7.", and **Close**.
+
+## Confirmation
+
+After a Market or 1-tap order fills, a **Trade executed** card replaces the ticket:
+
+- **Buy:** "Bought $5.00 Up @ 52¢" (what you spent, at the average price) and "Pays $9.48 if Up wins". With trade credit, a line such as "$3.00 credit + $2.00 cash · you keep the profit".
+- **Sell:** "Sold $4.90 Up @ 49¢" and "+$0.40 realized · settling…". With trade credit, "$X back as trade credit".
+- **Partial fill:** an amber line says how much of your amount filled at the live quote. That's all that was on offer within your price.
+- **Share trade** (buys only) opens a share card.
+- The take box: "Add your take", placeholder "Why this trade?", with **GIF**, **Skip**, and **Post**. Once posted: "Take posted — it's on your share card", then **Share trade** and **Done**.
+
+**Skip** closes the card, and in the trade dialog closes the dialog too. See [Profiles and social](/platform/profiles-and-social) for takes.
+
+## Selling back
+
+You can sell before the window closes. The fastest way is **Live Positions**.
+
+<Tabs>
+  <Tab title="From Live Positions">
+    Tap **Sell** on a side's row. It sells that side's whole position at the current bid in one tap, with no confirmation step. While a sale is in flight, every **Sell** button reads "Selling…". The row then updates or disappears.
+  </Tab>
+  <Tab title="From the ticket">
+    Switch to the **Sell** tab. **Market** sells a dollar amount ("Sell value"), and the readout shows the contracts it sells. **Limit** offers whole contracts at your price.
+  </Tab>
+</Tabs>
+
+A sale moves no money at once. The difference between what you sold for and what you paid is settled within about a minute, and the card shows "· settling…" meanwhile. You can't sell more than you hold.
+
+If trade credit paid for the position, a sale at a loss refills your credit first, and a sale at a profit uses it up. Live Positions previews the split before you sell. See [Trade credit](/portfolio/trade-credit).
+
+<Tip>
+Selling early gets you the current bid, not the $1 a winning contract pays at the close. Holding pays more if your side wins. Selling removes the uncertainty.
+</Tip>
+
+## Live Positions
+
+On the market page, **Live Positions** sits under the ticket (under the chart on a phone).
+
+| Element | Meaning |
+|---------|---------|
+| "Buying power $X" (+ "+ $Y credit") | What you can spend now. The credit figure shows while you hold trade credit. |
+| Row: "Up 3.00 contracts $1.62" and **Sell** | What you hold, valued at what selling it now would bring |
+| "entry 51¢ · now 54¢" · "pays $3.00 if Up" | Your average entry, the current price to buy that side, and the payout if it wins |
+| **Value** / **Unrealized** | The rows added up, and your gain or loss against what you paid |
+| **Open orders** … **Cancel** | Your waiting limit orders in this window |
+| **Total return** | Your settled results on this market |
+
+Multiplier orders list first, with their own **Sell** button. With nothing held it reads "No position in this window yet."
+
+<Note>
+Live Positions values each side at what selling it now would bring, after the selling fee. Portfolio values it at the midpoint. So a fresh buy looks slightly negative here and roughly flat on Portfolio. The two meet when you sell or the window settles.
+</Note>
+
+## The Multiplier
+
+On stock and crypto markets, a **Multiplier** slider sits at the bottom of the Buy ticket. At 1× nothing changes. Slide it up for a bigger payout on a bigger move. It shows only on **Buy** with **Market**, not on **Sell** or **Limit**. Above 1×, 1-tap boxes switch back to the amount box. See [Multiplier](/interval/multiplier).
+
+## Fees, price protection, and sizes
+
+- **Fees.** Orders that trade right away pay a small taker fee, built into what you spend and what **To win** shows. Limit orders that wait and are filled later pay no fee. Nothing is charged at settlement.
+- **Price protection.** A buy won't fill far above the price you saw, and a sell won't fill far below it. This covers Market and 1-tap orders and Live Positions **Sell**. If nothing fills inside that range, the order is refused.
+- **Prices** move in 1¢ steps, from 1¢ to 99¢.
+- **Contracts** can be fractional, in steps of 0.01. Website limit orders take whole contracts.
+- **No minimum** beyond a positive amount. An amount too small to buy anything is refused.
+- **Time-out.** If an order gets no answer within 15 seconds, the ticket tells you it may still go through.
+
+## Messages
+
+<AccordionGroup>
+  <Accordion title="While an order is out">
 
 | Message | Meaning |
 |---------|---------|
-| "Insufficient balance: need 5.00, have 2.10." | Not enough cash. Cash reserved by your other open windows does not count. |
-| "Buying power is required to open a position." | Your available cash is zero. |
-| "No liquidity available at these levels." | No liquidity is left at the quoted prices for this window. |
-| "Price moved to … — order not filled." | Price protection refused the fill. Retry. |
-| "You only hold N contracts on this side." | A sell exceeded your position. |
-| "Market is not open for trading right now." | The stock market is closed. See [market hours](/interval/how-windows-work#market-hours). |
-| "This market is closed to new positions. Open positions settle at the window's close." | The market has been retired. Existing positions still settle. |
-| "We're upgrading the platform — trading and transfers are paused for a few minutes." | Maintenance. |
-| "We're busy right now — try again in a few seconds." / "Another request on your account is still in progress — try again in a moment." | Temporary. Retry. |
+| "Placing order…" | The order is on its way |
+| "Still confirming…" | No answer after 5 seconds |
+| "Order not yet confirmed — it may still go through. Check your positions before placing another." | A buy or sell with no answer after 15 seconds |
+| "Order not yet confirmed — it may still go through. Check your open orders before placing another." | A limit order with no answer after 15 seconds |
+| "Couldn't confirm your sign-in — please try again." | Your sign-in wasn't ready in time |
+| "Something went wrong. Please try again." | Any other failure |
 
-<Note>
-The **Live Positions** panel marks your position at the current bid. The Portfolio page marks at the midpoint. A fresh buy looks roughly flat on Portfolio but slightly negative on the market page, and the two converge when you sell or settle.
-</Note>
+  </Accordion>
+  <Accordion title="Order refused">
+
+| Message | Meaning |
+|---------|---------|
+| "Your order could not be filled. No contracts were purchased." / "Your order could not be filled. No contracts were sold." | Price protection: nothing traded within your price limit |
+| "No liquidity available. Try again or place a limit order." | Nothing on offer at your price limit, or the amount is too small to buy anything |
+| "No bids available. Try again or place a limit order." | A sell when no one is buying that side |
+| "Nothing to sell." / "You don't hold that many contracts to sell." | A sell larger than your position |
+| "Insufficient balance for that order." | Not enough to spend |
+| "Insufficient balance: not enough cash after your trade credit." / "Insufficient balance: need $X of cash after credit, have $Y." | Your trade credit and cash together don't cover the order |
+| "Trade credit is busy — try again in a moment." / "Trade credit is unavailable right now — try again in a moment." | Temporary. Retry. |
+| "That price just went — try again." | The price changed before your order went through |
+| "Your order couldn't be placed in time. No contracts were purchased — please try again." | The order ran out of time |
+| "This window isn't trading right now." | The window isn't taking orders |
+| "This market is paused right now — the next window opens shortly. Open positions settle as usual." | The market is paused until its next window opens |
+| "This market is paused right now — it isn't taking new orders. Try again shortly or pick another market." | The market's window isn't running |
+| "That would put you over the per-user limit on this market." | Your positions and waiting buys have reached your limit on this market |
+| "This window has reached its limit — try a smaller order or the next window." | The window has reached its overall limit |
+| "That price would trade right away — untick "resting order only" or choose a price that rests." | A resting-only limit order priced to trade at once |
+| "That order isn't valid — check the price and size." | The price or size is out of range |
+| "Order not found." | A cancel for an order that no longer exists |
+
+  </Accordion>
+  <Accordion title="Account and platform">
+
+| Message | Meaning |
+|---------|---------|
+| "An order is already in progress on your account. Please wait a moment and try again." | Wait for your last order to finish |
+| "We're busy right now — try again in a few seconds." | Temporary. Retry. |
+| "We couldn't check your balance just now. Nothing was placed — please try again." | Temporary. Retry. |
+| "Trading is paused for maintenance." / "We're upgrading the platform — trading and transfers are paused for a few minutes." / "Trading is paused right now." | A platform pause. The ticket's amber note can add a resume time, such as " Resumes in 1h 30m." |
+| "15-minute markets are currently paused after hours. Please visit our other intervals to trade." | That interval is paused (the interval name matches the paused group), or a custom message |
+| "Please accept our updated Terms of Service to keep trading. Reload the page to see them." | Reload and accept the new Terms |
+| "This account has been restricted. You can still withdraw your balance. Contact support if you believe this is a mistake." | See [Support](/help/support) |
+| "Account not set up yet. Sign in again to finish account setup." | Sign out and back in |
+
+  </Accordion>
+  <Accordion title="Shared accounts (Team)">
+
+| Message | Meaning |
+|---------|---------|
+| "You have view-only access to this account." | Your access can't trade |
+| "Your own account has orders in this market. Cancel them first: you can't have orders on both accounts in the same market." | Cancel your own orders first |
+| "An account you have access to has orders in this market. Trade it from one account at a time." | Use one account per market |
+| "On a shared account, orders can't be priced more than 15¢ past the market (about 52¢ now)." | Pick a price closer to the market |
+| "There's no market price to check this order against right now, so it can't be placed on a shared account. Try again in a moment." | Retry shortly |
+
+See [Team access](/platform/team-access).
+
+  </Accordion>
+  <Accordion title="When the ticket can't take orders">
+
+| State | What you see |
+|-------|-------------|
+| Before a market's first window | "Windows open" with the time, and "The first 15-minute window starts then — trading follows the session, where the movement is." |
+| After a market ends | "Series ended", with a note that the underlying's market has closed and "interval windows never outlive what they track." |
+| Interval paused | The ticket blurred under "Trading paused" and the message |
+| Window over, page held on it | "This window has ended." and **Go to Live** |
+
+  </Accordion>
+</AccordionGroup>

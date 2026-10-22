@@ -1,0 +1,135 @@
+---
+title: "The market page"
+description: "Everything on an interval market's page: the interval tabs, To beat and Now, the chart, recent results, the tabs under the chart, the ticket, and Live Positions."
+---
+
+Every interval market has its own page. updown opens on one, Bitcoin's 5-minute market. To open another, tap a card on [Browse markets](/interval/browsing-markets), a search result, or a side panel row. Pre-IPO markets have the same page.
+
+## Layout
+
+| Screen width | Layout |
+|--------------|--------|
+| **1280 px and wider** | Three columns: the side panel on the left, the market in the centre, and a right rail with the ticket. On a market page the side panel opens on its **Feed** tab, with **Global**, **Following**, and **This market**. |
+| **1024–1279 px** | The market and the right rail. A **Live feed** button in the header slides the feed in from the left. |
+| **Below 1024 px** | One column. The rail's blocks stack under the chart, and a docked bar replaces the ticket. See [On a phone](#on-a-phone). |
+
+For the feed itself, see [Profiles and social](/platform/profiles-and-social).
+
+## The header
+
+- The market's image and name, then "Up or Down".
+- A tag: a stock's session pill (**Market hours**, **Extended hours**, or **Overnight**), or **Pre-IPO** on a pre-IPO market. Crypto has none.
+- The window's date and times in your local time, for example "October 21 · 2:15 PM – 2:30 PM", then a red **LIVE**.
+
+Before a market's first window it reads "UPCOMING · opens 2:30 PM".
+
+## The interval tabs
+
+When a market runs more than one interval, a row of tabs switches between them: **5 min · 15 min · 60 min** (**5M · 15M · 60M** on a phone).
+
+- Each tab shows that interval's own countdown, coloured by urgency, and a thin progress line.
+- On wider screens each tab also shows "▲ 51¢" / "▼ 49¢". Tap a price to open the trade dialog for that interval and side.
+- Tap a tab to switch the page in place. The URL changes too, so back, forward, and refresh work.
+- A paused interval is left out of the row.
+
+## To beat, Now, and Time left
+
+These sit at the top of the chart card.
+
+| Figure | What it shows |
+|--------|--------------|
+| **To beat** | The price this window must beat, with "Set at 2:15 PM" under it. The ⓘ explains how an unchanged close settles. |
+| **Now** | The current price, coloured by the move, with the move under it ("+$0.05"). Hover it for the move in percent. |
+| **Time left** | A countdown to the close. White, then amber under half the window, then red in the last fifth. |
+
+The ⓘ reads: "If the price is unchanged (compared to 4 decimal places), it settles as Up. Down needs a real move." On DOGE it says 7 decimal places.
+
+Stock markets show **To beat** and **Now** to 4 decimal places. At the start of a window, **To beat** can read "—" for a few seconds. No prices show and no orders are taken until it's set. See [How windows work](/interval/how-windows-work).
+
+With the [Multiplier](/interval/multiplier) slider above 1×, **To beat** turns purple and shows your order's break-even price.
+
+## The chart
+
+- A **Target** pill marks the price to beat. The line is coloured by the move, shaded green or red against the target.
+- Every trade in the window is pinned as the trader's avatar. Hover one to see who traded, how much, on which side, and when, for example "name · $5.00 on Up · 2:16:04 PM", plus their take. Yours read "Your trade".
+- On stock markets the line and **Now** show a rolling 60-second average of the price, updated every second. On crypto markets they show a 60-second time-weighted average, second by second. Pre-IPO markets chart the reference market's live price.
+
+### Views
+
+| View | Shows |
+|------|-------|
+| **LIVE** | The last 60 seconds |
+| **5M** / **15M** / **1H** | The last 5 minutes, 15 minutes, or hour. A 5-minute market has no **5M** button. |
+| **MKT** | The whole current window, from its open to now |
+
+5- and 15-minute markets open on **LIVE**. 60-minute markets open on **MKT**.
+
+Where candles are offered (crypto, Pre-IPO, and most stocks), a **Line** / **Candles** toggle sits beside the views. Candle sizes are **LIVE** (5-second candles), **1M**, **5M**, **15M**, and **1H**. Your choice of line or candles, and your candle size, are remembered in your browser.
+
+## Recent results and Past
+
+At the bottom right of the chart card:
+
+- **Last 5**, with a tally such as "3 – 2" (Up wins in green, Down wins in red).
+- Up to 5 result pills, ▲ or ▼, oldest first. A window that closed unchanged is drawn fainter. Hover a pill for "2:00 PM window · $325.40 → $325.62 · Up". Tap it to open that window's result page.
+- **Past ▾** lists the same windows, newest first, as "▲ 2:30 PM ET · Today". Each opens its result page.
+
+With nothing settled yet it reads "No settled windows yet."
+
+## The tabs under the chart
+
+Tabs under the chart show the live quotes, the rules, every trade in the window, who holds what, and traders' takes. The panel remembers the last tab you picked.
+
+| Tab | What it shows |
+|-----|--------------|
+| **Rules** | The **Market Rules** for this market, open by default. **View full rules** and **Timeline and payout** expand it. See [How windows work](/interval/how-windows-work) for what the rules say. |
+| **Activity** | Every buy and sale in this window: time, trader, side, price, contracts, and amount. A **Take** chip marks a trade with a take, and a sale reads "Sold Up". Empty: "No trades in this window yet" and "Every buy and sale in this window lands here, live.", with the market's recent trades under **Earlier on this market**. |
+| **Positions** | Who holds what: each trader's side, contracts, entry, mark, and P&L. "Marked at the market's mid · open contracts only". Empty: "Nobody holds this window yet". |
+| **Takes** | This window's takes, tagged **This window**, then the market's recent takes. Empty: "No takes on this market yet" and "Buy a side, then say why — your take shows here and on the chart." |
+
+**Activity**, **Positions**, and **Takes** show counts. **Activity** and **Positions** cover the window's latest 50 trades, and **Takes** shows up to 30.
+
+## The right rail
+
+### The ticket
+
+The ticket is where you buy and sell: **Buy** / **Sell**, **Market** / **Limit**, **⚡ 1-tap**, and the amount. On stock and crypto markets it also has the [Multiplier](/interval/multiplier) slider. See [Placing orders](/interval/placing-orders).
+
+- When an interval is paused, the ticket is blurred under "Trading paused" and a message, for example "5-minute markets are currently paused after hours. Please visit our other intervals to trade."
+- If a window's price feed stalls, trading in that window stops and the page says "Trading is paused in this window while the price feed catches up — it resumes on its own."
+
+### Live Positions
+
+Under the ticket, **Live Positions** shows **Buying power**, your contracts in this window with a **Sell** button per side, your multiplier orders, your waiting limit orders under **Open orders**, and your **Total return** on this market. With nothing held it reads "No position in this window yet." It's hidden when you're signed out. See [Live Positions](/interval/placing-orders#live-positions).
+
+### Suggested markets
+
+**Suggested markets** shows three other markets: first more of the same category and interval, then markets from the other categories. It never shows this market's own other intervals, because the interval tabs already do. Each card shows the name, a countdown, the interval, the live price, and "▲ 51¢" / "▼ 49¢". Tap one to open it. The picks change every 30 seconds.
+
+## On a phone
+
+Below 1024 px the page runs top to bottom:
+
+1. The header, with the window times, **LIVE**, the tag, and a **Feed** button.
+2. The interval tabs (**5M · 15M · 60M**, with countdowns).
+3. The chart card.
+4. **Live Positions**.
+5. The tabs under the chart.
+6. **Suggested markets**.
+7. A docked bar with **▲ Buy Up 51¢** and **▼ Buy Down 49¢**. Tap one to open the trade dialog on that side.
+
+While an interval is paused, the docked bar is replaced by "Trading paused" and the message.
+
+## When a window ends
+
+When the window on screen closes, the page stays on it instead of moving to the next one:
+
+- The chart card shows the ended window: "Settling…", then "Up Won" or "Down Won". See [How windows work](/interval/how-windows-work) for how results are set.
+- The ticket reads "This window has ended." with a **Go to Live** button. On a phone the docked bar hides.
+- **Last 5** and **Past** stay.
+
+Tap **Go to Live** to switch to the window trading now. The header already shows the new window's times.
+
+## When a stock market is closed
+
+Outside a stock's trading hours, its page shows only the market's name, "Market closed" with the stock's trading hours, "Crypto markets stay open 24/7.", and a **Back to markets** button to [Browse markets](/interval/browsing-markets). Crypto and Pre-IPO markets trade around the clock and never show this card.

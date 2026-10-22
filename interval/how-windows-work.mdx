@@ -1,110 +1,220 @@
 ---
 title: "How windows work"
-description: "Interval markets: windows, the level to beat, Up and Down, the $1 payout, and settlement."
+description: "The interval rules: markets and cadences, Up and Down, the tie rule, the $1 payout, how the price to beat and the close are set, settlement, and market hours."
 ---
 
-An **interval market** tracks one live price and cuts time into **windows**. Every window is a fresh Up-or-Down question: will the price close the window above where it opened?
+An **interval market** tracks one live price and cuts time into **windows**. Every window asks one question: will the price close the window at or above its price **to beat**? You pick **Up** or **Down**.
 
-## Markets and windows
+## Markets and cadences
 
-updown runs interval markets on:
+updown runs interval markets in three categories:
 
-- **Stocks:** AAPL, NVDA, SPCX, TSLA, GOOGL, PLTR, META, HOOD, SPY, COIN
-- **Crypto:** BTC, ETH, SOL, DOGE, HYPE
+| Category | Markets | 5 min | 15 min | 60 min |
+|----------|---------|:-----:|:------:|:------:|
+| **Stocks** | Apple (AAPL), Nvidia (NVDA), SpaceX (SPCX), Tesla (TSLA), Alphabet (GOOGL), Palantir (PLTR), Meta (META), Robinhood (HOOD), S&P 500 (SPY), Coinbase (COIN) | ✓ | ✓ | ✓ |
+| **Crypto** | Bitcoin (BTC), Ethereum (ETH), Solana (SOL), Dogecoin (DOGE), Hyperliquid (HYPE), Ripple (XRP) | ✓ | ✓ | ✓ |
+| **Pre-IPO** | OpenAI, Anthropic | ✓ | ✓ | ✓ |
 
-Each subject runs three markets, one per cadence:
+The list of markets can change without an app update. Pre-IPO markets have their own page: see [Pre-IPO markets](/interval/pre-ipo).
 
-| Cadence | Grid |
-|---------|------|
-| **5 min** | Windows start every 5 minutes on the UTC clock |
-| **15 min** | Windows start on the quarter hour (:00, :15, :30, :45 UTC) |
-| **60 min** | Windows start on the UTC hour |
+Windows sit on a fixed clock grid:
 
-Windows roll continuously. When one closes, the next has already opened. The price at the instant a window opens becomes the level **to beat**.
+| Cadence | A new window starts |
+|---------|---------------------|
+| **5 min** | Every 5 minutes (:00, :05, :10 …) |
+| **15 min** | Every quarter hour (:00, :15, :30, :45) |
+| **60 min** | At the top of every hour |
+
+Windows roll continuously. When one closes, the next opens. Crypto and Pre-IPO windows run around the clock. Stock windows run while their market is open (see [Market hours](#market-hours)), and a stock window that would run past its market's close isn't opened.
+
+<Note>
+At times a whole interval of a category can be paused. Its markets then drop off every list. A direct link still opens the market page, with the ticket covered by "Trading paused" and a message pointing you to the other intervals.
+</Note>
 
 ## Up and Down
 
-- **Up** wins if the price closes the window **at or above** the level to beat.
-- **Down** wins if it closes **strictly below** it.
+- **Up** wins if the price closes the window **at or above** the price to beat.
+- **Down** wins only if it closes **strictly below** it.
 
 <Note>
-**Tie rule.** An unchanged close settles **Up**. Both prices are compared rounded to 4 decimal places (DOGE: 7), so "unchanged" means equal at that precision. The ticket's ⓘ note puts it plainly: "If the price is unchanged (compared to 4 decimal places), it settles as Up. Down needs a real move." This is the same rule Kalshi uses for its price markets, and it has applied to every window opened since 1 October 2026; windows that opened before then kept the old rule (an unchanged close settled Down), which is why older results in a market's history can show a flat window as Down.
+**Tie rule.** An unchanged close settles **Up**. Both prices are compared rounded to 4 decimal places (DOGE: 7), so "unchanged" means equal at that precision. The ⓘ next to **To beat** puts it plainly: "If the price is unchanged (compared to 4 decimal places), it settles as Up. Down needs a real move." This rule applies to every window opened since 1 October 2026. Earlier windows settled an unchanged close as Down, so older results in a market's history can show a flat window as Down.
 </Note>
+
+On the results strip, a window that settled unchanged is drawn fainter, and its tooltip ends "· Up (unchanged)".
 
 ## Contracts and payout
 
-You buy **contracts** on a side, priced from **1¢ to 99¢**. The price is the market's implied chance that the side wins. At settlement:
+You buy **contracts** on a side, priced from **1¢ to 99¢**. The price reads as the market's implied chance that the side wins. Contracts can be fractional, in steps of 0.01. At settlement:
 
 ```
 Winning contract  →  $1.00
 Losing contract   →  $0.00
 ```
 
-Every position is fully collateralized when you enter it. An Up contract at p¢ and a Down contract at 100 − p¢ together set aside exactly $1.00. You can never lose more than you paid, and you can never be short or owe money.
+The Market Rules put it this way: "Each winning contract pays $1.00 and each losing contract expires at zero." Every position is fully collateralized when you enter it. An Up at p¢ and its matching Down at 100 − p¢ together set aside exactly $1.00. You can never lose more than you spent, and you never owe money.
 
-<Warning>
-**Options are different.** An option contract on updown is one stock token and pays by distance past the strike. See [How options work](/options/how-options-work#how-options-differ-from-interval-markets).
-</Warning>
+To buy and sell, see [Placing orders](/interval/placing-orders). For a bigger payout on a bigger move, see [Multiplier](/interval/multiplier).
 
 ### Worked example
 
-> **Apple (AAPL)**, 15-minute window 2:00 – 2:15 PM. **To beat: $325.40.**
+> **Apple (AAPL)**, 15-minute window 2:00 – 2:15 PM. **To beat: $252.3412.**
 >
-> You tap **$5** on **Up** at **51¢**, which buys 9.80 contracts.
+> You spend **$5** on **Up** at **51¢**, which buys 9.80 contracts.
 >
-> - Close at **$325.62** → Up wins → you receive **$9.80**. Profit $4.80.
-> - Close at **$325.40** or lower → Down wins → your **$5** is gone.
+> - Close at **$252.5000** → Up wins → you receive **$9.80**. Profit $4.80.
+> - Close at exactly **$252.3412** → unchanged → Up still wins → **$9.80**.
+> - Close at **$252.3411** or lower → Down wins → your **$5** is gone.
 
 ### Fees
 
-Interval trades carry a small **taker fee** on every buy and sell, never on settlement. It is built into the price you see and has no separate line. It is largest near 50¢ and shrinks toward the extremes. See [Placing interval orders](/interval/placing-orders).
+Orders that trade right away pay a small taker fee, built into what you spend and what "To win" shows. It's largest near 50¢. Limit orders that wait and are filled later pay no fee. Nothing is charged at settlement.
 
 ## Reading the window header
 
-| Element | What it shows |
-|---------|--------------|
-| **Window line** | The date and the open and close times, in your local time |
-| **LIVE** | The window is trading |
-| **To beat** | The price when the window opened |
-| **Now** | The live price, with the move since the open ("+$2.00 (+0.60%)") |
-| **Time left** | Countdown to the close. White, then amber under half the window, then red under a fifth |
+| Element | Label / format | What it means |
+|---------|----------------|---------------|
+| **Title** | "Apple (AAPL)", "Up or Down", and a tag | On stocks the tag is the session pill: "Market hours", "Extended hours", or "Overnight". On Pre-IPO markets it reads "Pre-IPO". |
+| **Window line** | "October 21 · 2:00 PM – 2:15 PM" and a red **LIVE** | The window's open and close, in your local time. Phones leave out the date. |
+| **To beat** ⓘ | A price, with "Set at 2:00 PM" under it | The previous window's final value. It shows "—" for a moment after each window opens. |
+| **Now** | A price, coloured against To beat, with the move under it ("+$0.1234") | The live price. On stocks, it's the rolling 60-second average. |
+| **Time left** | m:ss (h:mm:ss for an hour) | White, then amber under half the window, then red in the final fifth |
 
-After the close the header reads "Ended Sep 23, 2:15 PM EDT".
+<Tip>
+With the Multiplier above 1×, **To beat** shows your break-even in purple. See [Multiplier](/interval/multiplier).
+</Tip>
+
+### Decimals
+
+| Market | To beat, Now, and Final show | Compared at |
+|--------|------------------------------|-------------|
+| **Stocks** | 4 places ("$252.3412") | 4 places |
+| **BTC, ETH, SOL, HYPE** | 2 places | 4 places |
+| **XRP** | 4 places | 4 places |
+| **DOGE** | 7 places ("$0.0963200") | 7 places |
+| **Pre-IPO** | 2 places ("$1,687.40") | 4 places |
+
+Cards can round to fewer places. The result always uses the precision in the last column.
+
+### The live line
+
+- **Stocks:** the chart, **Now**, the cards, and the header show the **rolling 60-second average** ending at each moment. It never averages across the Friday 4 PM or Sunday 8 PM switch in price source. So the line starts at about the price to beat and ends at about the final value. Buy prices don't use it.
+- **Crypto:** the line is the 60-second time-weighted average itself, second by second. If that feed goes quiet for more than 10 seconds, an exchange price stands in on the chart until it returns.
+- **Pre-IPO:** the line is the reference market's raw price, once a second.
+
+## How the price to beat and the close are set
+
+Every boundary between two windows gets one **60-second value**, stored once. It's the closing window's final value and the next window's **To beat**. The Market Rules explain why: "… it is also the next window's opening price, so a single trade in the final seconds cannot decide a window."
+
+| Market | The 60-second value | Known |
+|--------|---------------------|-------|
+| **Stocks**, Sunday 8:00 PM → Friday 4:00 PM ET | The simple average of 60 one-second prices from a consolidated real-time feed of the US-listed stock price | About 1 second after the boundary |
+| **Stocks at the weekend** (the 8 weekend-list stocks) | The same 60-second average, taken from a 24/7 market that tracks where traders expect the stock to reopen | A few seconds after |
+| **Crypto** | A 60-second time-weighted average that combines trading on major exchanges, as reported for the boundary second | About 1 second after |
+| **Pre-IPO** | The median of the reference market's price, sampled every 5 seconds over the 60 seconds | About 15 seconds after |
+
+Each value is rounded to 4 decimal places (DOGE: 7).
+
+<Warning>
+The final value is an average (a median on Pre-IPO). It can differ from the last price you saw.
+</Warning>
+
+Until a window's price to beat exists, the page shows **To beat** "—" and no Up or Down prices, and the window takes no orders.
+
+<AccordionGroup>
+  <Accordion title="Stocks: the details">
+    - Each of the 60 seconds takes the latest price at or before it, no more than 5 seconds old. At least 48 of the 60 seconds must have a price.
+    - If the feed is interrupted, settlement waits for it. If the value is still unknown 5 minutes after the boundary, the feed's last recorded price is used instead, and the window is marked as settled on the fallback.
+    - Each window opens and settles on one price source, chosen by when it opens. At the Friday 4:00 PM and Sunday 8:00 PM ET switches, a window's opening price can differ from the previous window's final value.
+    - At the Sunday 8:00 PM ET reopen, the weekday feed only repeats Friday's last price until trading starts. So the first window takes its opening price from the average of the feed's first 60 seconds of live prices. It takes no orders until that price is set, usually a minute or two.
+  </Accordion>
+  <Accordion title="Crypto: the details">
+    - If there's no report for the exact boundary second, the report for the nearest second is used.
+    - If the feed can't be read within 5 minutes of the close, the average of an exchange's sixty one-second prices before the close is used instead.
+    - Crypto windows show the **Final** value as soon as the closing-second report arrives.
+  </Accordion>
+  <Accordion title="Pre-IPO: the details">
+    The open and close are medians, set about 15 seconds after each boundary, with their own fallbacks. See [Pre-IPO markets](/interval/pre-ipo#rules).
+  </Accordion>
+</AccordionGroup>
 
 ## Settlement
 
-Settlement is automatic. There is no claim step.
+Settlement is automatic. There's no claim step.
 
-1. When the window closes, updown compares the closing price with the level to beat, using the same feed that powers the chart.
-2. Strictly higher settles **Up**. Anything else settles **Down**.
-3. Winning contracts are paid **$1.00 each**. One net transfer per window moves the difference between your payout and what you staked in or out of your wallet, in USDG.
+1. The result is decided as soon as the closing value exists: about 1 second after the close on stocks and crypto, about 15 seconds on Pre-IPO.
+2. The market page shows the result right away (see [The end of a window](#the-end-of-a-window)).
+3. Winnings are paid to your cash, one payout per window, usually within a minute or two.
 
-The settlement job runs **every minute**, so a closed window is usually paid within a minute or two. Until then your position reads "settling" or "awaiting settle". Afterwards, your activity shows **Won**, **Lost**, or **Settled** with "· paid $1 each", "· settled worthless", or "· nothing owed either way". See [Positions and history](/portfolio/positions-and-history).
+Until the payout lands, your position reads "settling" and its P&L "awaiting settle". Afterwards, your activity shows **Won**, **Lost**, or **Settled** with "· paid $1 each", "· settled worthless", or "· nothing owed either way". See [Positions and history](/portfolio/positions-and-history).
 
-Every settled window has its own page with **Result** ("Up won" or "Down won"), **Open**, **Close**, and the full chart with the level to beat marked "Target". Open it from the **Past** dropdown on the market page or from an activity row.
+Every settled window has its own page with **To beat**, **Final**, the result, the recorded chart, and that window's Market Rules. Open it from **Past ▾** on the market page, from a result pill, or from an activity row.
 
-### Settlement rules on every market page
+### Market Rules on every market page
 
-Each market page has a **Settlement rules** section. It reads, for a 15-minute Apple market:
+The market page's **Rules** tab holds a **Market Rules** block for the live window. It shows the **Target Price**, a "Resolves ▲ Up if …" line naming the exact value used, a short explainer of the price source, **View full rules**, and **Timeline and payout**. For a 15-minute Apple market, the full rules and the timeline read, in part:
 
-> A new window opens every 15 minutes. Its opening price is AAPL's price at the moment the window opens.
+> ▼ Down wins only if AAPL's price closes strictly below it. ▲ Up wins if it closes at or above it, so a window that finishes exactly unchanged settles ▲ Up. Both prices are compared rounded to 4 decimal places: ▲ Up wins when the final value is at least as high as the opening price at that precision.
 >
-> Down wins only if AAPL's price closes strictly below it. Up wins if it closes at or above it, so a window that finishes exactly unchanged settles Up. Both prices are compared rounded to 4 decimal places: Up wins when the final value is at least as high as the opening price at that precision.
+> A new window opens every 15 minutes. This one opens 2:00 PM EDT on Oct 21, 2026 and closes 2:15 PM EDT on Oct 21, 2026, and it settles as soon as its final value is known. Its opening price is the previous window's final value.
 >
 > Each winning contract pays $1.00 and each losing contract expires at zero. Every position is fully collateralized when you enter, so an Up at p cents and its matching Down at 100 minus p cents together set aside exactly $1.00.
 
 ## Market hours
 
-| Market | Hours |
-|--------|-------|
-| **Crypto** | 24/7 |
-| **Stocks** | 24/5: **Sunday 8:00 PM to Friday 8:00 PM ET** |
-| **Stocks at the weekend** | AAPL, NVDA, SPCX, TSLA, GOOGL, META, HOOD, and COIN **stay open** from Friday 8:00 PM to Sunday 8:00 PM ET, priced off a 24/7 perpetual market that tracks where traders expect the stock to reopen. PLTR and SPY close for the weekend. |
+| Market | When it trades |
+|--------|----------------|
+| **Crypto** (BTC, ETH, SOL, DOGE, HYPE, XRP) | 24/7 |
+| **Pre-IPO** (OpenAI, Anthropic) | 24/7. New positions can pause if trading on the reference market thins out or dislocates. |
+| **Stocks:** AAPL, NVDA, SPCX, TSLA, GOOGL, META, HOOD, COIN | Around the clock, all week. Weekend windows price off a 24/7 market. |
+| **Stocks:** PLTR, SPY | Sunday 8:00 PM → Friday 4:00 PM ET |
 
-Weekend stock prices are not exchange quotes and can differ from the price when trading resumes. Weekend windows open and settle entirely on that feed.
+- From Sunday 8:00 PM to Friday 4:00 PM ET, every stock prices off a consolidated real-time feed of the US-listed stock price, overnight session included.
+- The stock **weekend** runs from **Friday 4:00 PM to Sunday 8:00 PM ET**. The 8 weekend-list stocks then price off a 24/7 market that tracks where traders expect the stock to reopen. As the Market Rules say, it "is not an exchange quote, and it can differ from the price when trading resumes."
+- While PLTR and SPY are closed, their cards drop off every list. Their market page shows **Market closed** with the trading hours, "Crypto markets stay open 24/7.", and a **Back to markets** button.
 
-While a stock market is closed, its cards leave the hub and its page reads "Market closed — PLTR trades Sunday 8:00 PM – Friday 8:00 PM ET." with a **Back to markets** button. A phase pill on stock cards reads **Market hours**, **Extended hours**, or **Overnight**.
+A stock market's header carries a session pill:
 
-<Note>
-The settled price comes from the minute-level history feed at the close, which can differ by a tick from the last print you saw on the tape. Both the chart and settlement use the same feed.
-</Note>
+| Pill | When |
+|------|------|
+| **Market hours** (green) | The regular session |
+| **Extended hours** (orange) | 4:00–9:30 AM and 4:00–8:00 PM ET |
+| **Overnight** (purple) | Outside those hours, weekends included |
+
+The pill also shows on the featured panel of the category pages. Compact cards don't show it.
+
+## The end of a window
+
+When the window you're watching closes, the market page **stays on it** instead of rolling to the next one.
+
+<Steps>
+  <Step title="Settling">
+    The chart card becomes the ended-window view. On the left: **To beat** and **Last price**. On the right: the window's times over "**Settling…**". The chart freezes at the close.
+  </Step>
+  <Step title="The result">
+    **Last price** becomes **Final**, in the winner's colour. "**Up Won**" or "**Down Won**" replaces "Settling…", and a burst of triangles plays once: a green ▲ for Up or unchanged, a red ▼ for Down. The chart is replaced by the recorded window, with a "Target $X" pill and a "CLOSE $X" pill.
+  </Step>
+  <Step title="Go to Live">
+    Under the plot: "This window has ended." · **Past ▾** · **Go to Live**. Tap **Go to Live** to switch the page to the current window.
+  </Step>
+</Steps>
+
+While the page holds the ended window:
+
+- the header already shows the new live window's times and **LIVE**;
+- on desktop, the ticket reads "This window has ended." with **Go to Live**; on phones, the docked buy bar is hidden;
+- the results strip (**Last 5**, its Up–Down tally, the result pills, and **Past**) stays under it.
+
+<CardGroup cols={2}>
+  <Card title="Placing orders" icon="cart-shopping" href="/interval/placing-orders">
+    The ticket, Market and Limit orders, and selling back.
+  </Card>
+  <Card title="Browsing markets" icon="magnifying-glass" href="/interval/browsing-markets">
+    Find a market by category and cadence.
+  </Card>
+  <Card title="Positions and history" icon="clock-rotate-left" href="/portfolio/positions-and-history">
+    Open positions, results, and settled-window pages.
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/help/faq">
+    Quick answers about windows and settlement.
+  </Card>
+</CardGroup>

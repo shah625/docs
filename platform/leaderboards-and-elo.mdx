@@ -1,0 +1,167 @@
+---
+title: "Leaderboards and ELO"
+description: "Your trader ELO rating and its tiers, the side panel's P&L and ELO boards, and the full ELO leaderboard."
+---
+
+**ELO** is updown's trader rating: "One number for how well you beat the market." Every trader has one, and the boards rank traders by ELO or by P&L.
+
+## How ELO works
+
+The in-app summary has three rules:
+
+1. "Everyone starts at 100": "Bronze 3 · your first trades move it the most."
+2. "Beat the odds": "Winning a long shot earns more than winning a favorite."
+3. "Stay active": "P&L, volume, and sharing your takes all affect your rating."
+
+In more detail:
+
+- Your rating **starts at 100** (Bronze 3) and never goes below 0.
+- Each interval position you **sell, or that settles**, is scored against the price you paid:
+  - Winning a contract you bought cheap earns much more than winning one you bought expensive.
+  - Losing a contract you bought expensive costs more than losing a cheap one.
+  - Bigger trades count for more.
+- Your first trades move your rating the most. Later trades move it less.
+- On top of that, your rating gets limited credit for your all-time P&L (which can count against you), your lifetime volume, and the trades you post with a take or a GIF.
+
+A settled or sold trade can take a minute or two to show in your rating.
+
+## Tiers
+
+There are seven tiers. Bronze to Diamond each have three divisions, numbered from the lowest: Bronze 1 is below Bronze 3. Prophet has no divisions.
+
+| Tier | Range | Division 1 / 2 / 3 starts at |
+|------|-------|------------------------------|
+| **Bronze** | under 150 | 0 / 50 / 100 |
+| **Silver** | 150 – 374 | 150 / 225 / 300 |
+| **Gold** | 375 – 674 | 375 / 475 / 575 |
+| **Platinum** | 675 – 1,049 | 675 / 800 / 925 |
+| **Emerald** | 1,050 – 1,499 | 1,050 / 1,200 / 1,350 |
+| **Diamond** | 1,500 – 1,999 | 1,500 / 1,670 / 1,840 |
+| **Prophet** | 2,000+ | — |
+
+Each rung has its own badge shape and colour. Hover a badge to see its range, such as "Bronze 1: 0–49".
+
+## Your rating
+
+Open your **Profile** page (avatar menu → **Profile**). The ELO panel sits at the left of the header, or in its own card on narrow screens. It shows:
+
+- your tier badge and rating, such as "100 ELO"
+- your rung, such as "Bronze 3"
+- a bar to the next rung, with how far you have to go, such as "27 to Silver 1"
+- a **?** button that opens "Trader ELO", a summary of the rules and the tier table, with a link to "See the full ELO leaderboard →"
+
+Every trader's rating, rung, and win–loss record are public. The same panel shows on each trader's profile at `/u/username`.
+
+### Your breakdown
+
+Hover or tap your rating on your own Profile page to see what makes it up. Only you see your breakdown.
+
+| Row | What it shows |
+|-----|---------------|
+| Heading | Your rung and its description, such as "Bronze 3 · Where every account starts." |
+| **Record** | Your wins and losses and how many trades have settled, such as "14–9 · 23 settled" |
+| **Avg entry (size-weighted)** | The average price you paid, with bigger trades counting for more |
+| **Beating the odds** | What your scored trades add |
+| **All-time P&L** | Your all-time P&L, and what it adds or takes away |
+| **Volume** | Your lifetime volume, and what it adds |
+| **Takes posted** | How many trades you've posted a take on, and what they add |
+
+A footnote under the rows restates the rules and how far you are from the next rung.
+
+### ELO chips
+
+A tier badge with the rating sits beside traders' names on the side panel's P&L board, on [Tournament](/platform/tournament) rows, and in the trader suggestions on an empty **Following** feed. Feed rows show the badge alone. Hover or tap a chip for the rung, the rating, and the trader's overall rank, such as "ELO · #12". A trader with no interval activity has no chip.
+
+## The side panel boards
+
+The **Leaderboard** tab holds two rolling boards.
+
+- **Wide screens:** the side panel → **Leaderboard**.
+- **Phones:** **Home** → **Leaderboard**.
+
+From the top, the tab shows:
+
+1. The [Tournament](/platform/tournament) section, from before a tournament starts until 3 days after it ends.
+2. The board chips **PNL** and **ELO**, and a range toggle: **24H**, **7D**, **30D**, **ALL**. The range applies to both boards and starts on **ALL**. Your board and range are remembered in that browser.
+3. The board you picked, top 20.
+
+### PNL board
+
+The **PNL** board ranks traders by P&L on interval markets over the range, ending now.
+
+- It counts windows that **closed** inside the range, with early sales included.
+- It also counts your **open positions** at their current value, updated about every 2 minutes. Hover a figure for its breakdown. It ends "incl. +$Z on open positions" when open positions are included.
+- When you traded with [trade credit](/portfolio/trade-credit), the P&L is your cash result.
+- Multiplier orders don't count.
+- Ties break on volume.
+
+Each row shows the rank, the trader's avatar, name, and ELO chip, and their P&L. The top three ranks are coloured gold, silver, and bronze. With no trades in the range, the board reads "No settled trades in the past 24 hours." (or 7 days, or 30 days), or "No settled trades yet." on **ALL**.
+
+There's no full-page P&L board.
+
+### ELO board
+
+On **ALL**, the line above the board reads "All-time ELO", and traders are ranked by rating.
+
+On **24H**, **7D**, or **30D** it becomes the change board, headed "ELO change · past 24 hours" (or 7 days, or 30 days):
+
+- Traders are ranked by **rating gained** over the range, the biggest gain first.
+- Traders whose rating didn't move are left out.
+- Each row shows the change, such as "+48", over the trader's earlier rank, such as "was #12", or "new" if they had no rating at the start.
+
+Ties break on more scored trades, then P&L. **Full board →** on the ELO line opens the full ELO leaderboard.
+
+### Your row and refresh
+
+Inside the top 20, your row is tinted and tagged **You**. If you're ranked but outside the top 20, your row is pinned above #1.
+
+| Board | Refreshes |
+|-------|-----------|
+| PNL | every 15 seconds |
+| ELO | every 60 seconds |
+
+Figures can lag by up to about a minute and a half, because ratings are recomputed about every 90 seconds.
+
+## The full ELO leaderboard
+
+The **Leaderboard** page (`/leaderboard`) ranks every trader by ELO. Its subtitle reads "Ranked by trader ELO", with the number of traders. Open it from:
+
+- **Full board →** on the side panel's ELO board
+- "See the full ELO leaderboard →" in the **?** dialog
+- **See all** on the "Follow top traders" card
+- ☰ → **Leaderboard** on phones
+
+There's no link to it in the desktop top bar.
+
+The page shows a podium for the top three, then your own card, then the list headed "Top 50 · ranked by ELO".
+
+| Column | Description |
+|--------|-------------|
+| **#** | Rank |
+| **Trader** | Avatar and name, linking to the profile |
+| **Record** | Wins and losses, such as "14–9" (hidden on phones) |
+| **P&L** | All-time P&L in whole dollars, such as "+$1,234" (hidden on phones) |
+| **ELO** | The rating |
+
+On wide screens, a column on the right holds three cards:
+
+- **Your rank:** your rung, rating, rank, and a bar to the next rung.
+- **How ELO works:** the three rules above.
+- **The ranks:** every tier with its range and divisions, with yours marked **You**.
+
+On narrow screens, a **How ELO works** link opens the same summary. The page refreshes every 60 seconds. Before anyone has a rating it reads "No one is rated yet." and "Settle a trade to get on the board."
+
+<CardGroup cols={2}>
+  <Card title="Tournament" icon="trophy" href="/platform/tournament">
+    The current competition, ranked by ROI.
+  </Card>
+  <Card title="Profiles & social" icon="users" href="/platform/profiles-and-social">
+    Profiles, following, takes, and the feed's Top traders card.
+  </Card>
+  <Card title="Creator rewards" icon="gift" href="/platform/creator-rewards">
+    Earn points for your takes and turn them into trade credit.
+  </Card>
+  <Card title="Trade credit" icon="ticket" href="/portfolio/trade-credit">
+    How credit-funded trades show in your P&L.
+  </Card>
+</CardGroup>
