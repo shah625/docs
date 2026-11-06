@@ -43,7 +43,7 @@ On a Boost order, `stake`, `max_payout`, `value`, `sell_proceeds` and `payout` a
 
 - **Which markets.** Boost is offered on the markets your account has it on. Anywhere else, an order answers `403 BOOST_UNAVAILABLE`.
 - **The current window only.** `market_ticker` must name the window that's open now; find it with [`GET /markets?status=open`](/api-reference/list-markets). Any other window answers `400 MARKET_NOT_OPEN`.
-- **Not in the last minute**, and not while Boost is [paused](/interval/multiplier) (around the stock market's open and close, US data releases, and so on). Both answer `400 MARKET_NOT_OPEN`.
+- **Not in the last minute.** That answers `400 MARKET_NOT_OPEN`. Otherwise Boost is open whenever the market is: there are no paused hours.
 - **Live keys only.** There is no practice Boost: a test key's order answers `403 BOOST_UNAVAILABLE`, and its list is always empty.
 - **Check `mode`.** `live` is real money. `shadow` means the market isn't open to real money for your account yet: the order is recorded, but no money moved and nothing was bought on the order book.
 
@@ -184,7 +184,7 @@ Before your first order, the account must have accepted the current Terms of Ser
 | 400 | `BAD_REQUEST` | A field is missing or invalid; `message` says which. |
 | 400 | `INSUFFICIENT_BALANCE` | Not enough cash for the stake. |
 | 400 | `LIMIT_EXCEEDED` | Over a key limit, or a stake outside $1 to $100; `message` says which. |
-| 400 | `MARKET_NOT_OPEN` | Not the window that's open now, its last minute, or a Boost pause. |
+| 400 | `MARKET_NOT_OPEN` | Not the window that's open now, or its last minute. |
 | 400 | `ORDER_REJECTED` | Refused for another reason, such as no one selling the contract at that price, the price moving past your `expected_*` field, or no fresh price; `message` says why. Nothing was placed or sold. |
 | 403 | `BOOST_UNAVAILABLE` | Boost isn't offered to this account on this market, or the key is a test key. |
 | 403 | `FORBIDDEN` | The key lacks the permission, or the account can't trade yet (Terms, allow trading). |
@@ -197,7 +197,7 @@ Before your first order, the account must have accepted the current Terms of Ser
 
 <CardGroup cols={2}>
   <Card title="Boost" icon="bolt" href="/interval/multiplier">
-    How a Boost pays, when it's paused, and cashing out early.
+    How a Boost pays, when it's open, and cashing out early.
   </Card>
   <Card title="Order entry" icon="arrow-right-arrow-left" href="/api/orders">
     Limit orders on the order book, batches, and cancels.
