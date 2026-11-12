@@ -17,6 +17,19 @@ Over the limit, you get HTTP `429` with code `RATE_LIMITED`. Wait `Retry-After` 
 
 **New orders** have their own budget per API key: **10 per second**, bursts of **20**. A [batch](/api/orders#many-at-once-batch) counts one per item it places; an item past the budget is answered `RATE_LIMITED` in its own result while the rest of the batch stands. **Cancels are never limited** — alone or in a batch, you can always pull your orders.
 
+### API tiers
+
+Trade more and your keys get a higher order budget. Your tier is set once a day (UTC) from every contract your account traded in the last 30 days, maker or taker.
+
+| Tier | Contracts in the last 30 days | New orders per key | Keyed reads per key |
+|---|---|---|---|
+| Basic | — | 10/s, bursts of 20 | 10/s, bursts of 20 |
+| Advanced | 10,000 | 20/s, bursts of 40 | 20/s, bursts of 40 |
+| Pro | 100,000 | 50/s, bursts of 100 | 100/s, bursts of 200 |
+| Premier | 1,000,000 | 100/s, bursts of 200 | 200/s, bursts of 400 |
+
+Each key has its own budget at your tier. Your tier and how far you are from the next one are on your [Portfolio](https://www.updown.fast/portfolio) page, under **API tier**. If we've set a custom limit for your account, it applies instead of the table, shared by all your keys.
+
 Failed API-key attempts have their own, much smaller budget. An address that keeps sending invalid keys is locked out for at least a minute and gets `429` until then.
 
 ## Websocket
