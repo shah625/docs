@@ -1,0 +1,55 @@
+---
+title: "Fees and rebates"
+description: "See how interval trading fees are calculated, how your first 30 days work, and what you earn when another trader fills your resting order."
+---
+
+You pay a **taker fee** when your order fills against a waiting order. When another trader fills your resting limit order, you're the **maker**: you pay no fee and can earn a share of the taker fee. If a limit order fills partly right away and partly after resting, each fill is treated separately. There's no fee at settlement.
+
+## Taker fees
+
+The fee in dollars is `contracts × effective rate × p × (1 − p)`, where `p` is the fill price in dollars. The fee per contract is highest at 50¢ and falls as the price approaches $0 or $1. For example, 100 contracts at 50¢ with a Tier 1 rate and no discount cost **$2.375 in fees**.
+
+Your base rate depends on your taker volume: the total dollar value of your live taker fills (contracts × fill price) over the last **30 completed calendar days in US Eastern time (ET)**. Today's fills count after the day ends.
+
+| Tier | 30-day taker volume | Base rate |
+| --- | --- | --- |
+| Tier 1 | Under $10,000 | `0.095` |
+| Tier 2 | $10,000 to under $50,000 | `0.085` |
+| Tier 3 | $50,000 to under $250,000 | `0.075` |
+| Tier 4 | $250,000 or more | `0.0695` |
+
+Tiers are recalculated after midnight ET. Your order keeps the rate it had at submission, even if your tier changes before it fills. Your season discount reduces the base rate by up to 25%; the result is rounded down to a whole basis point. These rates are coefficients in the fee formula, not percentages of the trade value.
+
+If volume tiers are disabled, the base rate is `0.07` (at most 1.75¢ per contract before discounts). Sign in and open [**Settings → Trading fees**](https://www.updown.fast/settings/fees) to see your effective rate.
+
+### Your first 30 days
+
+Day 1 is the ET calendar date of your first live fill, whether you're the maker or the taker. These are calendar days, not 24-hour periods measured from the fill.
+
+- **Days 1–7:** you start at Tier 4, with a base rate of `0.0695`.
+- **Days 8–30:** your tier uses whichever is higher: your actual taker volume over the last 30 completed ET days, or your taker volume from days 1–7 multiplied by `30 ÷ 7`.
+- **Day 31 onward:** your tier uses only your actual taker volume over the preceding 30 completed ET days.
+
+## Maker rebates
+
+You earn rebates automatically on eligible fills, whether you trade on the website or through the Trade API. Your rebate is a share of the fee the taker **actually paid**, after their tier and season discount. There is nothing to sign up for.
+
+Your maker tier counts **contracts**, not dollars: it uses the number of contracts your resting orders filled against eligible traders in the preceding 30 completed **UTC** days. For each fill, you get the higher of that day's tier and the previous day's tier. Your tier can only go up during the day, so rebates you've already earned never decrease. Market makers onboarded by updown start at Tier 1 or higher. See the [API and Liquidity Provider Agreement](https://www.updown.fast/liquidity-providers#program) for the full rules.
+
+| Maker tier | Minimum eligible maker contracts | Crypto | Stocks, Pre-IPO, and commodities |
+| --- | --- | --- | --- |
+| Base | 0 | 15% | 20% |
+| Tier 1 | 1,000 | 30% | 40% |
+| Tier 2 | 10,000 | 40% | 50% |
+| Tier 3 | 50,000 | 50% | 60% |
+| Tier 4 | 250,000 | 60% | 70% |
+
+For example, if you're a Base-tier maker in a crypto market and the taker pays \$2.375, you earn **\$0.35625** (15%) and pay no fee. Rebates are rounded down to the millionth of a dollar.
+
+Only fees collected from eligible customers fund rebates. Fills against your own account or a linked [team account](/platform/team-access), and fills in categories not listed above, don't earn rebates. See the agreement for all exclusions and conduct rules.
+
+### Getting paid and tracking rebates
+
+Rebates are paid automatically about once a minute once you have at least **1¢** unpaid and have accepted the current Terms of Service. Payouts are in whole cents; any remainder carries forward. There is nothing to claim.
+
+On [**Portfolio**](https://www.updown.fast/portfolio), open your **Maker tier** to see your progress or select your rebate total to see earnings and payouts. You can also see your rebates on the [**API keys** page](https://www.updown.fast/api-keys).

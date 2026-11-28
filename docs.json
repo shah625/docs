@@ -80,6 +80,10 @@
         ]
       },
       {
+        "tab": "Fees and rebates",
+        "pages": ["fees-and-rebates"]
+      },
+      {
         "tab": "API",
         "groups": [
           {
